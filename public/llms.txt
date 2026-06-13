@@ -1,0 +1,55 @@
+# Directly Listed
+
+> Directly Listed (Adamson Brothers Corp. d/b/a Directlylisted.com) is a B2B
+> institutional technology platform for going public without an IPO. It
+> supports Regulation D 506(b) and 506(c) offerings, Regulation A+ offerings,
+> NASDAQ and NYSE direct listings, and institutional equity lines of credit
+> (ELOC). Directly Listed is not a registered broker-dealer, investment
+> advisor, or funding portal; offerings are conducted by issuers in reliance
+> on their own securities exemptions.
+
+Key facts:
+- Engagements are priced per deal: a flat platform fee plus an equity grant at
+  signing. SEC-licensed attorneys, consultants, and listing advisors are paid
+  out of the flat fee; third-party costs (audits, legal opinions, transfer
+  agent/DTC fees, exchange fees) are separate.
+- Investor payments: card (via Braintree, a PayPal service) for amounts
+  under $5,000; wire or ACH at or above that.
+- Documents are executed electronically via Adobe Acrobat Sign.
+- Contact: info@directlylisted.com, +1 949-529-2500.
+
+## Products
+- [Regulation D 506(b)](https://www.directlylisted.com/products/reg-d-506b): unlimited private raise, no general solicitation
+- [Regulation D 506(c)](https://www.directlylisted.com/products/reg-d-506c): advertised raise, verified accredited investors only
+- [Regulation A+](https://www.directlylisted.com/products/reg-a-plus): up to $75M/year from the general public (Tier 2)
+- [Regulation S](https://www.directlylisted.com/products/reg-s): offshore raises from non-U.S. investors
+- [PIPE](https://www.directlylisted.com/products/pipe): institutional private investment in public equity post-listing
+- [NASDAQ Conventional Listing](https://www.directlylisted.com/products/nasdaq-conventional-listing): registered primary offering at listing
+- [NASDAQ Direct Listing](https://www.directlylisted.com/products/nasdaq-direct-listing): go public on NASDAQ without an IPO
+- [NYSE Conventional Listing](https://www.directlylisted.com/products/nyse-conventional-listing): registered primary offering on the Big Board
+- [NYSE Direct Listing](https://www.directlylisted.com/products/nyse-direct-listing): direct float on the New York Stock Exchange
+- [Equity Line of Credit](https://www.directlylisted.com/products/eloc): committed standby equity facility for post-listing financing
+- [Capital Raise Tech](https://www.directlylisted.com/products/capital-raise-tech): the platform stack behind every raise
+- [Investor Services](https://www.directlylisted.com/products/investor-services): onboarding, verification, shareholder services
+- [Campaign Marketing](https://www.directlylisted.com/products/campaign-marketing): investor acquisition and funnel analytics
+
+## Pages
+- [Live Offerings](https://www.directlylisted.com/offerings)
+- [Raise Capital](https://www.directlylisted.com/raise-capital)
+- [About Us](https://www.directlylisted.com/about)
+- [Guides](https://www.directlylisted.com/guides)
+- [Case Studies](https://www.directlylisted.com/case-studies)
+- [Issuer FAQ](https://www.directlylisted.com/faq/issuer)
+- [Investor FAQ](https://www.directlylisted.com/faq/investor)
+- [Blog](https://www.directlylisted.com/blog)
+- [Request a Quote](https://www.directlylisted.com/get-started)
+
+## Legal
+- [Disclaimer](https://www.directlylisted.com/disclaimer)
+- [Terms of Use](https://www.directlylisted.com/terms-of-use)
+- [Privacy Policy](https://www.directlylisted.com/privacy-policy)
+
+## Authoritative sources
+- [U.S. Securities and Exchange Commission](https://www.sec.gov)
+- [SEC EDGAR full-text search](https://www.sec.gov/edgar/search/)
+- [Investor.gov](https://www.investor.gov)

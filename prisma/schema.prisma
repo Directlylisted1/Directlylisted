@@ -1,0 +1,291 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  ISSUER
+  INVESTOR
+}
+
+enum OfferingType {
+  REG_D_506B
+  REG_D_506C
+  REG_A_PLUS
+  REG_S
+  PIPE
+  NASDAQ_LISTING
+  NASDAQ_DIRECT_LISTING
+  NYSE_LISTING
+  NYSE_DIRECT_LISTING
+  ELOC
+}
+
+enum OfferingStatus {
+  DRAFT
+  PENDING_REVIEW
+  LIVE
+  CLOSED
+  WITHDRAWN
+}
+
+enum AccreditationStatus {
+  NOT_STARTED
+  SELF_CERTIFIED
+  PENDING_VERIFICATION
+  VERIFIED
+  REJECTED
+}
+
+enum InvestmentStatus {
+  STARTED
+  DOCS_SENT
+  DOCS_SIGNED
+  PAYMENT_PENDING
+  FUNDS_RECEIVED
+  COUNTERSIGNED
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CARD
+  ACH
+  WIRE
+}
+
+enum PaymentStatus {
+  PENDING
+  AUTHORIZED
+  SETTLED
+  FAILED
+  REFUNDED
+}
+
+enum QuotationStatus {
+  DRAFT
+  SENT
+  ACCEPTED
+  DECLINED
+}
+
+enum AgreementStatus {
+  CREATED
+  OUT_FOR_SIGNATURE
+  SIGNED
+  CANCELLED
+}
+
+enum AssetKind {
+  IMAGE
+  VIDEO_LINK
+  DOCUMENT
+  PRESENTATION
+  OTHER
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  phone        String?
+  role         Role     @default(INVESTOR)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  investorProfile InvestorProfile?
+  issuerProfile   IssuerProfile?
+  investments     Investment[]
+}
+
+model InvestorProfile {
+  id                  String              @id @default(cuid())
+  userId              String              @unique
+  user                User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  country             String              @default("US")
+  state               String?
+  accreditationStatus AccreditationStatus @default(NOT_STARTED)
+  accreditationBasis  String? // income | net_worth | license | entity
+  accreditationNote   String?
+  verifiedAt          DateTime?
+  kycStatus           String              @default("NOT_STARTED") // NOT_STARTED | PENDING | PASSED | FAILED
+}
+
+model IssuerProfile {
+  id          String     @id @default(cuid())
+  userId      String     @unique
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName String
+  entityType  String?
+  stateOfInc  String?
+  website     String?
+  description String?
+  offerings   Offering[]
+  quotations  Quotation[]
+}
+
+model Offering {
+  id              String         @id @default(cuid())
+  issuerId        String
+  issuer          IssuerProfile  @relation(fields: [issuerId], references: [id])
+  type            OfferingType
+  status          OfferingStatus @default(DRAFT)
+  name            String
+  slug            String         @unique
+  tagline         String?
+  description     String?
+  industry        String?
+  heroColor       String         @default("#0A2540")
+  targetAmount    Float          @default(0)
+  raisedAmount    Float          @default(0)
+  investorCount   Int            @default(0)
+  pricePerUnit    Float          @default(0)
+  unitName        String         @default("share")
+  minInvestment   Float          @default(500)
+  maxInvestment   Float?
+  exemptionNote   String? // issuer's exemption the platform relies on
+  acrobatTemplateId String? // Acrobat Sign library document id for subscription agreement
+  opensAt         DateTime?
+  closesAt        DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  investments Investment[]
+  documents   OfferingDocument[]
+  assets      CampaignAsset[]
+  quotation   Quotation?
+}
+
+// Campaign materials managed by the issuer / campaign manager:
+// photos, video links, documents, presentations, and other collateral.
+model CampaignAsset {
+  id         String    @id @default(cuid())
+  offeringId String
+  offering   Offering  @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+  kind       AssetKind
+  title      String
+  url        String // /uploads/... for files, external URL for video links
+  fileName   String?
+  mimeType   String?
+  sizeBytes  Int?
+  sortOrder  Int       @default(0)
+  createdAt  DateTime  @default(now())
+}
+
+model OfferingDocument {
+  id         String   @id @default(cuid())
+  offeringId String
+  offering   Offering @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+  title      String
+  kind       String // SUBSCRIPTION_AGREEMENT | PPM | FORM_C | OFFERING_CIRCULAR | OTHER
+  url        String?
+  createdAt  DateTime @default(now())
+}
+
+// Platform engagement quote: flat fee + equity grant, custom per deal.
+model Quotation {
+  id            String          @id @default(cuid())
+  offeringId    String          @unique
+  offering      Offering        @relation(fields: [offeringId], references: [id])
+  issuerId      String
+  issuer        IssuerProfile   @relation(fields: [issuerId], references: [id])
+  flatFeeUsd    Float
+  equityGrantPct Float // % of issuer equity granted to platform at signing
+  notes         String?
+  status        QuotationStatus @default(DRAFT)
+  sentAt        DateTime?
+  acceptedAt    DateTime?
+  agreementId   String? // Acrobat Sign agreement for the engagement letter
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model Investment {
+  id            String           @id @default(cuid())
+  offeringId    String
+  offering      Offering         @relation(fields: [offeringId], references: [id])
+  investorId    String
+  investor      User             @relation(fields: [investorId], references: [id])
+  amount        Float
+  units         Float            @default(0)
+  status        InvestmentStatus @default(STARTED)
+  paymentMethod PaymentMethod?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  payment   Payment?
+  agreement Agreement?
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  investmentId  String        @unique
+  investment    Investment    @relation(fields: [investmentId], references: [id])
+  method        PaymentMethod
+  status        PaymentStatus @default(PENDING)
+  amount        Float
+  currency      String        @default("USD")
+  braintreeTxnId String?
+  wireReference String?
+  receivedAt    DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+// eSignature envelope tracked against Adobe Acrobat Sign
+model Agreement {
+  id               String          @id @default(cuid())
+  investmentId     String          @unique
+  investment       Investment      @relation(fields: [investmentId], references: [id])
+  acrobatAgreementId String?
+  name             String
+  status           AgreementStatus @default(CREATED)
+  signingUrl       String?
+  signedAt         DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+}
+
+// Simple key/value site settings managed from the admin back office
+// (e.g. promo video URLs embedded across the site).
+model SiteSetting {
+  key   String @id
+  value String
+}
+
+// Blog posts managed from the admin back office.
+model BlogPost {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  excerpt     String?
+  content     String // markdown-lite: "## " headings, blank-line paragraphs, [text](url) links
+  author      String    @default("Directly Listed")
+  tags        String? // comma-separated
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// Marketing site lead capture (issuers requesting a quote / investors LOI)
+model Lead {
+  id        String   @id @default(cuid())
+  kind      String // ISSUER_QUOTE | INVESTOR_LOI | CONTACT
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  productInterest String?
+  message   String?
+  status    String   @default("NEW") // NEW | CONTACTED | QUALIFIED | CLOSED
+  createdAt DateTime @default(now())
+}

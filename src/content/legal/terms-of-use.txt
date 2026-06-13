@@ -1,0 +1,299 @@
+Terms of Use 
+
+Adamson Brothers Corp, Inc. d/b/a Directlylisted.com (“Directly Listed,” “us,” “our” or “we”) is an intermediary technology platform (“Platform” or “Site”) that permits prospective institutional clients to independently search and prepare for their own direct exchange listing. By accessing the Site or using the services, website, applications, and software provided through or in connection with the Site, including through a mobile device (the "Service") in any manner, you become a Directly Listed user (“User”). You acknowledge that Adamson Brothers Corp is not a broker-dealer, funding portal or investment adviser. 
+
+ 
+
+Acceptance of Terms
+
+ 
+
+The Service is offered subject to acceptance of all of the terms contained in these Terms of Use, including the Privacy Policy and all other operating rules, policies, and procedures that may be published on the Site by Directly Listed, each of which is incorporated by reference and each of which may be updated by us from time to time without notice to you or liability for such change. Users are advised to periodically review the Site for any changes and contact Directly Listed or your legal advisor with any questions. If there is a conflict between two versions of the Terms of Use to which you have agreed or been deemed to agree, the more recent version shall take precedence unless it is expressly stated otherwise.  In addition, other services offered through the Site may be subject to additional terms and conditions adopted by Directly Listed and/or contained in any agreement entered between you and Directly Listed. Your use of those services is subject to those additional Terms of Use and/or separate agreements, which are incorporated into these Terms of Use by this reference. We refer to all of these other agreements as the “Platform Agreements,” because rather than just governing your technical use of the Site, they set out the substantive terms that govern your relationship with us when you make use of our Site.
+
+ 
+
+These Terms of Use and Privacy Policy will continue to apply to you even after you have agreed to a Platform Agreement. However, if it turns out that there is a conflict between the Terms of Use and Privacy Policy and a Platform Agreement to which you have agreed, the Platform Agreement will take precedence.
+
+ 
+
+Change or Termination
+
+ 
+
+We reserve the right, at our sole discretion and without prior notice, to modify or replace these Terms of Use, or change the Site, stop providing the Site, applications or services, or create usage limits for the Site, or change, improve or correct the information, materials and descriptions on the Site at any time for any reason. We may permanently or temporarily terminate or suspend your access to the Site without notice or liability, for any reason or for no reason, including if in our sole determination you violate any provision of these Terms of Use. You are solely responsible for checking the Terms of Use periodically for changes. Your continued use of the Service following the posting of any changes to the Terms of Use constitutes acceptance of those changes. Upon termination of these Terms of Use or your access to the Site for any reason or no reason, you will continue to be bound by these Terms of Use which, by their nature, should survive termination, including without limitation ownership provisions, warranty disclaimers, indemnity, and limitations of liability. The information and materials on the Site may contain typographical errors or inaccuracies. Any dated information is published as of its date only, and Directly Listed does not undertake any obligation or responsibility to update or amend any such information. You agree that Directly Listed and its subsidiaries and affiliates will not be liable to you or to any third party for any such modification, suspension or discontinuance.
+
+ 
+
+Eligibility for Use of the Services
+
+ 
+
+The Service is only available to individuals who are at least eighteen years old. You represent and warrant that if you are an individual, you are at least 18 years old, that you are fully able and competent to enter into the terms and conditions set forth in this and other agreements on the Site, and that all registration information you submit is truthful, accurate and complete. If you are accessing the Site and/or using the Services on behalf of an entity, such as your employer or a company you work for or control, you warrant and represent that you have the legal authority to bind that entity to these Terms of Use.
+
+ 
+
+User Profile Registration
+
+ 
+
+You may access the Site generally and/or browse generally without registering with the Site. You must complete the registration process by providing us with current, complete and accurate information. You are solely responsible for updating any and all pertinent registration information. Failure to do so shall constitute a breach of the Terms of Use, which may result in immediate termination of your Profile. You will also choose a password and a user name. Directly Listed reserves the right in its sole discretion to refuse registration of or cancel a User Name and domain name. You are solely responsible for maintaining the confidentiality of your password and Profile. You agree to notify Directly Listed immediately in writing of any unauthorized use of your Profile or any other breach of security. You will not share your password, let anyone else access your Profile, or do anything else that might jeopardize the security of your Profile. You will not transfer your Profile to anyone without first getting our written permission. You acknowledge and agree that you are liable for any damages or losses to Directly Listed and other Users by any use of your Profile, either authorized or unauthorized.
+
+ 
+
+S-1 Registration - Any company may use Form S-1 to prepare a registration statement. Information about how to prepare the non-financial disclosures in the registration statement is set out in Regulation S-K. Information about the form and content of required financial statements is set out in Regulation S-X. In addition to the information expressly required by Form S-1, your company also must provide any other information that is necessary to make your disclosures not misleading. Securities laws and SEC rules allow certain smaller companies and newly public companies to prepare their disclosures using streamlined rules designed to make compliance easier. The SEC staff has issued guidance to aid small businesses in preparing these disclosures for initial public offerings of securities.
+
+
+
+Regulation A - The securities offered by the company  have not been registered under the Securities Act, in reliance on the exemption promulgated under Regulation A, as amended by Title IV of the Jumpstart Our Business Startups Act 2012 (the “JOBS Act”), known as “Reg A+”.  In a Reg A+ offering, Issuers may advertise or market their offerings via “testing the waters” communications to the general public, or pay third parties to do so, subject to certain conditions. Federal law requires that Issuers sell securities to accredited investors or Qualified Purchasers who represent they satisfy the investment status before accepting subscriptions, among other requirements. Users, whether accredited investors or Qualified Purchasers, agree to cooperate with any requests for additional information or documentation.
+
+ 
+
+Regulation D - Rule 506 of Regulation D is a "safe harbor" for the private offering exemption of Section 4(a)(2) of the Securities Act. Companies relying on the Rule 506 exemption can raise an unlimited amount of money. There are three distinct exemptions that fall under Rule 506 but Directly Listed only offers 506(c) offerings. Under Rule 506(c), a company can broadly solicit and generally advertise the offering, but still be deemed to be making a private offering under Section 4(a)(2) if: The investors in the offering are all accredited investors; and the company has taken reasonable steps to verify that its investors are accredited investors, which could include reviewing documentation, such as W-2s, tax returns, bank and brokerage statements, credit reports and the like.
+
+ 
+
+No Disqualifying Events
+
+ 
+
+Each Issuer represents and warrants that none of its predecessors, any affiliated issuer, any director, executive officer (or officer, in the case of Regulation CF offerings), other officer of the Issuer participating in the Offering, any investment managers and their principals, any beneficial owner of 20% or more of the Issuer’s outstanding voting equity securities, calculated on the basis of voting power, any promoter (as defined in Rule 405 of the Securities Act) connected with the Issuer in any capacity at the time of sale nor any compensated solicitor or any director, executive officer, other officer of the compensated solicitor participating in the Offering (each, an “Issuer Covered Person” and collectively, “Issuer Covered Persons”) is subject to any of the “Bad Actor” disqualifying events described in the applicable provisions of Regulation A, Regulation D or Regulation CF under the Securities Act (a “Disqualifying Event”). Each Issuer warrants and represents that it has exercised reasonable care to determine whether any Issuer Covered Person is subject to a Disqualifying Event and will promptly notify subscribed investors in writing should any Disqualifying Events occur or prior Disqualifying Events come to the Issuer’s notice, and immediately consult their legal counsel.
+
+ 
+
+User Conduct Guidelines
+
+ 
+
+You represent and warrant that all information that you provide to Directly Listed or through the Site is accurate, complete and truthful. Directly Listed and its affiliates and agents are entitled to rely upon the information you provide as true, accurate and complete without independent verification. We reserve the right to suspend or terminate your Profile if any information provided during the registration process or thereafter proves to be inaccurate, not current or incomplete.
+
+You are prohibited from posting or transmitting any material on or through the Site that, in Directly Listed’s sole opinion, is or could be offensive, fraudulent, unlawful, threatening, disingenuous, libelous, defamatory, obscene, scandalous, inflammatory, pornographic or profane, or any material that could constitute or encourage conduct that would be considered a criminal offense, give rise to civil liability, or otherwise violate any law. Directly Listed will fully cooperate with any law enforcement authorities or court order requesting or directing Directly Listed to disclose the identity of anyone posting any such information or materials on the Site.
+
+
+
+
+
+
+
+No Representations or Warranties
+
+ 
+
+To the extent permissible under law, Directly Listed assumes no liability or responsibility for any errors or omissions in the content of the Site. Directly Listed does not endorse or represent the completeness, reliability or accuracy of any content or information distributed through or accessed from the Site and has not performed any investigation into such information. Directly Listed shall not be liable for any investment decisions made based upon such information. You agree that any reliance upon any content or information distributed through or accessed from the Site is at your sole risk. Directly Listed is entitled to rely upon the information provided by its Users. Each Issuer, and not the Site, is responsible for ensuring that any securities offering is made in accordance with state and federal law and regulations promulgated by the SEC and the states. We make no representation or warranty regarding the legality or compliance of any offering.
+
+ 
+
+Digital Millennium Copyright Notice
+
+ 
+
+We respect the intellectual property of others, and we ask you to do the same. If you or any user of our Site believes its copyright rights have been infringed on our Site, the copyright's owner (“Complaining Party”) should send notification to us (as identified below) immediately. To be effective, the notification must include:
+
+A physical or electronic signature of the Complaining Party or such person authorized to act on behalf of the Complaining Party;
+
+Identification of the copyrights(s) claimed to have been infringed;
+
+Information reasonably sufficient to permit us to contact the Complaining Party or such person authorized to act on behalf of the Complaining Party, such as address, telephone number and, if available, an electronic mail address at which the Complaining Party may be contacted;
+
+Identification of the material that is claimed to be infringing the Complaining Party’s copyrights(s) that is to be removed and information reasonably sufficient to permit us to locate such materials;
+
+A statement that the Complaining Party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, agent, or by law; and
+
+A statement that the information in the notification is accurate and, under penalty of perjury, the Complaining Party or such person authorized to act on behalf of the Complaining Party is the owner of an exclusive copyright that is allegedly infringed.
+
+ 
+
+Pursuant to the Digital Millennium Copyright Act, 17 U.S.C. § 512(c) ("DMCA"), Directly Listed’s Designated Agent for notice of claims of copyright infringement can be contacted at the addresses below.
+
+ 
+
+Designated Agent for Claimed Infringement
+
+Directly Listed
+
+Postal Address: 2423 SW 147th Ave # 706, Miami, FL 33185
+
+E-mail address:  contact@DirectlyListed.com
+
+ 
+
+You acknowledge, accept and agree that if we receive a notice of a claim of copyright infringement, we may immediately remove the identified materials from our Site without liability to you or any other party and that the claims of the Complaining Party will be referred to the United States Copyright Office for adjudication as provided in the DMCA.
+
+ 
+
+Please note that this procedure is exclusively for notifying Directly Listed and its affiliates that your copyrighted material has been infringed. The preceding requirements are intended to comply with our rights and obligations under the DMCA, including 17 U.S.C. §512(c), but do not constitute legal advice. It may be advisable to contact an attorney regarding your rights and obligations under the DMCA and other applicable laws. Allegations that other intellectual property right is being infringed should be sent to contact@DirectlyListed.com. Directly Listed may, in its sole discretion, terminate the accounts of those who are accused of copyright infringement or infringement of other intellectual property rights.
+
+ 
+
+Intellectual Property
+
+ 
+
+All content and images on the Site are either the property of, or used with permission by Directly Listed. The use of the content or images by you, or anyone authorized by you, is prohibited unless specifically permitted by these Terms of Use or provided elsewhere on the Site. By providing content on the Site, you grant us a royalty-free, non-exclusive, worldwide license, under your intellectual property rights, to copy, reformat, index, modify, display, distribute and put to commercial and other uses the Site. No compensation will be paid with respect to our use such content. Directly Listed neither represents nor warrants that your use of materials displayed on the Site will not infringe rights of third parties not owned or affiliated with Directly Listed.
+
+ 
+
+The trademarks, logo and slogans displayed on the Site, including the mark Directly Listed (collectively the "Trademarks") are owned by Directly Listed and others. Nothing on this Site should be construed as granting any license or right to use the Trademarks without written permission of Directly Listed or such third party owner of the Trademarks. Your misuse of the Trademarks, or any other content on the Site, except as provided in these Terms of Use, is strictly prohibited. You are advised that Directly Listed will aggressively enforce its intellectual property rights to the fullest extent of the law.
+
+ 
+
+Communications
+
+ 
+
+You agree that Directly Listed may send communications to you via your mailing address, email, telephone or facsimile number provided by you on your Profile. You agree to notify us of any changes in your address or contact details. Directly Listed may also deliver information verbally. Communications shall be deemed delivered to you when sent and not when received.
+
+ 
+
+You agree that any information that you transmit to the Site or Directly Listed in any manner including, but not limited to, pictures, videos, questions, comments, suggestions, website addresses and links to other website/articles, etc., is non-confidential and non-proprietary and can be used by Directly Listed or its affiliates for any purpose. Directly Listed is free to use any idea, concepts, know-how, techniques, etc. contained in any communication to the Site or to Directly Listed for any purpose.
+
+ 
+
+
+
+
+
+
+
+Disclaimer of Liability
+
+ 
+
+Your use of the Site is solely at your own risk. To the fullest extent permissible by law, in no event shall Directly Listed, its affiliates, nor each of its affiliates’ directors, employees, managers, agents, contractors, partners, suppliers, or content providers, be liable for damages under contract, tort, strict liability, negligence, or any other legal or equitable theory arising out of your access to, or use of, the Site. Without limiting the foregoing, everything on the Site is provided to you “as is,” “as available,” and “when available” without warranty of any kind, either expressed or implied, including but not limited to, the implied warranties of merchantability, fitness for a particular purpose, or non-infringement. Please note that some jurisdictions may not allow the exclusion of implied warranties or limitation of incidental or consequential damages, so some of the above exclusions may not apply to you. Check your local laws for any restrictions or limitations regarding the exclusion of implied warranties.
+
+ 
+
+Directly Listed assumes no responsibility for, and shall not be liable for, any damages to or viruses that may infect, your computer equipment or other property on account of your access to, use of, or browsing in the Site or your downloading of any materials, data, text, images, video, or audio from the Site. We do not, and cannot, guarantee that any Investor is actually an accredited investor (as defined above).
+
+ 
+
+Third-Party Sites
+
+ 
+
+The Site may contain links to third-party websites (“Third-Party Sites”). These links are provided only as a convenience to you. The inclusion of any link is not and does not imply an affiliation, sponsorship, endorsement, approval, investigation, verification or monitoring by Directly Listed of any information, materials, products, or services contained in or accessible through any Third-Party Site. In no event shall Directly Listed be responsible for the information contained on any Third-Party Sites or your use of or inability to use any Third-Party Sites. You acknowledge and agree that Directly Listed shall not be liable or responsible, directly or indirectly, for any damage or loss caused or alleged to be caused by or related to the use of or reliance on any content, goods, or services available through any third-party website or resource. YOU AGREE THAT ACCESS AND USE OF THIRD-PARTY SITES, INCLUDING THE INFORMATION, MATERIAL, PRODUCTS, AND SERVICES ON THIRD-PARTY SITES OR AVAILABLE THROUGH THIRD-PARTY SITES, IS SOLELY AT YOUR OWN RISK AND DISCRETION.
+
+ 
+
+Your access and use of the Third-Party Sites are governed by the Terms of Use and Privacy Policies of these Third-Party Sites. We strongly encourage you to carefully review the Terms of Use and the Privacy Policies of any Third Party Services from which you access through our Site.
+
+ 
+
+U.S. Jurisdiction
+
+ 
+
+If you are located outside of the United States, you use or access the Site solely at your own risk and initiative. The Service is controlled and operated from facilities within the United States. Directly Listed makes no representations that the Service is appropriate or available for use in any other jurisdictions. Accessing the Service is prohibited from territories where the content on the Site is prohibited. Securities offerings are only directed at, or intended for purchase or investment by investors in jurisdictions that permit general solicitation of unregistered securities.
+
+ 
+
+You acknowledge and agree that it is solely your responsibility to be aware of the applicable laws and regulations of your country of residence. Subscriptions to invest in any offering referred to on this Site must only be made on the basis of the offering document relating to the specific investment and through a registered entity.
+
+ 
+
+The content, material and information contained on the Site do not constitute an offer or solicitation and may not be treated as an offer or solicitation (i) in any jurisdiction where such an offer or solicitation is against the law; (ii) to anyone to whom it is unlawful to make such an offer or solicitation: (iii) if the person making the offer or solicitation is not qualified to do so. You acknowledge and agree that it is solely your responsibility to be aware of the applicable laws and regulations of your country of residence. This Site is not directed at you if we are prohibited by any law of any jurisdiction from making the information on this site available to you. 
+
+ 
+
+Governing Law
+
+ 
+
+These Terms of Use shall be governed by, construed and entered in accordance with the laws of the State of California applicable to contracts deemed to be made within such State, without regard to choose of law or conflict of law provisions thereof. In the event any person or entity makes a claim or files a complaint initiating an action based on a dispute arising out of use of this Site or information posted to this Site, it shall be subject to the exclusive jurisdiction and venue of the California  courts located in Orange County and/or the United States District Court for the Central District of California, and each of the parties hereby agrees to the personal and exclusive jurisdiction and venue of such courts.  YOU HEREBY WAIVE YOUR RIGHT TO A TRIAL BY JURY WITH RESPECT TO ANY CLAIM, ACTION OR PROCEEDING, DIRECTLY OR INDIRECTLY, ARISING OUT OF, OR RELATING TO, THESE TERMS OF USE TO THE FULLEST EXTENT PERMITTED BY LAW. YOU UNDERSTAND THAT ABSENT THIS PROVISION, YOU WOULD HAVE THE RIGHT TO SUE IN COURT AND HAVE A JURY TRIAL.
+
+ 
+
+Dispute Resolution
+
+ 
+
+In the event of any claim, controversy or alleged dispute between you and Directly Listed, its members or affiliates (“Dispute”), you hereby agree to attempt in good faith to amicably resolve any Dispute at least 30 days before instituting any legal proceeding. Each party agrees to submit any Dispute for resolution by final binding arbitration after serving written notice, which notice shall set forth in detail the controversy, question, claim or alleged breach along with your attempt to resolve such Dispute. Upon such notice and attempt to resolve, the party may then commence an arbitration proceeding either (a) pursuant to the rules of the American Arbitration Association (“AAA”) under its Commercial Arbitration Rules before an arbitrator to be selected by the AAA. Any such arbitration may only be commenced within one year after the party requesting arbitration obtains knowledge of the cause of action forming the basis of the controversy or claim accrued.
+
+ 
+
+In any arbitration and subject to the ultimate discretion of the presiding arbitrator, each side will be limited to a maximum of one day of argument (including rebuttal), and the parties agree in good faith to minimize discovery burdens (e.g., confine the scope to actual areas in dispute and limit the topics and number of pages on which information is requested to matters directly relevant). The decision(s) of the arbitrator shall be final and binding and may not be appealed to any court of competent jurisdiction, or otherwise, except upon claim of fraud or corruption as provided by law, provided, however, that implementation of such decision(s) shall in no way be delayed or otherwise impaired pending the outcome of any such appeal.  Judgment upon the award rendered in such arbitration may be entered by any court having jurisdiction thereof. You agree that all Disputes will be limited between you, individually, and Directly Listed. To the full extent allowable by law, you agree that no arbitration proceeding or other dispute resolution proceeding shall be joined with any other party or decided on a class-action basis.
+
+
+
+Notwithstanding the foregoing, you agree that the following matters shall not, at the election of Directly Listed, be subject to binding arbitration: (1) any Dispute related to or arising from allegations of criminal activity; (2) any Disputes concerning Directly Listed intellectual property rights; and (3) any claim for injunctive relief. All arbitration proceedings will take place in California, United States of America. Any Dispute not subject to arbitration shall be decided by a court of competent jurisdiction within Orange County, California. Each party hereby waives any claim that such venue is improper or inconvenient.
+
+ 
+
+Indemnification
+
+ 
+
+You agree to indemnify, defend and hold Directly Listed and any of its affiliates, and any of its successors and assigns, and any of their respective officers, directors, employees, agents, representatives, licensors, advertisers, suppliers, and operational service providers harmless from and against any and all claims, actions, losses, expenses, damages and costs (including reasonable attorneys' fees and expenses), resulting from any breach or violation of these Terms of Use by you or arising from your use of the Site.
+
+ 
+
+Directly Listed reserves the right to assume, at its sole expense, the exclusive defense and control of any such claim or action and all negotiations for settlement or compromise, and you agree to fully cooperate with Directly Listed in the defense of any such claim, action, settlement or compromise negotiations, as requested by Directly Listed.
+
+ 
+
+Notification Procedures
+
+ 
+
+We may provide notifications, including those regarding modifications to these Terms of Use, whether such notifications are required by law or are for marketing or other business-related purposes, to you via email notice, written or hard copy notice, or through posting of such notice on our Site, as determined by us in our sole discretion. We reserve the right to determine the form and means of providing notifications to visitors. Note that you may opt out of certain means of notification as described in these Terms of Use. We are not responsible for any automatic filtering you or your network provider may apply to email notifications we send to the email address you provided to us.
+
+ 
+
+Electronic Signatures in Global and National Commerce Act/Uniform Electronic Transactions Act
+
+ 
+
+The Federal Electronic Signatures in Global and National Commerce Act (“ESIGN”) and similar state laws, particularly the Uniform Electronic Transactions Act (“UETA”), authorize the creation of legally binding and enforceable agreements utilizing electronic records and signatures. ESIGN and UETA require businesses that want to use electronic records or signatures in consumer transactions to obtain the consumer’s consent to receive information electronically. When an Issuer or potential Investor registers on the platform, we obtain his or her consent to transact business electronically and maintain electronic records in compliance with ESIGN and UETA requirements.
+
+ 
+
+Your use of electronic signatures to sign documents legally binds you in the same manner as if you had manually signed such documents. The use of electronic versions of documents fully satisfies any requirement that such documents be provided to you in writing. If you sign electronically, you represent that you have the ability to access and retain a record of such documents. You agree that you are responsible for understanding these documents and agree to conduct business by electronic means. You are obligated to review the Site periodically for changes and modifications and agree not to contest the admissibility or enforceability of the Site's electronically stored copy of this Agreement in any proceeding arising out of this Agreement.
+
+ 
+
+Although you consent to electronic delivery, you may elect to deliver communications by other means and such delivery shall not affect your consent. You may revoke consent to electronic delivery of communications and receive a paper version at your election. Directly Listed shall have a reasonable period to effect such a change and Directly Listed may charge you a reasonable fee for sending such paper copies. If you elect to use electronic delivery, you agree and represent that you have a suitable computer with Internet access, an email address and the availability to download, save and/or print communications to retain a record of such communications. You agree that you are solely responsible for maintaining such equipment and services required for online access.
+
+ 
+
+
+
+Integration and Severability
+
+ 
+
+The failure of Directly Listed to enforce any right or provision of these Terms of Use will not constitute a waiver of future enforcement of that right or provision. The waiver of any such right or provision will be effective only if in writing and signed by a duly authorized representative of Directly Listed. These Terms of Use and other referenced materials are the entire agreement between you and Directly Listed with respect to the Service, and supersede all prior or contemporaneous communications and proposals (whether oral, written or electronic) between you and Directly Listed with respect to the Service and govern the future relationship. Except as expressly set forth in these Terms of Use, the exercise by either party of any of its remedies under these Terms of Use will be without prejudice to its other remedies under these Terms of Use or otherwise. If for any reason a court or arbitral forum, as applicable, of competent jurisdiction finds any provision of these Terms of Use invalid or unenforceable, that provision will be enforced to the maximum extent permissible and the other provisions of these Terms of Use will remain in full force and effect and enforceable.
+
+ 
+
+Text Messaging
+
+ 
+
+If you provide your mobile phone number to us, by doing so you consent to receive text message alerts from us containing product, event, or promotional information in a text or SMS message (“Text Messages”). You can unsubscribe from receiving Text Messages at any time by replying “STOP” to one of our Text Messages.
+
+ 
+
+
+
+
+
+
+
+Miscellaneous
+
+ 
+
+Except as expressly provided in these Terms of Use, there shall be no third-party beneficiaries to the Terms of Use. Directly Listed shall have the right to assign its rights or delegate any of its responsibilities under these Terms of Use to an affiliate or in connection with a merger, consolidation or reorganization of Directly Listed for the sale of substantially all of its assets. In the event that any provision of this Agreement, or the application thereof, becomes or is declared by a court of competent jurisdiction to be illegal, void or unenforceable, the remainder of this Agreement will continue in full force and effect and the application of such provision to other persons or circumstances will be interpreted so as reasonably to effect the intent of the parties hereto. You further agree to replace such void or unenforceable provision of this Agreement with a valid and enforceable provision that will achieve, to the extent possible, the economic, business and other purposes of such void or unenforceable provision.
+
+
+
+These Terms of Use contain the entire understanding between you and Directly Listed relating to the Site and Directly Listed services. These Terms of Use supersede any other Terms of Use or agreement regarding the Site and Directly Listed services prior to the Effective Date below.
+
+These Terms of Use were last updated on March 7, 2023.
+
+ 
+
+Effective Date
+
+
+
+These Terms of Use Were Last Updated On March 7, 2023.
