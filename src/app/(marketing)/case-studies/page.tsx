@@ -46,7 +46,7 @@ export default async function CaseStudiesPage() {
                 <p className="text-sm text-navy-900/75">{o.description}</p>
                 <dl className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <dt className="text-xs uppercase text-navy-900/60">Raised</dt>
+                    <dt className="text-xs uppercase text-navy-900/60">{o.type === "ELOC" ? "Committed" : "Raised"}</dt>
                     <dd className="text-xl font-bold">{o.raisedAmount > 0 ? fmtMoney(o.raisedAmount) : "—"}</dd>
                   </div>
                   <div>

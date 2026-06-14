@@ -1,0 +1,42 @@
+# Render Blueprint for the Directly Listed platform.
+# Deploy: push to a Git repo, then in Render → New → Blueprint, point at this file.
+# A 1 GB persistent disk holds the SQLite database so data survives deploys.
+services:
+  - type: web
+    name: directlylisted
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: npm ci && npx prisma generate && npm run build
+    preDeployCommand: npx prisma db push
+    startCommand: npm run start
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22.11.0"
+      - key: NODE_ENV
+        value: production
+      # SQLite on the mounted persistent disk (NOT web-served).
+      - key: DATABASE_URL
+        value: file:/var/data/app.db
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: CARD_PAYMENT_LIMIT_USD
+        value: "5000"
+      - key: BRAINTREE_ENVIRONMENT
+        value: sandbox
+      - key: BRAINTREE_MERCHANT_ID
+        sync: false
+      - key: BRAINTREE_PUBLIC_KEY
+        sync: false
+      - key: BRAINTREE_PRIVATE_KEY
+        sync: false
+      - key: ADOBE_SIGN_BASE_URL
+        value: https://api.na1.adobesign.com
+      - key: ADOBE_SIGN_INTEGRATION_KEY
+        sync: false
+    disk:
+      name: data
+      mountPath: /var/data
+      sizeGB: 1

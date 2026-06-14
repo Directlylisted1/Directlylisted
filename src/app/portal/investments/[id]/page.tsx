@@ -44,6 +44,7 @@ export default async function InvestmentDetail({
   const signStep = stepIdx < 2;
   const payStep = stepIdx === 2;
   const done = stepIdx >= 4;
+  const adobeConfigured = await isAdobeSignConfigured();
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
@@ -94,7 +95,7 @@ export default async function InvestmentDetail({
             <form action={sendInvestmentDocs}>
               <input type="hidden" name="investmentId" value={id} />
               <button className="btn-dark w-full">Send Documents for Signature</button>
-              {!isAdobeSignConfigured() && (
+              {!adobeConfigured && (
                 <p className="mt-3 rounded-lg bg-amber-50 p-3 text-xs text-amber-800">
                   Acrobat Sign integration key not configured — signature will
                   be simulated for development.

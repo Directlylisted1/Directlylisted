@@ -24,8 +24,10 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: "Institutional Investors",
+    label: "Strategic & Large Investors",
+    href: "/strategic-investors",
     items: [
+      { href: "/strategic-investors", label: "Family Offices, VC, PE & Hedge Funds" },
       { href: "/products/eloc", label: "ELOC — Post-Listing Financing" },
     ],
   },

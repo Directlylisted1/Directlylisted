@@ -77,6 +77,16 @@ export function StatusBadge({ value }: { value: string }) {
       FAILED: "bg-red-100 text-red-700",
       REJECTED: "bg-red-100 text-red-700",
       CLOSED: "bg-slate-200 text-slate-700",
+      // CRM stages + appointment statuses
+      WON: "bg-emerald-100 text-emerald-800",
+      CONFIRMED: "bg-emerald-100 text-emerald-800",
+      QUALIFIED: "bg-sky-100 text-sky-800",
+      MEETING_SCHEDULED: "bg-sky-100 text-sky-800",
+      CONTACTED: "bg-sky-100 text-sky-800",
+      REQUESTED: "bg-amber-100 text-amber-800",
+      PROPOSAL: "bg-amber-100 text-amber-800",
+      LOST: "bg-red-100 text-red-700",
+      NO_SHOW: "bg-red-100 text-red-700",
     }[value] ?? "bg-slate-100 text-slate-700";
   return (
     <span className={`inline-block rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${tone}`}>

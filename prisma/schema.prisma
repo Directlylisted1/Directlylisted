@@ -289,3 +289,76 @@ model Lead {
   status    String   @default("NEW") // NEW | CONTACTED | QUALIFIED | CLOSED
   createdAt DateTime @default(now())
 }
+
+// =====================================================================
+//  CRM + Appointment Booking (additive — independent of the core app)
+// =====================================================================
+
+enum CrmStage {
+  NEW
+  CONTACTED
+  QUALIFIED
+  MEETING_SCHEDULED
+  PROPOSAL
+  WON
+  LOST
+}
+
+enum AppointmentStatus {
+  REQUESTED
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+model CrmContact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String?
+  company   String?
+  stage     CrmStage @default(NEW)
+  source    String   @default("MANUAL") // BOOKING | LEAD | MANUAL
+  note      String?
+  leadId    String? // optional link back to an originating marketing Lead
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  appointments Appointment[]
+  activities   CrmActivity[]
+}
+
+model Appointment {
+  id          String            @id @default(cuid())
+  contactId   String
+  contact     CrmContact        @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  typeId      String // matches APPOINTMENT_TYPES id
+  typeLabel   String
+  startsAt    DateTime
+  durationMin Int               @default(30)
+  status      AppointmentStatus @default(CONFIRMED)
+  meetingUrl  String?
+  message     String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model CrmActivity {
+  id        String     @id @default(cuid())
+  contactId String
+  contact   CrmContact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  kind      String // NOTE | STAGE_CHANGE | APPOINTMENT | IMPORT
+  body      String
+  createdAt DateTime   @default(now())
+}
+
+// Weekly availability windows used to generate bookable appointment slots.
+model AvailabilityRule {
+  id       String  @id @default(cuid())
+  weekday  Int // 0 = Sunday … 6 = Saturday
+  startMin Int // minutes from midnight (e.g. 540 = 09:00), local time
+  endMin   Int // e.g. 1020 = 17:00
+  slotMin  Int     @default(30)
+  active   Boolean @default(true)
+}
