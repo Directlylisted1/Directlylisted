@@ -80,7 +80,7 @@ export default async function OfferingDetail({
               <>
                 <div className="mb-1 text-3xl font-bold">{fmtMoney(offering.raisedAmount)}</div>
                 <div className="mb-4 text-sm text-navy-900/60">
-                  raised of {fmtMoney(offering.targetAmount)} target
+                  {offering.type === "ELOC" ? "committed of" : "raised of"} {fmtMoney(offering.targetAmount)} {offering.type === "ELOC" ? "facility" : "target"}
                 </div>
                 <div aria-hidden="true" className="mb-4 h-2.5 overflow-hidden rounded-full bg-brand-100">
                   <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
@@ -214,7 +214,7 @@ export default async function OfferingDetail({
             <p className="mt-3 text-sm text-navy-900/70">{offering.issuer.description}</p>
           )}
           <a
-            href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${encodeURIComponent(offering.issuer.companyName)}&type=&dateb=&owner=include&count=40`}
+            href={`https://www.sec.gov/edgar/search/#/q=%22${encodeURIComponent(offering.issuer.companyName)}%22`}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-block text-sm font-semibold text-brand-600 hover:underline"

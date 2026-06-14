@@ -50,7 +50,9 @@ export default async function OfferingsPage() {
                       <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="font-bold">{fmtMoney(o.raisedAmount)} raised</span>
+                      <span className="font-bold">
+                        {fmtMoney(o.raisedAmount)} {o.type === "ELOC" ? "committed" : "raised"}
+                      </span>
                       <span className="text-navy-900/70">of {fmtMoney(o.targetAmount)}</span>
                     </div>
                   </>

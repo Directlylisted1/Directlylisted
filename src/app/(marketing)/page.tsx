@@ -6,12 +6,11 @@ import { HeroBackground } from "@/components/HeroBackground";
 import { PromoVideo } from "@/components/PromoVideo";
 import { CountUpStat } from "@/components/CountUpStat";
 
-// NOTE: sample figures per the rebuild spec — replace with audited platform
-// metrics before launch.
+// NOTE: confirm these figures are accurate/substantiated before launch.
 const HERO_STATS = [
-  { value: "$2B+", label: "Raised by customers" },
-  { value: "1.7M+", label: "Investments processed" },
-  { value: "900+", label: "Offerings" },
+  { value: "$6B+", label: "Raised by customers · ABC since 1999" },
+  { value: "4.9M+", label: "Investments processed · ABC since 1999" },
+  { value: "600+", label: "Offerings" },
 ];
 
 const RAISE_STEPS = [
@@ -126,7 +125,9 @@ export default async function HomePage() {
                 <div className="flex gap-10">
                   <div>
                     <div className="stat-rule" />
-                    <div className="text-xs text-white/60">Capital Raised</div>
+                    <div className="text-xs text-white/60">
+                      {o.type === "ELOC" ? "Capital Committed" : "Capital Raised"}
+                    </div>
                     <div className="text-3xl font-light">{fmtMoney(o.raisedAmount)}+</div>
                   </div>
                   <div>
@@ -288,7 +289,7 @@ export default async function HomePage() {
             {[
               { via: "Via Reg A+", amount: "$75M", note: "Anyone can invest" },
               { via: "Via Reg D", amount: "∞", note: "Accredited investors only" },
-              { via: "Via Listing + ELOC", amount: "On Demand", note: "Committed capital after listing" },
+              { via: "Via Listing + ELOC", amount: "$350M", note: "Committed capital after listing" },
             ].map((c) => (
               <div
                 key={c.via}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { PRODUCTS } from "@/lib/offering-types";
+import { SOCIAL_LINKS } from "@/lib/social";
 
 export function SiteFooter() {
   return (
@@ -15,6 +16,30 @@ export function SiteFooter() {
           <p className="text-xs text-white/60">
             info@directlylisted.com · +1 949-529-2500
           </p>
+          <div className="flex items-center gap-3 pt-1">
+            <a
+              href={SOCIAL_LINKS.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Directly Listed on LinkedIn"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 hover:border-accent hover:text-white"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+                <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.2 8h4.6v14H.2V8zm7.5 0h4.4v1.9h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.47 3.04 5.47 7v7.48h-4.6v-6.63c0-1.58-.03-3.62-2.2-3.62-2.2 0-2.54 1.72-2.54 3.5V22H7.7V8z" />
+              </svg>
+            </a>
+            <a
+              href={SOCIAL_LINKS.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Directly Listed on X"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 hover:border-accent hover:text-white"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+              </svg>
+            </a>
+          </div>
         </div>
         <div>
           <h4 className="mb-3 text-sm font-semibold text-white/80">Products</h4>
@@ -39,6 +64,7 @@ export function SiteFooter() {
             <li><Link href="/faq/issuer" className="hover:text-white">Issuer FAQ</Link></li>
             <li><Link href="/faq/investor" className="hover:text-white">Investor FAQ</Link></li>
             <li><Link href="/blog" className="hover:text-white">Blog/Vlog</Link></li>
+            <li><Link href="/book" className="hover:text-white">Book a Call</Link></li>
             <li><Link href="/get-started" className="hover:text-white">Get Started</Link></li>
             <li><Link href="/signin" className="hover:text-white">Investor Sign In</Link></li>
           </ul>
@@ -61,7 +87,7 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
-                <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                <a href="https://www.sec.gov/search-filings" target="_blank" rel="noopener noreferrer" className="hover:text-white">
                   EDGAR Company Search<span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </li>

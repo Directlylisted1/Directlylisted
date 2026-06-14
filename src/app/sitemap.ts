@@ -12,6 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/products/investor-services",
     "/products/campaign-marketing",
     "/raise-capital",
+    "/strategic-investors",
     "/offerings",
     "/blog",
     "/about",

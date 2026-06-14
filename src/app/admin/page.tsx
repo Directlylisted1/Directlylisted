@@ -51,10 +51,13 @@ export default async function AdminOverview() {
           </ul>
         </div>
         <div className="card">
-          <h2 className="mb-2 font-bold">Integrations</h2>
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="font-bold">Integrations</h2>
+            <Link href="/admin/integrations" className="text-sm font-semibold text-brand-600">Manage →</Link>
+          </div>
           <ul className="space-y-2 text-sm text-navy-900/70">
             <li><span aria-hidden="true">💳 </span>Braintree (PayPal) — card payments under $5,000</li>
-            <li><span aria-hidden="true">✍️ </span>Adobe Acrobat Sign — subscription docs &amp; engagement letters</li>
+            <li><span aria-hidden="true">✍️ </span>Adobe Acrobat Sign — connect/rotate the Enterprise API key on the integrations page</li>
             <li><span aria-hidden="true">🏦 </span>Wire/ACH transfers — reconciled manually on this dashboard</li>
           </ul>
         </div>
