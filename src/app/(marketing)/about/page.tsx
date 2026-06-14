@@ -156,8 +156,8 @@ export default function AboutPage() {
             Directly Listed exists.
           </p>
 
-          <div className="rounded-2xl border border-navy-900/10 bg-white p-6 text-xs leading-relaxed text-navy-900/70">
-            <h3 className="mb-2 text-sm font-bold text-navy-900">Important Disclosure</h3>
+          <div className="rounded-2xl border border-navy-900/10 bg-white p-6 text-[11px] leading-relaxed text-navy-900/70">
+            <h3 className="mb-2 text-xs font-bold text-navy-900">Disclosure</h3>
             <p>
               The principal behind Directly Listed, Andy Altahawi, previously
               resolved an allegation brought by the U.S. Securities and Exchange
