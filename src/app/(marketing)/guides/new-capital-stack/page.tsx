@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { notifyInquiry } from "@/lib/mailer";
 
 export const metadata = {
   title: "The New Capital Stack — Free Guide — Directly Listed",
@@ -10,15 +11,15 @@ export const metadata = {
 
 async function requestGuide(formData: FormData) {
   "use server";
-  await db.lead.create({
-    data: {
-      kind: "GUIDE_DOWNLOAD",
-      name: String(formData.get("name") ?? ""),
-      email: String(formData.get("email") ?? ""),
-      company: String(formData.get("company") ?? "") || null,
-      productInterest: "new-capital-stack-guide",
-    },
-  });
+  const lead = {
+    kind: "GUIDE_DOWNLOAD",
+    name: String(formData.get("name") ?? ""),
+    email: String(formData.get("email") ?? ""),
+    company: String(formData.get("company") ?? "") || null,
+    productInterest: "new-capital-stack-guide",
+  };
+  await db.lead.create({ data: lead });
+  await notifyInquiry(lead);
   redirect("/get-started/thanks");
 }
 

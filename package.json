@@ -19,6 +19,7 @@
     "braintree": "^3.29.0",
     "jose": "^6.0.11",
     "next": "^15.3.3",
+    "nodemailer": "^6.9.14",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "zod": "^3.25.0"
@@ -28,6 +29,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/braintree": "^3.3.14",
     "@types/node": "^22.15.0",
+    "@types/nodemailer": "^6.4.15",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "prisma": "^6.8.2",

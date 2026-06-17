@@ -14,7 +14,9 @@ export function SiteFooter() {
             going public — without the IPO.
           </p>
           <p className="text-xs text-white/60">
-            info@directlylisted.com · +1 949-529-2500
+            <a href="mailto:info@directlylisted.com" className="hover:text-white">info@directlylisted.com</a>
+            {" · "}
+            <a href="tel:+19495292500" className="hover:text-white">+1 949-529-2500</a>
           </p>
           <div className="flex items-center gap-3 pt-1">
             <a

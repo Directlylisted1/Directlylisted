@@ -6,6 +6,7 @@ import { db } from "./db";
 import { getCurrentUser } from "./session";
 import { appointmentType } from "./crm-types";
 import { isSlotFree } from "./availability";
+import { notifyBooking } from "./mailer";
 
 async function requireAdmin() {
   const user = await getCurrentUser();
@@ -72,6 +73,16 @@ export async function bookAppointment(
       kind: "APPOINTMENT",
       body: `Booked ${type.label} for ${start.toLocaleString("en-US")}.`,
     },
+  });
+
+  await notifyBooking({
+    name,
+    email,
+    phone,
+    company,
+    typeLabel: type.label,
+    startsAt: start,
+    message,
   });
 
   redirect(`/book/confirmed?id=${appt.id}`);

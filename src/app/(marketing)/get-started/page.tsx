@@ -2,23 +2,23 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { PRODUCTS } from "@/lib/offering-types";
 import { FeeDisclosure } from "@/components/FeeDisclosure";
+import { notifyInquiry } from "@/lib/mailer";
 
 export const metadata = { title: "Get Started — Directly Listed" };
 
 async function submitLead(formData: FormData) {
   "use server";
-  const kind = String(formData.get("kind") ?? "ISSUER_QUOTE");
-  await db.lead.create({
-    data: {
-      kind,
-      name: String(formData.get("name") ?? ""),
-      email: String(formData.get("email") ?? ""),
-      phone: String(formData.get("phone") ?? "") || null,
-      company: String(formData.get("company") ?? "") || null,
-      productInterest: String(formData.get("product") ?? "") || null,
-      message: String(formData.get("message") ?? "") || null,
-    },
-  });
+  const lead = {
+    kind: String(formData.get("kind") ?? "ISSUER_QUOTE"),
+    name: String(formData.get("name") ?? ""),
+    email: String(formData.get("email") ?? ""),
+    phone: String(formData.get("phone") ?? "") || null,
+    company: String(formData.get("company") ?? "") || null,
+    productInterest: String(formData.get("product") ?? "") || null,
+    message: String(formData.get("message") ?? "") || null,
+  };
+  await db.lead.create({ data: lead });
+  await notifyInquiry(lead);
   redirect("/get-started/thanks");
 }
 

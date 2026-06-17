@@ -1,18 +1,16 @@
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { notifyInquiry } from "@/lib/mailer";
 
 export const metadata = { title: "Contact — Directly Listed" };
 
 async function submitContact(formData: FormData) {
   "use server";
-  await db.lead.create({
-    data: {
-      kind: "CONTACT",
-      name: String(formData.get("name") ?? ""),
-      email: String(formData.get("email") ?? ""),
-      message: String(formData.get("message") ?? "") || null,
-    },
-  });
+  const name = String(formData.get("name") ?? "");
+  const email = String(formData.get("email") ?? "");
+  const message = String(formData.get("message") ?? "") || null;
+  await db.lead.create({ data: { kind: "CONTACT", name, email, message } });
+  await notifyInquiry({ kind: "CONTACT", name, email, message });
   redirect("/get-started/thanks");
 }
 
@@ -27,8 +25,8 @@ export default function ContactPage() {
             here to help.
           </p>
           <div className="space-y-2 text-sm text-white/80">
-            <p>info@directlylisted.com</p>
-            <p>+1 949-529-2500</p>
+            <p><a href="mailto:info@directlylisted.com" className="hover:text-white">info@directlylisted.com</a></p>
+            <p><a href="tel:+19495292500" className="hover:text-white">+1 949-529-2500</a></p>
           </div>
         </div>
         <form action={submitContact} className="card space-y-4 !p-8">

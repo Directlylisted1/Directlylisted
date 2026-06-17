@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { StatusBadge } from "@/components/AppShell";
 import { getAdobeConfig, pingAdobeSign } from "@/lib/adobe-sign";
 import { isBraintreeConfigured } from "@/lib/payments";
+import { isMailConfigured } from "@/lib/mailer";
 import { saveAdobeConfig, disconnectAdobe, refreshAgreement } from "@/lib/integration-actions";
 
 export default async function AdminIntegrationsPage({
@@ -19,6 +20,8 @@ export default async function AdminIntegrationsPage({
     }),
   ]);
   const braintree = isBraintreeConfigured();
+  const mailReady = isMailConfigured();
+  const notifyEmail = process.env.NOTIFY_EMAIL || "info@directlylisted.com";
 
   return (
     <div className="space-y-10">
@@ -29,7 +32,7 @@ export default async function AdminIntegrationsPage({
       )}
 
       {/* Connection status cards */}
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-3">
         <div className="card">
           <div className="mb-2 flex items-center justify-between">
             <h2 className="font-bold">Adobe Acrobat Sign</h2>
@@ -57,6 +60,21 @@ export default async function AdminIntegrationsPage({
           </p>
           <p className="mt-1 text-xs text-navy-900/60">
             Card under $5,000; wire/ACH above. Configured via environment variables.
+          </p>
+        </div>
+        <div className="card">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="font-bold">Email Notifications</h2>
+            <StatusBadge value={mailReady ? "CONFIRMED" : "NOT_STARTED"} />
+          </div>
+          <p className="text-sm text-navy-900/70">
+            {mailReady
+              ? `Connected — inquiries email ${notifyEmail}.`
+              : "Not configured — inquiries save to Leads/CRM but no email is sent."}
+          </p>
+          <p className="mt-1 text-xs text-navy-900/60">
+            Set SMTP_HOST / SMTP_USER / SMTP_PASS and NOTIFY_EMAIL in the
+            environment.
           </p>
         </div>
       </div>
