@@ -17,7 +17,9 @@ services:
     plan: starter
     region: oregon
     buildCommand: npm ci && node scripts/use-postgres.mjs && npx prisma generate && npm run build
-    preDeployCommand: npx prisma db push
+    # Create/update tables, then seed offerings, blog posts, and CRM availability
+    # (all idempotent upserts — safe to run on every deploy).
+    preDeployCommand: npx prisma db push && npm run db:seed:all
     startCommand: npm run start
     healthCheckPath: /
     autoDeploy: true
