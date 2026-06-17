@@ -12,7 +12,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const offering = await db.offering.findUnique({ where: { slug } });
+  const offering = await db.offering.findUnique({ where: { slug } }).catch(() => null);
   if (!offering || offering.status === "DRAFT") return {};
   const title = `${offering.name} — Live Offering`;
   const description =
@@ -31,14 +31,16 @@ export default async function OfferingDetail({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const offering = await db.offering.findUnique({
-    where: { slug },
-    include: {
-      issuer: true,
-      documents: true,
-      assets: { orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }] },
-    },
-  });
+  const offering = await db.offering
+    .findUnique({
+      where: { slug },
+      include: {
+        issuer: true,
+        documents: true,
+        assets: { orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }] },
+      },
+    })
+    .catch(() => null);
   if (!offering || offering.status === "DRAFT") notFound();
   const gallery = offering.assets.filter((a) => a.kind === "IMAGE");
   const videos = offering.assets.filter((a) => a.kind === "VIDEO_LINK");

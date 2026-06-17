@@ -10,11 +10,13 @@ export const metadata = {
 };
 
 export default async function CaseStudiesPage() {
-  const offerings = await db.offering.findMany({
-    where: { status: { in: ["LIVE", "CLOSED"] } },
-    orderBy: { raisedAmount: "desc" },
-    include: { issuer: true },
-  });
+  const offerings = await db.offering
+    .findMany({
+      where: { status: { in: ["LIVE", "CLOSED"] } },
+      orderBy: { raisedAmount: "desc" },
+      include: { issuer: true },
+    })
+    .catch(() => []);
 
   return (
     <>

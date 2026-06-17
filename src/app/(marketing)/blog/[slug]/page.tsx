@@ -10,7 +10,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await db.blogPost.findUnique({ where: { slug } });
+  const post = await db.blogPost.findUnique({ where: { slug } }).catch(() => null);
   if (!post || !post.published) return { title: "Blog — Directly Listed" };
   return {
     title: `${post.title} — Directly Listed`,
@@ -33,7 +33,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = await db.blogPost.findUnique({ where: { slug } });
+  const post = await db.blogPost.findUnique({ where: { slug } }).catch(() => null);
   if (!post || !post.published) notFound();
 
   // Article structured data so search and AI engines can attribute the post.
