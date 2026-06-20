@@ -6,7 +6,7 @@ import path from "path";
 // Prisma throw "Environment variable not found: DATABASE_URL". Fall back to the
 // local SQLite database (absolute path) so local runs never crash. Real
 // deployments set DATABASE_URL explicitly and this fallback is skipped.
-if (!process.env.DATABASE_URL) {
+if (!process.env.DATABASE_URL && process.env.NODE_ENV !== "production") {
   process.env.DATABASE_URL = `file:${path.join(process.cwd(), "prisma", "dev.db")}`;
 }
 

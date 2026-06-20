@@ -48,10 +48,15 @@ export const getSession = cache(async (): Promise<SessionPayload | null> => {
 export const getCurrentUser = cache(async () => {
   const session = await getSession();
   if (!session) return null;
-  return db.user.findUnique({
-    where: { id: session.userId },
-    include: { investorProfile: true, issuerProfile: true },
-  });
+  try {
+    return await db.user.findUnique({
+      where: { id: session.userId },
+      include: { investorProfile: true, issuerProfile: true },
+    });
+  } catch (err) {
+    console.error("[getCurrentUser] database error:", err);
+    return null;
+  }
 });
 
 export async function requireRole(role: SessionPayload["role"]) {

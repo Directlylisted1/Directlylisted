@@ -16,11 +16,23 @@ export async function signIn(
   const password = String(formData.get("password") ?? "");
   const next = String(formData.get("next") ?? "");
 
-  const user = await db.user.findUnique({ where: { email } });
+  let user;
+  try {
+    user = await db.user.findUnique({ where: { email } });
+  } catch (err) {
+    console.error("[signIn] database error:", err);
+    return { error: "We couldn't reach the server. Please try again in a moment." };
+  }
   if (!user || !bcrypt.compareSync(password, user.passwordHash)) {
     return { error: "Invalid email or password." };
   }
-  await createSession({ userId: user.id, role: user.role });
+  try {
+    await createSession({ userId: user.id, role: user.role });
+  } catch (err) {
+    console.error("[signIn] session error:", err);
+    return { error: "We couldn't start your session. Please try again." };
+  }
+  // redirect() throws NEXT_REDIRECT by design — keep it outside the try/catch.
   redirect(next || portalHome(user.role));
 }
 
@@ -39,24 +51,36 @@ export async function signUp(
   if (!email || password.length < 8 || !firstName || !lastName) {
     return { error: "All fields are required; password must be at least 8 characters." };
   }
-  if (await db.user.findUnique({ where: { email } })) {
-    return { error: "An account with this email already exists." };
-  }
 
   const role = accountType === "ISSUER" ? "ISSUER" : "INVESTOR";
-  const user = await db.user.create({
-    data: {
-      email,
-      passwordHash: bcrypt.hashSync(password, 10),
-      firstName,
-      lastName,
-      role,
-      ...(role === "INVESTOR"
-        ? { investorProfile: { create: {} } }
-        : { issuerProfile: { create: { companyName: companyName || `${firstName} ${lastName} Co.` } } }),
-    },
-  });
-  await createSession({ userId: user.id, role: user.role });
+  let user;
+  try {
+    if (await db.user.findUnique({ where: { email } })) {
+      return { error: "An account with this email already exists." };
+    }
+    user = await db.user.create({
+      data: {
+        email,
+        passwordHash: bcrypt.hashSync(password, 10),
+        firstName,
+        lastName,
+        role,
+        ...(role === "INVESTOR"
+          ? { investorProfile: { create: {} } }
+          : { issuerProfile: { create: { companyName: companyName || `${firstName} ${lastName} Co.` } } }),
+      },
+    });
+  } catch (err) {
+    console.error("[signUp] database error:", err);
+    return { error: "We couldn't reach the server. Please try again in a moment." };
+  }
+  try {
+    await createSession({ userId: user.id, role: user.role });
+  } catch (err) {
+    console.error("[signUp] session error:", err);
+    return { error: "We couldn't start your session. Please try again." };
+  }
+  // redirect() throws NEXT_REDIRECT by design — keep it outside the try/catch.
   redirect(next || portalHome(user.role));
 }
 
