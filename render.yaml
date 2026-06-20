@@ -18,9 +18,11 @@ services:
     region: oregon
     buildCommand: npm ci && node scripts/use-postgres.mjs && npx prisma generate && npm run build
     # Create/update tables, then seed offerings, blog posts, and CRM availability
-    # (all idempotent upserts — safe to run on every deploy).
+    # (all idempotent upserts — safe to run on every deploy). preDeploy runs once
+    # before traffic shifts; scripts/start.mjs repeats it on every boot as a
+    # safety net so a missed Blueprint sync can't leave the DB empty again.
     preDeployCommand: npx prisma db push && npm run db:seed:all
-    startCommand: npm run start
+    startCommand: node scripts/start.mjs
     healthCheckPath: /
     autoDeploy: true
     envVars:
