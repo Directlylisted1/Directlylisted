@@ -65,7 +65,6 @@ This post is for information only and is not investment, legal, or tax advice.`,
       "SpaceX (NASDAQ: SPCX) went public on June 12, 2026 in the largest IPO ever — priced at $135, closing near $161 on day one before sliding. Here's the SpaceX IPO breakdown.",
     tags: "SpaceX, SPCX, NASDAQ, IPO, Going Public",
     author: "Andy Altahawi",
-    published: false,
     content: `SpaceX is now a publicly traded company. Elon Musk's rocket maker debuted on the Nasdaq Stock Market on June 12, 2026 under the ticker SPCX, in what was reported as the largest IPO in history. After years of speculation, the SpaceX IPO is a landmark moment for how large, late-stage private companies reach the public markets.
 
 ## SpaceX IPO details at a glance
@@ -110,7 +109,6 @@ This post is for information only and is not investment, legal, or tax advice, a
       "A direct listing lets your company go public on NASDAQ or NYSE without underwriters or new dilution. Here's how direct listings work in 2026, step by step.",
     tags: "Direct Listing, Going Public, NASDAQ, NYSE",
     author: "Andy Altahawi",
-    published: false,
     content: `A direct listing is a way to take a company public by listing its existing shares on a stock exchange — without the underwriting syndicate, roadshow, or newly issued stock of a traditional IPO. It has become one of the most talked-about routes to the public markets, used by companies from Spotify to Coinbase.
 
 ## How a direct listing works
@@ -143,7 +141,6 @@ This post is for information only and is not investment, legal, or tax advice.`,
       "Thinking about a NASDAQ direct listing? Here are the listing requirements, the SEC registration process, and a realistic timeline for going public without an IPO.",
     tags: "NASDAQ, Direct Listing, Listing Requirements",
     author: "Andy Altahawi",
-    published: false,
     content: `A NASDAQ direct listing lets a company list its existing shares on the Nasdaq Stock Market without an underwritten IPO. If you are weighing this path, here is what to know about requirements, process, and timing.
 
 ## NASDAQ direct listing requirements
@@ -175,7 +172,6 @@ This post is for information only and is not investment, legal, or tax advice.`,
       "How to take your company public through an NYSE direct listing — eligibility, the reference price process, costs versus an IPO, and what to prepare.",
     tags: "NYSE, Direct Listing, Going Public",
     author: "Andy Altahawi",
-    published: false,
     content: `The New York Stock Exchange was the venue for the first wave of high-profile direct listings, including Spotify and Slack. Here is how an NYSE direct listing works and what it costs compared with a traditional IPO.
 
 ## NYSE direct listing eligibility
@@ -205,7 +201,6 @@ This post is for information only and is not investment, legal, or tax advice.`,
       "From Spotify's 2018 NYSE debut to Coinbase on NASDAQ, these landmark direct listings show how top companies went public without a traditional IPO.",
     tags: "Direct Listing, Spotify, Coinbase, Case Studies",
     author: "Andy Altahawi",
-    published: false,
     content: `Direct listings moved from novelty to mainstream over the past several years, used by some of the most recognizable names in tech. Here are the landmark direct listings every founder should know — all documented in public filings on [EDGAR](https://www.sec.gov/cgi-bin/browse-edgar).
 
 ## Spotify — NYSE, 2018
@@ -245,7 +240,6 @@ This post is for information only and is not investment, legal, or tax advice. C
       "An equity line of credit (ELOC) lets a newly public company raise capital on demand. Here's how an ELOC works, when to use one, and how it pairs with a direct listing.",
     tags: "ELOC, Equity Line of Credit, Capital Raising",
     author: "Andy Altahawi",
-    published: false,
     content: `An equity line of credit (ELOC) is a committed standby facility that lets a public company sell shares to an institutional investor over time, drawing capital when it chooses. For companies that go public through a direct listing — which raises no new money by itself — an ELOC is a natural way to fund the business afterward.
 
 ## How an ELOC works
@@ -271,11 +265,20 @@ This post is for information only and is not investment, legal, or tax advice.`,
 async function main() {
   for (const p of posts) {
     const { published = true, ...rest } = p;
-    await db.blogPost.upsert({
-      where: { slug: p.slug },
-      update: {},
-      create: { ...rest, published, publishedAt: published ? new Date() : null },
-    });
+    const existing = await db.blogPost.findUnique({ where: { slug: p.slug } });
+    if (!existing) {
+      await db.blogPost.create({
+        data: { ...rest, published, publishedAt: published ? new Date() : null },
+      });
+    } else if (published && !existing.published) {
+      // Publish a post that was previously seeded as a draft; set publishedAt
+      // once (keep any existing value) so the date doesn't churn on reboots.
+      await db.blogPost.update({
+        where: { slug: p.slug },
+        data: { published: true, publishedAt: existing.publishedAt ?? new Date() },
+      });
+    }
+    // Already-published (or intentionally unpublished) posts are left untouched.
   }
   console.log(`Seeded ${posts.length} blog posts.`);
 }
