@@ -8,11 +8,17 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const url = process.env.DATABASE_URL || "";
-const isPostgres = /^postgres(ql)?:\/\//i.test(url);
+// FORCE_POSTGRES=1 lets the Docker image swap to Postgres even though no
+// DATABASE_URL is present at build time (Docker builds don't get runtime env).
+const force = process.env.FORCE_POSTGRES === "1";
+const isPostgres = force || /^postgres(ql)?:\/\//i.test(url);
 
 if (!isPostgres) {
   console.log(`[use-postgres] DATABASE_URL is not Postgres — keeping SQLite (${url || "unset"}).`);
   process.exit(0);
+}
+if (force) {
+  console.log("[use-postgres] FORCE_POSTGRES=1 — switching datasource to postgresql.");
 }
 
 const schemaPath = path.join(process.cwd(), "prisma", "schema.prisma");
