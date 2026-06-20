@@ -19,6 +19,9 @@ const run = (cmd) => {
 
 const isPostgres = /^postgres(ql)?:\/\//i.test(process.env.DATABASE_URL || "");
 if (isPostgres) {
+  // Guarantee schema.prisma matches the Postgres URL before db push, regardless
+  // of what the image baked in (a stale SQLite schema would fail validation).
+  run("node scripts/use-postgres.mjs");
   if (run("npx prisma db push --skip-generate")) {
     if (!run("npm run db:seed:all")) {
       console.warn("[start] seed failed — starting server anyway.");

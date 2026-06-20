@@ -26,6 +26,10 @@ RUN npm ci
 # Build the Next.js app. Build-time DB reads (sitemap) are guarded with .catch,
 # so the absent database at build time does not fail the build.
 COPY . .
+# COPY . . just re-introduced the repo's SQLite schema over the swap that ran in
+# `npm ci` postinstall — re-apply the Postgres swap so the image schema matches
+# the generated (Postgres) client and the runtime `prisma db push`.
+RUN node scripts/use-postgres.mjs
 RUN npm run build
 
 # Issuer-uploaded media lives here; mount a Render disk at /app/public/uploads
