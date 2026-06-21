@@ -1,10 +1,10 @@
 "use client";
 
 import { useActionState } from "react";
-import { changeAdminPassword } from "@/lib/settings-actions";
+import { changePassword } from "@/lib/settings-actions";
 
 export function ChangePasswordForm() {
-  const [state, action, pending] = useActionState(changeAdminPassword, undefined);
+  const [state, action, pending] = useActionState(changePassword, undefined);
   return (
     <form action={action} className="card space-y-5 !p-8">
       <div>

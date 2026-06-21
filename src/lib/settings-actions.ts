@@ -29,12 +29,15 @@ export async function savePromoVideos(formData: FormData) {
   redirect("/admin/settings");
 }
 
-export async function changeAdminPassword(
+// Any authenticated user (admin, issuer, or investor) changes their OWN
+// password. getCurrentUser pins this to the signed-in account, so there is no
+// way to change another user's password here.
+export async function changePassword(
   _prev: { error?: string; success?: string } | undefined,
   formData: FormData,
 ): Promise<{ error?: string; success?: string }> {
   const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") return { error: "Not authorized." };
+  if (!user) return { error: "Not authorized." };
 
   const current = String(formData.get("currentPassword") ?? "");
   const next = String(formData.get("newPassword") ?? "");

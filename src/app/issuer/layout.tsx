@@ -16,6 +16,7 @@ export default async function IssuerLayout({ children }: { children: React.React
       nav={[
         { href: "/issuer", label: "Dashboard" },
         { href: "/issuer/offerings/new", label: "New Offering" },
+        { href: "/issuer/account", label: "Account" },
       ]}
     >
       {children}
