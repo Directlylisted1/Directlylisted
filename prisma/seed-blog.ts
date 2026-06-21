@@ -2,7 +2,17 @@ import { PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient();
 
-const posts = [
+type SeedPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  tags: string;
+  content: string;
+  author?: string;
+  published?: boolean;
+};
+
+const posts: SeedPost[] = [
   {
     slug: "direct-listing-vs-ipo",
     title: "Direct Listing vs. IPO: What Founders Should Actually Compare",
