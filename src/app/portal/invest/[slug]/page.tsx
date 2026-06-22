@@ -67,11 +67,12 @@ export default async function InvestPage({
             <p role="alert" className="text-sm text-red-600">Amount exceeds the offering maximum.</p>
           )}
           <div className="rounded-xl bg-brand-50 p-4 text-xs leading-relaxed text-navy-900/70">
-            Amounts under ${CARD_LIMIT_USD.toLocaleString()} can be paid by card
-            (Braintree, a PayPal service). Amounts of $
-            {CARD_LIMIT_USD.toLocaleString()} or more are funded by wire or ACH
-            by wire or ACH. You&apos;ll sign your subscription agreement
-            electronically via Adobe Acrobat Sign before payment.
+            Funds are handled directly from you to the issuer — pay by card for
+            amounts under ${CARD_LIMIT_USD.toLocaleString()}, or by ACH or wire
+            transfer straight to the issuer&apos;s bank account for $
+            {CARD_LIMIT_USD.toLocaleString()} or more. You&apos;ll sign your
+            subscription agreement electronically via Adobe Acrobat Sign before
+            payment.
           </div>
           <button className="btn-primary w-full">Continue</button>
         </form>

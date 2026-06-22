@@ -24,9 +24,24 @@ export default async function IssuerDashboard() {
   ]);
 
   const totalRaised = offerings.reduce((s, o) => s + o.raisedAmount, 0);
+  const braintreeConnected = Boolean(
+    issuer.braintreeMerchantId && issuer.braintreePublicKey && issuer.braintreePrivateKey,
+  );
 
   return (
     <div className="space-y-10">
+      {!braintreeConnected && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-300 bg-amber-50 px-5 py-4 text-sm text-amber-900">
+          <span>
+            <strong>Connect your payment account to launch a campaign.</strong>{" "}
+            Investor funds settle directly into your own merchant account — Directly
+            Listed never holds the money.
+          </span>
+          <Link href="/issuer/account" className="btn-dark !py-2 text-xs">
+            Connect Payments
+          </Link>
+        </div>
+      )}
       <div className="max-w-3xl">
         <PromoVideo settingKey="promo_issuer" title="For issuers — Directly Listed" />
       </div>

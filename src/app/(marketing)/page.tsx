@@ -5,6 +5,8 @@ import { loadLegalDoc } from "@/lib/legal";
 import { HeroBackground } from "@/components/HeroBackground";
 import { PromoVideo } from "@/components/PromoVideo";
 import { CountUpStat } from "@/components/CountUpStat";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqGraph } from "@/lib/jsonld";
 
 // NOTE: confirm these figures are accurate/substantiated before launch.
 const HERO_STATS = [
@@ -66,6 +68,8 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* FAQ structured data — wins AI Overview / "People Also Ask" placement. */}
+      <JsonLd data={faqGraph()} id="ld-faq-home" />
       {/* ============ HERO ============ */}
       <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-navy-950">
         <HeroBackground />
@@ -269,8 +273,9 @@ export default async function HomePage() {
               ))}
             </div>
             <p className="mt-3 text-xs text-white/60">
-              Card payments processed by Braintree, a PayPal service, for
-              amounts under $5,000.
+              Funds are handled directly from investors to the issuer — by card
+              for amounts under $5,000, or by ACH or wire transfer straight to the
+              issuer&apos;s bank account.
             </p>
           </div>
         </div>

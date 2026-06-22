@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { db } from "./db";
 import { getCurrentUser } from "./session";
 import { sendAgreement } from "./adobe-sign";
-import { allowedPaymentMethods, chargeCard, isBraintreeConfigured } from "./payments";
+import { allowedPaymentMethods, chargeCardWith, resolveInvestmentBraintree } from "./payments";
 
 export async function startInvestment(formData: FormData) {
   const user = await getCurrentUser();
@@ -58,7 +58,7 @@ export async function sendInvestmentDocs(formData: FormData) {
   const id = String(formData.get("investmentId"));
   const investment = await db.investment.findUnique({
     where: { id },
-    include: { offering: true, agreement: true },
+    include: { offering: { include: { issuer: true } }, agreement: true },
   });
   if (!investment || investment.investorId !== user.id) redirect("/portal");
   if (investment.agreement) redirect(`/portal/investments/${id}`);
@@ -68,6 +68,8 @@ export async function sendInvestmentDocs(formData: FormData) {
     signerEmail: user.email,
     signerName: `${user.firstName} ${user.lastName}`,
     libraryDocumentId: investment.offering.acrobatTemplateId,
+    // Create the agreement inside the issuer's isolated Adobe Sign group.
+    groupId: investment.offering.issuer.adobeGroupId,
   });
 
   await db.$transaction([
@@ -124,9 +126,16 @@ export async function payByCard(
     return { error: "This amount must be funded by wire or ACH." };
   }
 
+  // Route the charge to the offering's issuer Braintree account (group-level),
+  // falling back to platform credentials, then to simulation when unconfigured.
   let txnId = "simulated";
-  if (isBraintreeConfigured()) {
-    const result = await chargeCard({ amount: investment.amount, nonce, investmentId: id });
+  const resolved = await resolveInvestmentBraintree(id);
+  if (resolved) {
+    const result = await chargeCardWith(resolved.creds, {
+      amount: investment.amount,
+      nonce,
+      investmentId: id,
+    });
     if (!result.ok) return { error: result.error };
     txnId = result.txnId;
   }

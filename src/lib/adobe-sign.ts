@@ -82,6 +82,12 @@ export async function sendAgreement(opts: {
   signerEmail: string;
   signerName: string;
   libraryDocumentId?: string | null;
+  /**
+   * The issuer's Adobe Sign group id. When present, the agreement is created
+   * inside that customer's isolated group so it inherits the issuer's branding,
+   * templates, and (group-level) payment routing — the multi-tenant model.
+   */
+  groupId?: string | null;
 }): Promise<CreatedAgreement> {
   const cfg = await getAdobeConfig();
   if (!cfg.configured) {
@@ -98,6 +104,7 @@ export async function sendAgreement(opts: {
     body: JSON.stringify({
       fileInfos: [{ libraryDocumentId: opts.libraryDocumentId }],
       name: opts.name,
+      ...(opts.groupId ? { groupId: opts.groupId } : {}),
       participantSetsInfo: [
         {
           memberInfos: [{ email: opts.signerEmail, name: opts.signerName }],

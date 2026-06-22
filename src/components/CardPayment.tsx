@@ -36,7 +36,7 @@ export function CardPayment({
     script.src = "https://js.braintreegateway.com/web/dropin/1.43.0/js/dropin.min.js";
     script.onload = async () => {
       try {
-        const res = await fetch("/api/braintree/token");
+        const res = await fetch(`/api/braintree/token?investmentId=${investmentId}`);
         const { clientToken } = await res.json();
         instanceRef.current = await window.braintree!.dropin.create({
           authorization: clientToken,
@@ -76,8 +76,8 @@ export function CardPayment({
         <div id="braintree-dropin" />
       ) : (
         <div className="rounded-lg bg-amber-50 p-3 text-xs text-amber-800">
-          Braintree sandbox credentials are not configured — payment will be
-          simulated for development.
+          Payment processing is not configured — payment will be simulated for
+          development.
         </div>
       )}
       {(state?.error || dropinError) && (

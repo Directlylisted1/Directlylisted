@@ -7,6 +7,13 @@ import { PromoVideo } from "@/components/PromoVideo";
 import { listingInfo } from "@/lib/listing-info";
 import { ElocTermSheet } from "@/components/ElocTermSheet";
 import { raiseInfo } from "@/lib/raise-capital-info";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildMetadata } from "@/lib/metadata";
+import { productGraph, breadcrumbGraph } from "@/lib/jsonld";
+import { ROUTES } from "@/lib/seo.config";
+
+// Every product slug is also an SEO route key (see lib/seo.config.ts).
+const isRouteKey = (slug: string): slug is keyof typeof ROUTES => slug in ROUTES;
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
@@ -20,6 +27,9 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = productBySlug(slug);
   if (!product) return {};
+  // SEO/AI-search metadata package: rich title, description, keywords, OG,
+  // Twitter, canonical, and author (Andy Altahawi) — keyed by slug.
+  if (isRouteKey(slug)) return buildMetadata(slug);
   const title = `${product.label} — Directly Listed`;
   return {
     title,
@@ -40,39 +50,18 @@ export default async function ProductPage({
 
   const listing = listingInfo(slug);
   const raise = raiseInfo(slug);
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Service",
-        name: product.label,
-        description: product.blurb,
-        serviceType: "Capital raising and exchange listing services",
-        provider: {
-          "@type": "Organization",
-          name: "Directly Listed",
-          url: "https://www.directlylisted.com",
-        },
-        areaServed: "US",
-        url: `https://www.directlylisted.com/products/${product.slug}`,
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Products", item: "https://www.directlylisted.com/products" },
-          { "@type": "ListItem", position: 2, name: product.label, item: `https://www.directlylisted.com/products/${product.slug}` },
-        ],
-      },
-    ],
-  };
+  const routeKey = isRouteKey(slug) ? slug : null;
+  // GEO lede: the one-sentence definitional answer LLMs lift verbatim.
+  const definition = routeKey ? ROUTES[routeKey].definition : null;
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {routeKey && (
+        <>
+          <JsonLd data={productGraph(routeKey)} id="ld-product" />
+          <JsonLd data={breadcrumbGraph(routeKey)} id="ld-breadcrumb" />
+        </>
+      )}
       <section className="bg-navy-950 px-6 pb-24 pt-40 text-white">
         <div className="mx-auto max-w-7xl">
           <div className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
@@ -81,6 +70,11 @@ export default async function ProductPage({
           <h1 className="mb-6 max-w-3xl text-5xl font-bold leading-tight">
             {product.label}
           </h1>
+          {definition && (
+            <p className="mb-4 max-w-3xl text-lg font-medium text-white/90">
+              {definition}
+            </p>
+          )}
           <p className="max-w-2xl text-lg text-white/70">{product.blurb}</p>
           <div className="mt-10 flex gap-4">
             <Link href={`/get-started?product=${product.slug}`} className="btn-primary">
@@ -138,9 +132,10 @@ export default async function ProductPage({
                     with full audit trails.
                   </p>
                   <p>
-                    <strong>Payments.</strong> Investors&apos; funds are routed
-                    directly to the issuer — by card for amounts under $5,000 and
-                    by wire or ACH above that.
+                    <strong>Payments.</strong> Funds are handled directly from
+                    investors to the issuer — by card for amounts under $5,000, or
+                    by ACH or wire transfer straight to the issuer&apos;s bank
+                    account. Directly Listed never holds the funds.
                   </p>
                   <p>
                     <strong>Issuer-exemption model.</strong> Directly Listed is a
@@ -181,9 +176,10 @@ export default async function ProductPage({
                     with full audit trails.
                   </p>
                   <p>
-                    <strong>Payments.</strong> Investors fund by card for
-                    amounts under $5,000 (processed by Braintree, a PayPal service)
-                    and by wire or ACH above that.
+                    <strong>Payments.</strong> Funds are handled directly from
+                    investors to the issuer — by card for amounts under $5,000, or
+                    by ACH or wire transfer straight to the issuer&apos;s bank
+                    account. Directly Listed never holds the funds.
                   </p>
                   <p>
                     <strong>Issuer-exemption model.</strong> Directly Listed is a

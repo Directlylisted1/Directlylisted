@@ -11,7 +11,7 @@ import {
 } from "@/lib/invest-actions";
 import {
   allowedPaymentMethods,
-  isBraintreeConfigured,
+  investmentBraintreeReady,
   CARD_LIMIT_USD,
 } from "@/lib/payments";
 import { isAdobeSignConfigured } from "@/lib/adobe-sign";
@@ -45,6 +45,7 @@ export default async function InvestmentDetail({
   const payStep = stepIdx === 2;
   const done = stepIdx >= 4;
   const adobeConfigured = await isAdobeSignConfigured();
+  const braintreeReady = await investmentBraintreeReady(id);
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
@@ -136,17 +137,23 @@ export default async function InvestmentDetail({
             <p className="text-sm text-navy-900/60">
               {methods.includes("CARD")
                 ? `Amounts under $${CARD_LIMIT_USD.toLocaleString()} may be paid by card. Wire and ACH are always available.`
-                : `This amount is $${CARD_LIMIT_USD.toLocaleString()} or more, so it must be funded by wire or ACH.`}
+                : `This amount is $${CARD_LIMIT_USD.toLocaleString()} or more, so it must be funded by ACH or wire.`}
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-navy-900/60">
+              Funds are handled directly from you to the issuer — card payments
+              under ${CARD_LIMIT_USD.toLocaleString()}, or ACH or wire transfers
+              straight to the issuer&apos;s bank account. Directly Listed never
+              holds the funds.
             </p>
           </div>
 
           {methods.includes("CARD") && (
             <div className="rounded-xl border border-navy-900/10 p-5">
-              <h3 className="mb-3 text-sm font-bold">Pay by Card (Braintree, a PayPal service)</h3>
+              <h3 className="mb-3 text-sm font-bold">Pay by Card</h3>
               <CardPayment
                 investmentId={id}
                 amount={investment.amount}
-                braintreeReady={isBraintreeConfigured()}
+                braintreeReady={braintreeReady}
               />
             </div>
           )}

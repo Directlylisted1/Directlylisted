@@ -11,10 +11,22 @@ export default async function AdminLeads() {
         <div key={l.id} className="card flex flex-wrap items-start justify-between gap-4">
           <div>
             <div className="font-bold">
-              {l.name} <span className="font-normal text-navy-900/70">· {l.email}</span>
+              {l.name}{" "}
+              <span className="font-normal text-navy-900/70">
+                · <a href={`mailto:${l.email}`} className="hover:text-navy-900">{l.email}</a>
+                {l.phone && (
+                  <>
+                    {" · "}
+                    <a href={`tel:${l.phone.replace(/[^+\d]/g, "")}`} className="hover:text-navy-900">
+                      {l.phone}
+                    </a>
+                  </>
+                )}
+              </span>
             </div>
             <div className="text-xs text-navy-900/70">
-              {l.kind.replaceAll("_", " ")} · {l.company ?? "no company"} ·{" "}
+              {l.kind.replaceAll("_", " ")} · {l.phone ?? "no phone"} ·{" "}
+              {l.company ?? "no company"} ·{" "}
               {l.productInterest || "no product selected"} ·{" "}
               {l.createdAt.toLocaleDateString()}
             </div>

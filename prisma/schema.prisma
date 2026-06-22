@@ -128,6 +128,22 @@ model IssuerProfile {
   stateOfInc  String?
   website     String?
   description String?
+
+  // --- Adobe Acrobat Sign multi-tenant group -------------------------------
+  // Each issuer ("customer") is an isolated group under the platform's single
+  // Adobe Sign account. Agreements for this issuer's offerings are created in
+  // this group so branding, templates, and payment routing stay separated.
+  adobeGroupId String?
+
+  // --- Group-level Braintree (PayPal) merchant account ---------------------
+  // The issuer's OWN Braintree credentials. Investor funds on this issuer's
+  // offerings settle directly into this merchant account — money never routes
+  // through Directly Listed. The private key is a sensitive credential.
+  braintreeMerchantId  String?
+  braintreePublicKey   String?
+  braintreePrivateKey  String?
+  braintreeEnvironment String? // "sandbox" | "production"
+
   offerings   Offering[]
   quotations  Quotation[]
 }

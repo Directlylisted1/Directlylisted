@@ -93,6 +93,18 @@ export async function setLeadStatus(formData: FormData) {
   revalidatePath("/admin/leads");
 }
 
+/**
+ * Admin assigns (or clears) an issuer's isolated Adobe Sign group id. Agreements
+ * for that issuer's offerings are then created inside their branded group.
+ */
+export async function setIssuerAdobeGroup(formData: FormData) {
+  await requireAdmin();
+  const issuerId = String(formData.get("issuerId"));
+  const adobeGroupId = String(formData.get("adobeGroupId") ?? "").trim() || null;
+  await db.issuerProfile.update({ where: { id: issuerId }, data: { adobeGroupId } });
+  revalidatePath("/admin/integrations");
+}
+
 export async function setAccreditation(formData: FormData) {
   await requireAdmin();
   const profileId = String(formData.get("profileId"));

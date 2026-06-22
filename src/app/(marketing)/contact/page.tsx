@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { WhatsAppContact } from "@/components/WhatsAppContact";
 import { notifyInquiry } from "@/lib/mailer";
 
 export const metadata = { title: "Contact — Directly Listed" };
@@ -28,6 +29,7 @@ export default function ContactPage() {
             <p><a href="mailto:info@directlylisted.com" className="hover:text-white">info@directlylisted.com</a></p>
             <p><a href="tel:+19495292500" className="hover:text-white">+1 949-529-2500</a></p>
           </div>
+          <WhatsAppContact className="mt-6 max-w-sm" />
         </div>
         <form action={submitContact} className="card space-y-4 !p-8">
           <div>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Logo } from "./Logo";
 import { PRODUCTS } from "@/lib/offering-types";
 import { SOCIAL_LINKS } from "@/lib/social";
+import { WhatsAppContact } from "./WhatsAppContact";
 
 export function SiteFooter() {
   return (
@@ -18,6 +19,7 @@ export function SiteFooter() {
             {" · "}
             <a href="tel:+19495292500" className="hover:text-white">+1 949-529-2500</a>
           </p>
+          <WhatsAppContact className="!max-w-xs" />
           <div className="flex items-center gap-3 pt-1">
             <a
               href={SOCIAL_LINKS.linkedin}
@@ -39,6 +41,17 @@ export function SiteFooter() {
             >
               <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+              </svg>
+            </a>
+            <a
+              href={SOCIAL_LINKS.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat with Directly Listed on WhatsApp"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-[#25D366] hover:border-[#25D366] hover:text-[#25D366]"
+            >
+              <svg viewBox="0 0 32 32" className="h-4 w-4" fill="currentColor" aria-hidden>
+                <path d="M16.004 0h-.008C7.174 0 .002 7.174.002 16c0 3.5 1.128 6.744 3.046 9.376L1.05 31.2l6.024-1.926A15.9 15.9 0 0 0 16.004 32C24.83 32 32 24.826 32 16S24.83 0 16.004 0Zm9.318 22.594c-.386 1.09-1.918 1.994-3.14 2.258-.836.178-1.928.32-5.602-1.202-4.7-1.948-7.726-6.724-7.962-7.034-.226-.31-1.9-2.528-1.9-4.822 0-2.294 1.166-3.422 1.636-3.902.386-.394.836-.574 1.31-.574.152 0 .29.008.414.014.376.016.564.038.812.63.308.742 1.06 2.586 1.15 2.77.092.184.184.434.06.744-.116.318-.218.458-.434.706-.218.248-.424.438-.642.704-.198.232-.422.482-.172.912.25.422 1.114 1.836 2.392 2.974 1.65 1.468 3.018 1.922 3.498 2.122.358.148.784.112 1.044-.17.33-.36.738-.956 1.152-1.544.294-.42.666-.472 1.056-.324.398.14 2.522 1.19 2.954 1.406.432.214.718.318.824.498.104.18.104 1.04-.282 2.13Z" />
               </svg>
             </a>
           </div>

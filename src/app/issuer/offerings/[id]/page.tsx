@@ -8,10 +8,13 @@ import { submitForReview } from "@/lib/issuer-actions";
 
 export default async function IssuerOfferingDetail({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ error?: string }>;
 }) {
   const { id } = await params;
+  const { error } = await searchParams;
   const user = (await getCurrentUser())!;
   const offering = await db.offering.findUnique({
     where: { id },
@@ -31,6 +34,18 @@ export default async function IssuerOfferingDetail({
 
   return (
     <div className="space-y-8">
+      {error === "braintree" && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-300 bg-amber-50 px-5 py-4 text-sm text-amber-900">
+          <span>
+            <strong>Connect your payment account first.</strong> You must record
+            your merchant credentials before submitting a campaign for review so
+            investor funds settle directly into your account.
+          </span>
+          <Link href="/issuer/account" className="btn-dark !py-2 text-xs">
+            Connect Payments
+          </Link>
+        </div>
+      )}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <Link href="/issuer" className="text-sm text-brand-600">← All offerings</Link>

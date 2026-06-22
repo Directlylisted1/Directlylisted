@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { PRODUCTS } from "@/lib/offering-types";
 import { FeeDisclosure } from "@/components/FeeDisclosure";
+import { WhatsAppContact } from "@/components/WhatsAppContact";
 import { notifyInquiry } from "@/lib/mailer";
 
 export const metadata = { title: "Get Started — Directly Listed" };
@@ -47,6 +48,12 @@ export default async function GetStartedPage({
           </ul>
           <div className="mt-8">
             <FeeDisclosure />
+          </div>
+          <div className="mt-8">
+            <p className="mb-3 text-sm font-semibold text-white/80">
+              Prefer to chat now?
+            </p>
+            <WhatsAppContact className="max-w-sm !text-left" />
           </div>
         </div>
         <form action={submitLead} className="card space-y-4 !p-8">

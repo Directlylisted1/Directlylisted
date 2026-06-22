@@ -125,8 +125,9 @@ export default async function OfferingDetail({
               </>
             )}
             <p className="mt-4 text-[11px] leading-snug text-navy-900/60">
-              Card payments accepted for amounts under $5,000 via Braintree, a
-              PayPal service. Larger amounts fund by wire or ACH.
+              Funds are handled directly from investors to the issuer — by card
+              for amounts under $5,000, or by ACH or wire transfer straight to the
+              issuer&apos;s bank account. Directly Listed never holds the funds.
             </p>
           </div>
         </div>

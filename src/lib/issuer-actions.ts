@@ -43,8 +43,50 @@ export async function submitForReview(formData: FormData) {
   const id = String(formData.get("offeringId"));
   const offering = await db.offering.findUnique({ where: { id } });
   if (!offering || offering.issuerId !== user.issuerProfile.id) redirect("/issuer");
+
+  // A campaign can't go live until the issuer has connected their own Braintree
+  // merchant account — funds must settle directly to the issuer.
+  const p = user.issuerProfile;
+  const braintreeConnected = Boolean(
+    p.braintreeMerchantId && p.braintreePublicKey && p.braintreePrivateKey,
+  );
+  if (!braintreeConnected) {
+    redirect(`/issuer/offerings/${id}?error=braintree`);
+  }
+
   await db.offering.update({ where: { id }, data: { status: "PENDING_REVIEW" } });
   revalidatePath(`/issuer/offerings/${id}`);
+}
+
+/**
+ * Issuer records (or rotates) their own group-level Braintree credentials.
+ * Funds on this issuer's offerings settle directly into this merchant account.
+ * The private key is sensitive — only overwritten when a new value is supplied,
+ * so saving other fields doesn't wipe a stored secret.
+ */
+export async function saveIssuerBraintree(formData: FormData) {
+  const user = await getCurrentUser();
+  if (!user?.issuerProfile) redirect("/signin");
+
+  const merchantId = String(formData.get("merchantId") ?? "").trim() || null;
+  const publicKey = String(formData.get("publicKey") ?? "").trim() || null;
+  const privateKeyInput = String(formData.get("privateKey") ?? "").trim();
+  const environment = String(formData.get("environment") ?? "sandbox") === "production"
+    ? "production"
+    : "sandbox";
+
+  await db.issuerProfile.update({
+    where: { id: user.issuerProfile.id },
+    data: {
+      braintreeMerchantId: merchantId,
+      braintreePublicKey: publicKey,
+      braintreeEnvironment: environment,
+      // Keep the existing private key when the field is left blank.
+      ...(privateKeyInput ? { braintreePrivateKey: privateKeyInput } : {}),
+    },
+  });
+  revalidatePath("/issuer/account");
+  redirect("/issuer/account?saved=braintree");
 }
 
 export async function acceptQuotation(formData: FormData) {

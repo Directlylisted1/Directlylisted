@@ -4,6 +4,7 @@ import { getAdobeConfig, pingAdobeSign } from "@/lib/adobe-sign";
 import { isBraintreeConfigured } from "@/lib/payments";
 import { isMailConfigured } from "@/lib/mailer";
 import { saveAdobeConfig, disconnectAdobe, refreshAgreement } from "@/lib/integration-actions";
+import { setIssuerAdobeGroup } from "@/lib/admin-actions";
 
 export default async function AdminIntegrationsPage({
   searchParams,
@@ -11,12 +12,16 @@ export default async function AdminIntegrationsPage({
   searchParams: Promise<{ saved?: string }>;
 }) {
   const { saved } = await searchParams;
-  const [cfg, ping, agreements] = await Promise.all([
+  const [cfg, ping, agreements, issuers] = await Promise.all([
     getAdobeConfig(),
     pingAdobeSign(),
     db.agreement.findMany({
       include: { investment: { include: { offering: true, investor: true } } },
       orderBy: { createdAt: "desc" },
+    }),
+    db.issuerProfile.findMany({
+      include: { user: true, _count: { select: { offerings: true } } },
+      orderBy: { companyName: "asc" },
     }),
   ]);
   const braintree = isBraintreeConfigured();
@@ -50,7 +55,7 @@ export default async function AdminIntegrationsPage({
         </div>
         <div className="card">
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="font-bold">Braintree (PayPal) Payments</h2>
+            <h2 className="font-bold">Card Payments</h2>
             <StatusBadge value={braintree ? "CONFIRMED" : "NOT_STARTED"} />
           </div>
           <p className="text-sm text-navy-900/70">
@@ -59,7 +64,8 @@ export default async function AdminIntegrationsPage({
               : "Not configured — card payments run in simulation mode."}
           </p>
           <p className="mt-1 text-xs text-navy-900/60">
-            Card under $5,000; wire/ACH above. Configured via environment variables.
+            Platform fallback (env vars). Each issuer routes to their own merchant
+            account — see Issuer Groups below. Card under $5,000; wire/ACH above.
           </p>
         </div>
         <div className="card">
@@ -125,6 +131,69 @@ export default async function AdminIntegrationsPage({
             )}
           </div>
         </form>
+      </section>
+
+      {/* Per-issuer multi-tenant groups: payment routing + Adobe Sign group */}
+      <section>
+        <h2 className="mb-1 text-xl font-bold">Issuer Groups — Payments &amp; eSign ({issuers.length})</h2>
+        <p className="mb-4 text-sm text-navy-900/70">
+          Each issuer connects their own merchant account (funds settle directly to
+          the issuer — no platform custody) and is assigned an isolated Adobe
+          Acrobat Sign group. Issuers enter their own payment keys from their
+          account; assign the Adobe group id here.
+        </p>
+        <div className="card overflow-x-auto !p-0">
+          <table className="w-full text-sm">
+            <thead className="border-b border-navy-900/10 text-left text-xs uppercase text-navy-900/70">
+              <tr>
+                <th scope="col" className="px-5 py-3">Issuer</th>
+                <th scope="col" className="px-5 py-3">Offerings</th>
+                <th scope="col" className="px-5 py-3">Payments</th>
+                <th scope="col" className="px-5 py-3">Adobe Sign group id</th>
+              </tr>
+            </thead>
+            <tbody>
+              {issuers.map((iss) => {
+                const btReady = Boolean(
+                  iss.braintreeMerchantId && iss.braintreePublicKey && iss.braintreePrivateKey,
+                );
+                return (
+                  <tr key={iss.id} className="border-b border-navy-900/5 align-top">
+                    <td className="px-5 py-3">
+                      <div className="font-medium">{iss.companyName}</div>
+                      <div className="text-xs text-navy-900/60">{iss.user.email}</div>
+                    </td>
+                    <td className="px-5 py-3">{iss._count.offerings}</td>
+                    <td className="px-5 py-3">
+                      <StatusBadge value={btReady ? "CONFIRMED" : "NOT_STARTED"} />
+                      {btReady && (
+                        <div className="mt-1 text-xs text-navy-900/60">
+                          {iss.braintreeEnvironment ?? "sandbox"}
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-5 py-3">
+                      <form action={setIssuerAdobeGroup} className="flex items-center gap-2">
+                        <input type="hidden" name="issuerId" value={iss.id} />
+                        <input
+                          name="adobeGroupId"
+                          defaultValue={iss.adobeGroupId ?? ""}
+                          aria-label={`Adobe Sign group id for ${iss.companyName}`}
+                          className="input !w-44 !py-2 text-xs"
+                          placeholder="group id"
+                        />
+                        <button className="btn-outline !px-4 !py-2 text-[11px]">Save</button>
+                      </form>
+                    </td>
+                  </tr>
+                );
+              })}
+              {issuers.length === 0 && (
+                <tr><td colSpan={4} className="px-5 py-8 text-center text-navy-900/70">No issuers yet.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       {/* All agreements across the platform */}

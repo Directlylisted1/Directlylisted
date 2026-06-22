@@ -12,7 +12,7 @@ const FEATURES = [
   ["Branded offering pages", "A conversion-focused page for your deal with its own Invest Now flow — embeddable on your existing website."],
   ["Investor onboarding", "Accreditation questionnaires, eligibility gating per exemption, and KYC workflows built into the funnel."],
   ["eSignature", "Subscription agreements executed through Adobe Acrobat Sign with complete audit trails and countersignature at closing."],
-  ["Payments", "Card payments under $5,000 via Braintree (a PayPal service); wire and ACH with per-subscription reference codes above."],
+  ["Payments", "Funds are handled directly from investors to the issuer — card payments under $5,000, or ACH and wire transfers straight to the issuer's bank account, with per-subscription reference codes."],
   ["Real-time dashboards", "Raise progress, subscription status, document status, and payment reconciliation in one back office."],
   ["SEC filings & Edgarization", "S-1, Reg A+ circulars, and exemption filings prepared and EDGARized by specialists paid from your flat fee."],
 ];
