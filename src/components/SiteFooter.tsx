@@ -82,6 +82,14 @@ export function SiteFooter() {
             <li><Link href="/book" className="hover:text-white">Book a Call</Link></li>
             <li><Link href="/get-started" className="hover:text-white">Get Started</Link></li>
             <li><Link href="/signin" className="hover:text-white">Investor Sign In</Link></li>
+            <li>
+              <a
+                href="mailto:support@directlylisted.com?subject=Support%20request%20%E2%80%94%20Directly%20Listed"
+                className="hover:text-white"
+              >
+                Support
+              </a>
+            </li>
           </ul>
         </div>
         <div className="space-y-8">

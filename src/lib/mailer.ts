@@ -1,45 +1,91 @@
 import "server-only";
 import nodemailer from "nodemailer";
+import { db } from "./db";
 
 /**
- * SMTP mailer for inquiry notifications. Configured entirely via env vars; if
- * SMTP isn't configured it no-ops (logs and returns), so forms keep working in
- * development and nothing is sent until credentials are added.
+ * SMTP mailer for inquiry/lead notifications.
  *
- *   SMTP_HOST, SMTP_PORT (default 587), SMTP_SECURE ("true" for port 465),
- *   SMTP_USER, SMTP_PASS
- *   NOTIFY_EMAIL  (where inquiries are sent; default info@directlylisted.com)
- *   MAIL_FROM     (envelope From; default "Directly Listed <no-reply@directlylisted.com>")
+ * Config resolves at call time from the admin back office (Site Settings) first,
+ * then environment variables — so an admin can connect/rotate the mailbox
+ * (e.g. GoDaddy / Microsoft 365) from /admin/integrations WITHOUT putting any
+ * password in the source code or env. DB keys:
+ *   smtp_host, smtp_port, smtp_secure, smtp_user, smtp_pass, mail_from, notify_email
+ * Env fallbacks:
+ *   SMTP_HOST, SMTP_PORT (default 587), SMTP_SECURE ("true" for 465),
+ *   SMTP_USER, SMTP_PASS, MAIL_FROM, NOTIFY_EMAIL (default info@directlylisted.com)
+ *
+ * With nothing configured, sending no-ops (logs and returns) so forms keep
+ * working and inquiries still save to the Leads inbox.
  */
-const NOTIFY_TO = process.env.NOTIFY_EMAIL || "info@directlylisted.com";
-const MAIL_FROM = process.env.MAIL_FROM || "Directly Listed <no-reply@directlylisted.com>";
+export const SMTP_KEYS = [
+  "smtp_host",
+  "smtp_port",
+  "smtp_secure",
+  "smtp_user",
+  "smtp_pass",
+  "mail_from",
+  "notify_email",
+] as const;
 
-export function isMailConfigured() {
-  return Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+export type MailConfig = {
+  host: string;
+  port: number;
+  secure: boolean;
+  user: string;
+  pass: string;
+  from: string;
+  notifyTo: string; // one or more addresses, comma-separated
+  configured: boolean;
+};
+
+export async function getMailConfig(): Promise<MailConfig> {
+  const rows = await db.siteSetting
+    .findMany({ where: { key: { in: [...SMTP_KEYS] } } })
+    .catch(() => [] as { key: string; value: string }[]);
+  const get = (k: string) => rows.find((r) => r.key === k)?.value;
+
+  const host = get("smtp_host") || process.env.SMTP_HOST || "";
+  const port = Number(get("smtp_port") || process.env.SMTP_PORT || 587) || 587;
+  const secureRaw = get("smtp_secure") ?? process.env.SMTP_SECURE;
+  // Default: implicit TLS only on 465; STARTTLS (secure:false) on 587.
+  const secure = secureRaw ? secureRaw === "true" : port === 465;
+  const user = get("smtp_user") || process.env.SMTP_USER || "";
+  const pass = get("smtp_pass") || process.env.SMTP_PASS || "";
+  // Many providers (notably Microsoft 365) reject a From that differs from the
+  // authenticated mailbox, so default From to the SMTP user.
+  const from =
+    get("mail_from") ||
+    process.env.MAIL_FROM ||
+    (user ? `Directly Listed <${user}>` : "Directly Listed <no-reply@directlylisted.com>");
+  const notifyTo = get("notify_email") || process.env.NOTIFY_EMAIL || "info@directlylisted.com";
+
+  return { host, port, secure, user, pass, from, notifyTo, configured: Boolean(host && user && pass) };
 }
 
-let transporter: nodemailer.Transporter | null = null;
-function getTransport() {
-  if (!transporter) {
-    transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: process.env.SMTP_SECURE === "true",
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-    });
-  }
-  return transporter;
+export async function isMailConfigured(): Promise<boolean> {
+  return (await getMailConfig()).configured;
 }
 
-async function send(opts: { subject: string; text: string; replyTo?: string }) {
-  if (!isMailConfigured()) {
-    console.log(`[mailer] SMTP not configured — would have emailed "${opts.subject}" to ${NOTIFY_TO}`);
-    return { sent: false };
+async function send(opts: {
+  subject: string;
+  text: string;
+  replyTo?: string;
+}): Promise<{ sent: boolean; error?: string }> {
+  const cfg = await getMailConfig();
+  if (!cfg.configured) {
+    console.log(`[mailer] SMTP not configured — would have emailed "${opts.subject}" to ${cfg.notifyTo}`);
+    return { sent: false, error: "SMTP not configured" };
   }
   try {
-    await getTransport().sendMail({
-      from: MAIL_FROM,
-      to: NOTIFY_TO,
+    const transporter = nodemailer.createTransport({
+      host: cfg.host,
+      port: cfg.port,
+      secure: cfg.secure,
+      auth: { user: cfg.user, pass: cfg.pass },
+    });
+    await transporter.sendMail({
+      from: cfg.from,
+      to: cfg.notifyTo,
       subject: opts.subject,
       text: opts.text,
       replyTo: opts.replyTo,
@@ -47,9 +93,23 @@ async function send(opts: { subject: string; text: string; replyTo?: string }) {
     return { sent: true };
   } catch (e) {
     // Never let an email failure break the user's form submission.
-    console.error("[mailer] send failed:", e instanceof Error ? e.message : e);
-    return { sent: false };
+    const error = e instanceof Error ? e.message : "send failed";
+    console.error("[mailer] send failed:", error);
+    return { sent: false, error };
   }
+}
+
+/** Admin connectivity check: send a real test message to the notify address. */
+export async function sendTestEmail(): Promise<{ sent: boolean; error?: string; to: string }> {
+  const cfg = await getMailConfig();
+  const result = await send({
+    subject: "Directly Listed — SMTP test email",
+    text:
+      "This is a test message from the Directly Listed admin back office.\n\n" +
+      "If you received this, your SMTP connection is working and platform " +
+      "inquiries/leads will be delivered to this inbox.",
+  });
+  return { ...result, to: cfg.notifyTo };
 }
 
 /** Notify the team of a new marketing inquiry / lead. */

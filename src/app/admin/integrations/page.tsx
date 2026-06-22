@@ -2,19 +2,27 @@ import { db } from "@/lib/db";
 import { StatusBadge } from "@/components/AppShell";
 import { getAdobeConfig, pingAdobeSign } from "@/lib/adobe-sign";
 import { isBraintreeConfigured } from "@/lib/payments";
-import { isMailConfigured } from "@/lib/mailer";
-import { saveAdobeConfig, disconnectAdobe, refreshAgreement } from "@/lib/integration-actions";
+import { getMailConfig } from "@/lib/mailer";
+import {
+  saveAdobeConfig,
+  disconnectAdobe,
+  refreshAgreement,
+  saveSmtpConfig,
+  disconnectSmtp,
+  sendSmtpTest,
+} from "@/lib/integration-actions";
 import { setIssuerAdobeGroup } from "@/lib/admin-actions";
 
 export default async function AdminIntegrationsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ saved?: string }>;
+  searchParams: Promise<{ saved?: string; test?: string; to?: string; msg?: string }>;
 }) {
-  const { saved } = await searchParams;
-  const [cfg, ping, agreements, issuers] = await Promise.all([
+  const { saved, test, to, msg } = await searchParams;
+  const [cfg, ping, mailCfg, agreements, issuers] = await Promise.all([
     getAdobeConfig(),
     pingAdobeSign(),
+    getMailConfig(),
     db.agreement.findMany({
       include: { investment: { include: { offering: true, investor: true } } },
       orderBy: { createdAt: "desc" },
@@ -25,12 +33,27 @@ export default async function AdminIntegrationsPage({
     }),
   ]);
   const braintree = isBraintreeConfigured();
-  const mailReady = isMailConfigured();
-  const notifyEmail = process.env.NOTIFY_EMAIL || "info@directlylisted.com";
+  const mailReady = mailCfg.configured;
+  const notifyEmail = mailCfg.notifyTo;
 
   return (
     <div className="space-y-10">
-      {saved && (
+      {saved === "smtp" && (
+        <p role="status" className="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+          Email (SMTP) connection saved.
+        </p>
+      )}
+      {test === "ok" && (
+        <p role="status" className="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+          Test email sent to {to}. Check that inbox.
+        </p>
+      )}
+      {test === "fail" && (
+        <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800">
+          Test email failed: {msg}
+        </p>
+      )}
+      {saved === "1" && (
         <p role="status" className="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
           Adobe Acrobat Sign connection saved.
         </p>
@@ -75,15 +98,86 @@ export default async function AdminIntegrationsPage({
           </div>
           <p className="text-sm text-navy-900/70">
             {mailReady
-              ? `Connected — inquiries email ${notifyEmail}.`
+              ? `Connected — platform messages email ${notifyEmail}.`
               : "Not configured — inquiries save to Leads/CRM but no email is sent."}
           </p>
           <p className="mt-1 text-xs text-navy-900/60">
-            Set SMTP_HOST / SMTP_USER / SMTP_PASS and NOTIFY_EMAIL in the
-            environment.
+            {mailReady
+              ? `Sending via ${mailCfg.host}:${mailCfg.port} as ${mailCfg.user}.`
+              : "Connect your GoDaddy / Microsoft 365 mailbox below to receive an inbox copy of every platform message."}
           </p>
         </div>
       </div>
+
+      {/* Email (SMTP) connection form */}
+      <section className="card !p-8">
+        <h2 className="mb-1 text-xl font-bold">Email Inbox Delivery (SMTP)</h2>
+        <p className="mb-5 text-sm text-navy-900/70">
+          Connect the mailbox that should <strong>receive an inbox copy of every
+          message from the platform</strong> — contact forms, quote requests, guide
+          downloads, and bookings all email the notify address below. Credentials
+          are stored securely in the back office, never in the source code. For a
+          GoDaddy Microsoft&nbsp;365 mailbox use host{" "}
+          <code className="rounded bg-brand-50 px-1">smtp.office365.com</code>, port{" "}
+          <code className="rounded bg-brand-50 px-1">587</code>, TLS{" "}
+          <code className="rounded bg-brand-50 px-1">STARTTLS</code>, and the full
+          email address as the username. (Microsoft&nbsp;365 may require
+          &ldquo;Authenticated SMTP&rdquo; to be enabled for the mailbox, or an app
+          password if security defaults / MFA are on.)
+        </p>
+        <form action={saveSmtpConfig} className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="smtp-host" className="label">SMTP Host</label>
+            <input id="smtp-host" name="smtp_host" defaultValue={mailCfg.host} className="input" placeholder="smtp.office365.com" autoComplete="off" />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="smtp-port" className="label">Port</label>
+              <input id="smtp-port" name="smtp_port" defaultValue={String(mailCfg.port)} className="input" placeholder="587" autoComplete="off" />
+            </div>
+            <div>
+              <label htmlFor="smtp-secure" className="label">TLS Mode</label>
+              <select id="smtp-secure" name="smtp_secure" defaultValue={mailCfg.secure ? "true" : "false"} className="input">
+                <option value="false">STARTTLS (587)</option>
+                <option value="true">SSL/TLS (465)</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label htmlFor="smtp-user" className="label">Username (full email)</label>
+            <input id="smtp-user" name="smtp_user" defaultValue={mailCfg.user} className="input" placeholder="info@directlylisted.com" autoComplete="off" />
+          </div>
+          <div>
+            <label htmlFor="smtp-pass" className="label">Password</label>
+            <input
+              id="smtp-pass"
+              name="smtp_pass"
+              type="password"
+              className="input"
+              placeholder={mailReady ? "•••••••• (leave blank to keep current)" : "Mailbox or app password"}
+              autoComplete="off"
+            />
+          </div>
+          <div>
+            <label htmlFor="smtp-from" className="label">From address</label>
+            <input id="smtp-from" name="mail_from" defaultValue={mailCfg.from} className="input" placeholder="Directly Listed <info@directlylisted.com>" autoComplete="off" />
+          </div>
+          <div>
+            <label htmlFor="smtp-notify" className="label">Deliver inbox copies to</label>
+            <input id="smtp-notify" name="notify_email" defaultValue={mailCfg.notifyTo} className="input" placeholder="info@directlylisted.com, support@directlylisted.com" autoComplete="off" />
+            <p className="mt-1 text-xs text-navy-900/60">Comma-separate to send to more than one inbox.</p>
+          </div>
+          <div className="flex flex-wrap gap-3 sm:col-span-2">
+            <button className="btn-dark">Save Email Connection</button>
+            {mailReady && (
+              <button formAction={sendSmtpTest} className="btn-outline">Send test email</button>
+            )}
+            {mailReady && (
+              <button formAction={disconnectSmtp} className="btn-outline">Disconnect</button>
+            )}
+          </div>
+        </form>
+      </section>
 
       {/* Adobe connection form */}
       <section className="card !p-8">
