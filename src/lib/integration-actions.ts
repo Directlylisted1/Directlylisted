@@ -59,6 +59,7 @@ export async function saveSmtpConfig(formData: FormData) {
   const pass = String(formData.get("smtp_pass") ?? "").trim();
   const from = String(formData.get("mail_from") ?? "").trim();
   const notify = String(formData.get("notify_email") ?? "").trim();
+  const notify2 = String(formData.get("notify_email_2") ?? "").trim();
 
   if (host) await upsert("smtp_host", host);
   if (port) await upsert("smtp_port", port);
@@ -67,16 +68,17 @@ export async function saveSmtpConfig(formData: FormData) {
   if (pass) await upsert("smtp_pass", pass); // only overwrite when provided
   if (from) await upsert("mail_from", from);
   if (notify) await upsert("notify_email", notify);
+  if (notify2) await upsert("notify_email_2", notify2);
 
   revalidatePath("/admin/integrations");
   redirect("/admin/integrations?saved=smtp");
 }
 
-/** Disconnect SMTP (back to env fallback / no-send). Keeps notify_email. */
+/** Disconnect SMTP (back to env fallback / no-send). Keeps the notify inboxes. */
 export async function disconnectSmtp() {
   await requireAdmin();
   await db.siteSetting.deleteMany({
-    where: { key: { in: SMTP_KEYS.filter((k) => k !== "notify_email") } },
+    where: { key: { in: SMTP_KEYS.filter((k) => k !== "notify_email" && k !== "notify_email_2") } },
   });
   revalidatePath("/admin/integrations");
 }

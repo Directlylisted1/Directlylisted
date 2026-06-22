@@ -25,6 +25,7 @@ export const SMTP_KEYS = [
   "smtp_pass",
   "mail_from",
   "notify_email",
+  "notify_email_2",
 ] as const;
 
 export type MailConfig = {
@@ -34,7 +35,9 @@ export type MailConfig = {
   user: string;
   pass: string;
   from: string;
-  notifyTo: string; // one or more addresses, comma-separated
+  notify1: string; // primary inbox (default info@directlylisted.com)
+  notify2: string; // second inbox (default support@directlylisted.com)
+  notifyTo: string; // combined recipient list actually sent to
   configured: boolean;
 };
 
@@ -57,9 +60,14 @@ export async function getMailConfig(): Promise<MailConfig> {
     get("mail_from") ||
     process.env.MAIL_FROM ||
     (user ? `Directly Listed <${user}>` : "Directly Listed <no-reply@directlylisted.com>");
-  const notifyTo = get("notify_email") || process.env.NOTIFY_EMAIL || "info@directlylisted.com";
+  const notify1 = get("notify_email") || process.env.NOTIFY_EMAIL || "info@directlylisted.com";
+  const notify2 = get("notify_email_2") || process.env.NOTIFY_EMAIL_2 || "support@directlylisted.com";
+  // Combined, de-duplicated recipient list — every platform message goes to both.
+  const notifyTo = Array.from(
+    new Set([notify1, notify2].flatMap((s) => s.split(",")).map((s) => s.trim()).filter(Boolean)),
+  ).join(", ");
 
-  return { host, port, secure, user, pass, from, notifyTo, configured: Boolean(host && user && pass) };
+  return { host, port, secure, user, pass, from, notify1, notify2, notifyTo, configured: Boolean(host && user && pass) };
 }
 
 export async function isMailConfigured(): Promise<boolean> {

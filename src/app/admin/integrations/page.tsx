@@ -163,9 +163,14 @@ export default async function AdminIntegrationsPage({
             <input id="smtp-from" name="mail_from" defaultValue={mailCfg.from} className="input" placeholder="Directly Listed <info@directlylisted.com>" autoComplete="off" />
           </div>
           <div>
-            <label htmlFor="smtp-notify" className="label">Deliver inbox copies to</label>
-            <input id="smtp-notify" name="notify_email" defaultValue={mailCfg.notifyTo} className="input" placeholder="info@directlylisted.com, support@directlylisted.com" autoComplete="off" />
-            <p className="mt-1 text-xs text-navy-900/60">Comma-separate to send to more than one inbox.</p>
+            <label htmlFor="smtp-notify" className="label">Inbox 1 — Primary</label>
+            <input id="smtp-notify" name="notify_email" defaultValue={mailCfg.notify1} className="input" placeholder="info@directlylisted.com" autoComplete="off" />
+            <p className="mt-1 text-xs text-navy-900/60">Leads &amp; general inquiries. Comma-separate for more.</p>
+          </div>
+          <div>
+            <label htmlFor="smtp-notify2" className="label">Inbox 2 — Support</label>
+            <input id="smtp-notify2" name="notify_email_2" defaultValue={mailCfg.notify2} className="input" placeholder="support@directlylisted.com" autoComplete="off" />
+            <p className="mt-1 text-xs text-navy-900/60">Second inbox — every platform message is also delivered here.</p>
           </div>
           <div className="flex flex-wrap gap-3 sm:col-span-2">
             <button className="btn-dark">Save Email Connection</button>

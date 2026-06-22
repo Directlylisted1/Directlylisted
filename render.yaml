@@ -51,11 +51,19 @@ services:
         value: https://api.na1.adobesign.com
       - key: ADOBE_SIGN_INTEGRATION_KEY
         sync: false
-      # Email notifications for website inquiries (SMTP)
+      # Email notifications for website inquiries (SMTP).
+      # These are FALLBACKS — an admin can also connect the mailbox from
+      # /admin/integrations (stored in the DB), which takes precedence.
+      # Primary + second inbox: every platform message is delivered to both.
       - key: NOTIFY_EMAIL
         value: info@directlylisted.com
+      - key: NOTIFY_EMAIL_2
+        value: support@directlylisted.com
+      # From must match the authenticated mailbox or Microsoft 365 rejects the send.
       - key: MAIL_FROM
-        value: Directly Listed <no-reply@directlylisted.com>
+        value: Directly Listed <info@directlylisted.com>
+      # GoDaddy / Microsoft 365: host smtp.office365.com, port 587, secure false
+      # (STARTTLS), user = full email address. Set the secrets in the dashboard.
       - key: SMTP_HOST
         sync: false
       - key: SMTP_PORT
