@@ -100,6 +100,11 @@ export async function signUp(
     return { error: "All fields are required; password must be at least 8 characters." };
   }
 
+  // accountType is INVESTOR | ISSUER | BOTH. "Both" provisions both profiles so
+  // the one login works as either from day one; it defaults to the investor
+  // portal and can switch to issuer anytime.
+  const wantIssuer = accountType === "ISSUER" || accountType === "BOTH";
+  const wantInvestor = accountType === "INVESTOR" || accountType === "BOTH";
   const role = accountType === "ISSUER" ? "ISSUER" : "INVESTOR";
   let user;
   try {
@@ -113,9 +118,10 @@ export async function signUp(
         firstName,
         lastName,
         role,
-        ...(role === "INVESTOR"
-          ? { investorProfile: { create: {} } }
-          : { issuerProfile: { create: { companyName: companyName || `${firstName} ${lastName} Co.` } } }),
+        ...(wantIssuer
+          ? { issuerProfile: { create: { companyName: companyName || `${firstName} ${lastName} Co.` } } }
+          : {}),
+        ...(wantInvestor ? { investorProfile: { create: {} } } : {}),
       },
     });
   } catch (err) {

@@ -60,7 +60,7 @@ export function SignInForm({ next }: { next?: string }) {
 
 export function SignUpForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState(signUp, undefined);
-  const [type, setType] = useState<"INVESTOR" | "ISSUER">("INVESTOR");
+  const [type, setType] = useState<"INVESTOR" | "ISSUER" | "BOTH">("INVESTOR");
   return (
     <form action={action} className="space-y-4">
       <input type="hidden" name="next" value={next ?? ""} />
@@ -68,9 +68,9 @@ export function SignUpForm({ next }: { next?: string }) {
       <div
         role="group"
         aria-label="Account type"
-        className="grid grid-cols-2 gap-2 rounded-full bg-brand-50 p-1 text-sm font-semibold"
+        className="grid grid-cols-3 gap-2 rounded-full bg-brand-50 p-1 text-sm font-semibold"
       >
-        {(["INVESTOR", "ISSUER"] as const).map((t) => (
+        {(["INVESTOR", "ISSUER", "BOTH"] as const).map((t) => (
           <button
             key={t}
             type="button"
@@ -78,10 +78,16 @@ export function SignUpForm({ next }: { next?: string }) {
             onClick={() => setType(t)}
             className={`rounded-full py-2 transition ${type === t ? "bg-navy-900 text-white" : "text-navy-900/70"}`}
           >
-            {t === "INVESTOR" ? "I'm an Investor" : "I'm an Issuer"}
+            {t === "INVESTOR" ? "Investor" : t === "ISSUER" ? "Issuer" : "Both"}
           </button>
         ))}
       </div>
+      {type === "BOTH" && (
+        <p className="text-xs text-navy-900/55">
+          One login for both — invest and raise capital. You&apos;ll start in the
+          investor portal and can switch to issuer anytime.
+        </p>
+      )}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="su-first" className="label">First Name</label>
@@ -92,7 +98,7 @@ export function SignUpForm({ next }: { next?: string }) {
           <input id="su-last" name="lastName" autoComplete="family-name" required className="input" />
         </div>
       </div>
-      {type === "ISSUER" && (
+      {type !== "INVESTOR" && (
         <div>
           <label htmlFor="su-company" className="label">Company Name</label>
           <input id="su-company" name="companyName" autoComplete="organization" required className="input" />
