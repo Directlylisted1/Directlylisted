@@ -162,6 +162,16 @@ export async function setIssuerAdobeGroup(formData: FormData) {
   revalidatePath("/admin/integrations");
 }
 
+/** Permanently delete a lead from the back-office inbox. */
+export async function deleteLead(formData: FormData) {
+  await requireAdmin();
+  const id = String(formData.get("leadId"));
+  await db.lead.delete({ where: { id } }).catch((e) => {
+    console.error("[deleteLead]", e instanceof Error ? e.message : e);
+  });
+  revalidatePath("/admin/leads");
+}
+
 export async function setAccreditation(formData: FormData) {
   await requireAdmin();
   const profileId = String(formData.get("profileId"));

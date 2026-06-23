@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { StatusBadge } from "@/components/AppShell";
-import { setLeadStatus } from "@/lib/admin-actions";
+import { setLeadStatus, deleteLead } from "@/lib/admin-actions";
 
 export default async function AdminLeads() {
   const leads = await db.lead.findMany({ orderBy: { createdAt: "desc" } });
@@ -47,6 +47,12 @@ export default async function AdminLeads() {
                 ))}
               </select>
               <button className="btn-dark !py-2.5 text-xs">Set</button>
+            </form>
+            <form action={deleteLead}>
+              <input type="hidden" name="leadId" value={l.id} />
+              <button className="!rounded-lg !border !border-red-300 !bg-red-50 !px-4 !py-2.5 text-xs font-semibold text-red-700 hover:!bg-red-100">
+                Delete
+              </button>
             </form>
           </div>
         </div>
