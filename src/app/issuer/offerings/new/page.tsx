@@ -24,6 +24,24 @@ export default function NewOfferingPage() {
             ))}
           </select>
         </div>
+        <div className="rounded-xl border border-navy-900/10 bg-brand-50/40 p-4">
+          <h3 className="mb-1 text-sm font-bold">Homepage flagship card</h3>
+          <p className="mb-3 text-xs text-navy-900/60">
+            If your offering is featured on the homepage, this is the bold title
+            and subtitle that appear on your card. Leave blank to use your offering
+            name and tagline.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor="of-headline" className="label">Bold Title</label>
+              <input id="of-headline" name="headline" className="input" placeholder="Powering the next grid" />
+            </div>
+            <div>
+              <label htmlFor="of-subheadline" className="label">Subtitle</label>
+              <input id="of-subheadline" name="subheadline" className="input" placeholder="Series A · Clean energy storage" />
+            </div>
+          </div>
+        </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="of-tagline" className="label">Tagline</label>

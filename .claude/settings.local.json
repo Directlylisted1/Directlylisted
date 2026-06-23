@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.directlylisted.com)"
+      "WebFetch(domain:www.directlylisted.com)",
+      "Bash(node -e ' *)"
     ]
   }
 }

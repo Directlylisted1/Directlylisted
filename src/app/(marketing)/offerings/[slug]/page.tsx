@@ -41,7 +41,7 @@ export default async function OfferingDetail({
       },
     })
     .catch(() => null);
-  if (!offering || offering.status === "DRAFT") notFound();
+  if (!offering || offering.status === "DRAFT" || offering.archivedAt) notFound();
   const gallery = offering.assets.filter((a) => a.kind === "IMAGE");
   const videos = offering.assets.filter((a) => a.kind === "VIDEO_LINK");
   const materials = offering.assets.filter((a) =>

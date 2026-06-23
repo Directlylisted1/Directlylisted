@@ -98,6 +98,8 @@ model User {
   lastName     String
   phone        String?
   role         Role     @default(INVESTOR)
+  // Soft archive — archived users can't sign in and are hidden from active lists.
+  archivedAt   DateTime?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -151,12 +153,20 @@ model IssuerProfile {
 model Offering {
   id              String         @id @default(cuid())
   issuerId        String
-  issuer          IssuerProfile  @relation(fields: [issuerId], references: [id])
+  issuer          IssuerProfile  @relation(fields: [issuerId], references: [id], onDelete: Cascade)
   type            OfferingType
   status          OfferingStatus @default(DRAFT)
   name            String
   slug            String         @unique
   tagline         String?
+  // Issuer-drafted bold title + subtitle for the homepage flagship card.
+  headline        String?
+  subheadline     String?
+  // Homepage flagship selection (admin-controlled).
+  featured        Boolean        @default(false)
+  featuredRank    Int            @default(0)
+  // Soft archive — hidden from the public + homepage, kept in admin.
+  archivedAt      DateTime?
   description     String?
   industry        String?
   heroColor       String         @default("#0A2540")
@@ -210,9 +220,9 @@ model OfferingDocument {
 model Quotation {
   id            String          @id @default(cuid())
   offeringId    String          @unique
-  offering      Offering        @relation(fields: [offeringId], references: [id])
+  offering      Offering        @relation(fields: [offeringId], references: [id], onDelete: Cascade)
   issuerId      String
-  issuer        IssuerProfile   @relation(fields: [issuerId], references: [id])
+  issuer        IssuerProfile   @relation(fields: [issuerId], references: [id], onDelete: Cascade)
   flatFeeUsd    Float
   equityGrantPct Float // % of issuer equity granted to platform at signing
   notes         String?
@@ -227,9 +237,9 @@ model Quotation {
 model Investment {
   id            String           @id @default(cuid())
   offeringId    String
-  offering      Offering         @relation(fields: [offeringId], references: [id])
+  offering      Offering         @relation(fields: [offeringId], references: [id], onDelete: Cascade)
   investorId    String
-  investor      User             @relation(fields: [investorId], references: [id])
+  investor      User             @relation(fields: [investorId], references: [id], onDelete: Cascade)
   amount        Float
   units         Float            @default(0)
   status        InvestmentStatus @default(STARTED)
@@ -244,7 +254,7 @@ model Investment {
 model Payment {
   id            String        @id @default(cuid())
   investmentId  String        @unique
-  investment    Investment    @relation(fields: [investmentId], references: [id])
+  investment    Investment    @relation(fields: [investmentId], references: [id], onDelete: Cascade)
   method        PaymentMethod
   status        PaymentStatus @default(PENDING)
   amount        Float
@@ -260,7 +270,7 @@ model Payment {
 model Agreement {
   id               String          @id @default(cuid())
   investmentId     String          @unique
-  investment       Investment      @relation(fields: [investmentId], references: [id])
+  investment       Investment      @relation(fields: [investmentId], references: [id], onDelete: Cascade)
   acrobatAgreementId String?
   name             String
   status           AgreementStatus @default(CREATED)

@@ -26,6 +26,9 @@ export async function signIn(
   if (!user || !bcrypt.compareSync(password, user.passwordHash)) {
     return { error: "Invalid email or password." };
   }
+  if (user.archivedAt) {
+    return { error: "This account has been deactivated. Contact support@directlylisted.com." };
+  }
   try {
     await createSession({ userId: user.id, role: user.role });
   } catch (err) {

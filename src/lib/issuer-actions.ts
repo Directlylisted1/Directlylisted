@@ -25,6 +25,8 @@ export async function createOffering(formData: FormData) {
       slug,
       type: String(formData.get("type")) as never,
       tagline: String(formData.get("tagline") ?? "") || null,
+      headline: String(formData.get("headline") ?? "") || null,
+      subheadline: String(formData.get("subheadline") ?? "") || null,
       industry: String(formData.get("industry") ?? "") || null,
       description: String(formData.get("description") ?? "") || null,
       targetAmount: Number(formData.get("targetAmount") ?? 0),
@@ -35,6 +37,29 @@ export async function createOffering(formData: FormData) {
     },
   });
   redirect(`/issuer/offerings/${offering.id}`);
+}
+
+/**
+ * Issuer drafts/edits the homepage flagship card copy for their offering —
+ * a bold title (headline) and subtitle (subheadline), plus the tagline.
+ */
+export async function updateOfferingCard(formData: FormData) {
+  const user = await getCurrentUser();
+  if (!user?.issuerProfile) redirect("/signin");
+  const id = String(formData.get("offeringId"));
+  const offering = await db.offering.findUnique({ where: { id } });
+  if (!offering || offering.issuerId !== user.issuerProfile.id) redirect("/issuer");
+
+  await db.offering.update({
+    where: { id },
+    data: {
+      headline: String(formData.get("headline") ?? "").trim() || null,
+      subheadline: String(formData.get("subheadline") ?? "").trim() || null,
+      tagline: String(formData.get("tagline") ?? "").trim() || null,
+    },
+  });
+  revalidatePath(`/issuer/offerings/${id}`);
+  revalidatePath("/");
 }
 
 export async function submitForReview(formData: FormData) {

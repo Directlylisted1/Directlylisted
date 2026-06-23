@@ -12,7 +12,7 @@ export const metadata = {
 export default async function OfferingsPage() {
   const offerings = await db.offering
     .findMany({
-      where: { status: { in: ["LIVE", "CLOSED"] } },
+      where: { status: { in: ["LIVE", "CLOSED"] }, archivedAt: null },
       orderBy: [{ status: "asc" }, { raisedAmount: "desc" }],
     })
     .catch(() => []);

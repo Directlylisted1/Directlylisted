@@ -20,6 +20,63 @@ export async function setOfferingStatus(formData: FormData) {
   revalidatePath("/admin/offerings");
 }
 
+/** Toggle an offering as a homepage flagship and set its display rank (1–3). */
+export async function setOfferingFeatured(formData: FormData) {
+  await requireAdmin();
+  const id = String(formData.get("offeringId"));
+  const featured = String(formData.get("featured") ?? "") === "on";
+  const featuredRank = Number(formData.get("featuredRank") ?? 0) || 0;
+  await db.offering.update({ where: { id }, data: { featured, featuredRank } });
+  revalidatePath("/admin/offerings");
+  revalidatePath("/");
+}
+
+/** Archive / unarchive an offering (hidden from public + homepage, kept in admin). */
+export async function setOfferingArchived(formData: FormData) {
+  await requireAdmin();
+  const id = String(formData.get("offeringId"));
+  const archive = String(formData.get("archive") ?? "") === "1";
+  await db.offering.update({
+    where: { id },
+    data: { archivedAt: archive ? new Date() : null, ...(archive ? { featured: false } : {}) },
+  });
+  revalidatePath("/admin/offerings");
+  revalidatePath("/");
+}
+
+/** Permanently delete an offering and all its dependent records (cascades). */
+export async function deleteOffering(formData: FormData) {
+  await requireAdmin();
+  const id = String(formData.get("offeringId"));
+  await db.offering.delete({ where: { id } }).catch((e) => {
+    console.error("[deleteOffering]", e instanceof Error ? e.message : e);
+  });
+  revalidatePath("/admin/offerings");
+  revalidatePath("/");
+}
+
+/** Archive / unarchive a user (archived users can't sign in). */
+export async function setUserArchived(formData: FormData) {
+  const admin = await requireAdmin();
+  const id = String(formData.get("userId"));
+  const archive = String(formData.get("archive") ?? "") === "1";
+  if (id === admin.id) return; // never archive yourself
+  await db.user.update({ where: { id }, data: { archivedAt: archive ? new Date() : null } });
+  revalidatePath("/admin/users");
+}
+
+/** Permanently delete a user (investor or issuer) and their dependent records. */
+export async function deleteUser(formData: FormData) {
+  const admin = await requireAdmin();
+  const id = String(formData.get("userId"));
+  if (id === admin.id) return; // never delete yourself
+  await db.user.delete({ where: { id } }).catch((e) => {
+    console.error("[deleteUser]", e instanceof Error ? e.message : e);
+  });
+  revalidatePath("/admin/users");
+  revalidatePath("/admin/offerings");
+}
+
 export async function sendQuotation(formData: FormData) {
   await requireAdmin();
   const offeringId = String(formData.get("offeringId"));

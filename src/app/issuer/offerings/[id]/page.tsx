@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { StatusBadge } from "@/components/AppShell";
 import { fmtMoney, productByType } from "@/lib/offering-types";
-import { submitForReview } from "@/lib/issuer-actions";
+import { submitForReview, updateOfferingCard } from "@/lib/issuer-actions";
 
 export default async function IssuerOfferingDetail({
   params,
@@ -91,6 +91,33 @@ export default async function IssuerOfferingDetail({
           <div className="text-2xl font-bold">{funded.length}</div>
         </div>
       </div>
+
+      {/* Homepage flagship card copy — issuer drafts the bold title + subtitle */}
+      <form action={updateOfferingCard} className="card space-y-4 !p-6">
+        <input type="hidden" name="offeringId" value={offering.id} />
+        <div>
+          <h3 className="text-sm font-bold">Homepage Flagship Card</h3>
+          <p className="text-xs text-navy-900/60">
+            The bold title and subtitle shown on your card if it&apos;s featured on
+            the homepage. Leave blank to use your offering name and tagline.
+          </p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="hc-headline" className="label">Bold Title</label>
+            <input id="hc-headline" name="headline" defaultValue={offering.headline ?? ""} className="input" placeholder="Powering the next grid" />
+          </div>
+          <div>
+            <label htmlFor="hc-subheadline" className="label">Subtitle</label>
+            <input id="hc-subheadline" name="subheadline" defaultValue={offering.subheadline ?? ""} className="input" placeholder="Series A · Clean energy storage" />
+          </div>
+        </div>
+        <div>
+          <label htmlFor="hc-tagline" className="label">Tagline</label>
+          <input id="hc-tagline" name="tagline" defaultValue={offering.tagline ?? ""} className="input" placeholder="One bold sentence." />
+        </div>
+        <button className="btn-dark !py-2.5 text-xs">Save Card</button>
+      </form>
 
       {offering.quotation && (
         <div className="card flex flex-wrap items-center justify-between gap-3">
