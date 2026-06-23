@@ -75,7 +75,7 @@ export function SiteFooter() {
             <li><Link href="/raise-capital" className="hover:text-white">Raise Capital</Link></li>
             <li><Link href="/about" className="hover:text-white">About Us</Link></li>
             <li><Link href="/guides" className="hover:text-white">Guides</Link></li>
-            <li><Link href="/case-studies" className="hover:text-white">Case Studies</Link></li>
+            <li><Link href="/case-studies" className="hover:text-white">Current Deals &amp; Case Studies</Link></li>
             <li><Link href="/faq/issuer" className="hover:text-white">Issuer FAQ</Link></li>
             <li><Link href="/faq/investor" className="hover:text-white">Investor FAQ</Link></li>
             <li><Link href="/blog" className="hover:text-white">Blog/Vlog</Link></li>

@@ -121,70 +121,93 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ FEATURED DEALS (three flagship cards, stacked on mobile) ============ */}
+      {/* ============ CURRENT DEALS & CASE STUDIES (featured, split-panel look) ============ */}
       {featured.length > 0 && (
-        <section className="grid bg-navy-950 md:grid-cols-3">
-          {slots.map((o, i) =>
-            o ? (
-              <div
-                key={o.id}
-                className="relative flex min-h-[460px] flex-col justify-end p-10 text-white"
-                style={{
-                  background: `linear-gradient(180deg, ${o.heroColor}cc 0%, #061629 100%)`,
-                }}
-              >
-                <div className="space-y-4">
-                  <div>
-                    <div className="text-2xl font-bold leading-tight">{o.headline || o.name}</div>
-                    <div className="mt-1 text-sm text-white/70">{o.subheadline || o.tagline}</div>
-                  </div>
-                  <div className="flex gap-8">
+        <section className="bg-navy-950 text-white">
+          {/* Clickable header → full Current Deals & Case Studies page */}
+          <div className="mx-auto max-w-7xl px-6 pb-10 pt-20">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <div className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                  Current Deals &amp; Case Studies
+                </div>
+                <h2 className="text-4xl font-bold leading-tight">
+                  Real raises on the platform
+                </h2>
+              </div>
+              <Link href="/case-studies" className="btn-light !py-2.5">
+                View All Current Deals →
+              </Link>
+            </div>
+          </div>
+
+          {/* Featured three — one large, two stacked (classic split-panel look) */}
+          <div className="grid md:grid-cols-2">
+            {slots.map((o, i) =>
+              o ? (
+                <Link
+                  key={o.id}
+                  href={`/offerings/${o.slug}`}
+                  className={`group relative flex min-h-[420px] flex-col justify-end p-10 text-white transition-[filter] hover:brightness-110 ${
+                    i === 0 ? "md:row-span-2 md:min-h-[840px]" : ""
+                  }`}
+                  style={{
+                    background: `linear-gradient(180deg, ${o.heroColor}cc 0%, #061629 100%)`,
+                  }}
+                >
+                  <div className="space-y-4">
                     <div>
-                      <div className="stat-rule" />
-                      <div className="text-xs text-white/60">
-                        {o.type === "ELOC" ? "Capital Committed" : "Capital Raised"}
-                      </div>
-                      <div className="text-3xl font-light">{fmtMoney(o.raisedAmount)}+</div>
+                      <div className="text-xl font-bold leading-tight">{o.headline || o.name}</div>
+                      <div className="mt-1 text-sm text-white/70">{o.subheadline || o.tagline}</div>
                     </div>
-                    <div>
-                      <div className="stat-rule" />
-                      <div className="text-xs text-white/60">Investors</div>
-                      <div className="text-3xl font-light">
-                        {o.investorCount >= 1000
-                          ? `${Math.round(o.investorCount / 1000)}K+`
-                          : o.investorCount}
+                    <div className="flex gap-10">
+                      <div>
+                        <div className="stat-rule" />
+                        <div className="text-xs text-white/60">
+                          {o.type === "ELOC" ? "Capital Committed" : "Capital Raised"}
+                        </div>
+                        <div className="text-3xl font-light">{fmtMoney(o.raisedAmount)}+</div>
+                      </div>
+                      <div>
+                        <div className="stat-rule" />
+                        <div className="text-xs text-white/60">Investors</div>
+                        <div className="text-3xl font-light">
+                          {o.investorCount >= 1000
+                            ? `${Math.round(o.investorCount / 1000)}K+`
+                            : o.investorCount}
+                        </div>
                       </div>
                     </div>
+                    <span className="btn-primary !py-2.5 w-fit">Learn More</span>
                   </div>
-                  <Link href={`/offerings/${o.slug}`} className="btn-primary !py-2.5">
-                    Learn More
+                  <span className="absolute right-10 top-10 rounded-full bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur">
+                    {productByType(o.type).shortLabel}
+                  </span>
+                </Link>
+              ) : (
+                // Branded placeholder keeps the panel full when a slot is empty —
+                // no white gap when an offering's status changes.
+                <div
+                  key={`slot-${i}`}
+                  className={`relative flex min-h-[420px] flex-col items-center justify-center gap-4 p-10 text-center text-white ${
+                    i === 0 ? "md:row-span-2 md:min-h-[840px]" : ""
+                  }`}
+                  style={{ background: "linear-gradient(180deg, #0A2540 0%, #061629 100%)" }}
+                >
+                  <div className="text-xs font-semibold uppercase tracking-widest text-accent">
+                    Featured Offering
+                  </div>
+                  <div className="text-2xl font-bold">More offerings coming soon</div>
+                  <p className="max-w-xs text-sm text-white/70">
+                    Raising capital or going public? Your company could be featured here.
+                  </p>
+                  <Link href="/get-started" className="btn-primary !py-2.5">
+                    Get Started
                   </Link>
                 </div>
-                <span className="absolute right-10 top-10 rounded-full bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur">
-                  {productByType(o.type).shortLabel}
-                </span>
-              </div>
-            ) : (
-              // Branded placeholder keeps the row full when a slot is empty —
-              // no white gap when an offering's status changes.
-              <div
-                key={`slot-${i}`}
-                className="relative flex min-h-[460px] flex-col items-center justify-center gap-4 p-10 text-center text-white"
-                style={{ background: "linear-gradient(180deg, #0A2540 0%, #061629 100%)" }}
-              >
-                <div className="text-xs font-semibold uppercase tracking-widest text-accent">
-                  Featured Offering
-                </div>
-                <div className="text-2xl font-bold">More offerings coming soon</div>
-                <p className="max-w-xs text-sm text-white/70">
-                  Raising capital or going public? Your company could be featured here.
-                </p>
-                <Link href="/get-started" className="btn-primary !py-2.5">
-                  Get Started
-                </Link>
-              </div>
-            ),
-          )}
+              ),
+            )}
+          </div>
         </section>
       )}
 

@@ -45,7 +45,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { href: "/about", label: "About Us" },
       { href: "/guides", label: "Guides" },
-      { href: "/case-studies", label: "Case Studies" },
+      { href: "/case-studies", label: "Current Deals & Case Studies" },
       { href: "/faq/issuer", label: "Issuer FAQ" },
       { href: "/faq/investor", label: "Investor FAQ" },
     ],
