@@ -125,18 +125,41 @@ export default async function HomePage() {
       {featured.length > 0 && (
         <section className="bg-navy-950 text-white">
           {/* Clickable header → full Current Deals & Case Studies page */}
-          <div className="mx-auto max-w-7xl px-6 pb-10 pt-20">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <div className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                  Current Deals &amp; Case Studies
+          <div className="relative overflow-hidden">
+            {/* Oversized faded watermark — echoes the hero treatment */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -bottom-4 left-0 right-0 select-none text-center font-black uppercase tracking-tighter text-white/[0.035]"
+              style={{ fontSize: "clamp(4rem, 13vw, 11rem)", lineHeight: 1 }}
+            >
+              Current Deals
+            </div>
+            <div className="relative mx-auto flex max-w-7xl flex-wrap items-end justify-between gap-8 px-6 pb-12 pt-24">
+              <div className="max-w-2xl">
+                <div className="mb-5 flex items-center gap-3">
+                  <span aria-hidden className="h-px w-10 bg-accent" />
+                  <span className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">
+                    Current Deals &amp; Case Studies
+                  </span>
                 </div>
-                <h2 className="text-4xl font-bold leading-tight">
-                  Real raises on the platform
+                <h2 className="text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
+                  Real <span className="text-accent">raises</span>,
+                  <br />
+                  on the platform.
                 </h2>
+                <p className="mt-5 max-w-md text-white/60">
+                  Live and completed offerings — explore the structure, the
+                  strategy, and the outcome behind every raise.
+                </p>
               </div>
-              <Link href="/case-studies" className="btn-light !py-2.5">
-                View All Current Deals →
+              <Link
+                href="/case-studies"
+                className="group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-base font-bold text-navy-950 shadow-lg shadow-accent/20 transition-transform duration-200 hover:scale-[1.04]"
+              >
+                View All Current Deals
+                <span aria-hidden className="text-lg transition-transform duration-200 group-hover:translate-x-1">
+                  →
+                </span>
               </Link>
             </div>
           </div>
