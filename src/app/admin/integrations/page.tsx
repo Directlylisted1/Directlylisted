@@ -161,6 +161,7 @@ export default async function AdminIntegrationsPage({
           <div>
             <label htmlFor="smtp-from" className="label">From address</label>
             <input id="smtp-from" name="mail_from" defaultValue={mailCfg.from} className="input" placeholder="Directly Listed <info@directlylisted.com>" autoComplete="off" />
+            <p className="mt-1 text-xs text-navy-900/60">Microsoft 365 requires this to match the username — it&apos;s auto-aligned for office365 hosts.</p>
           </div>
           <div>
             <label htmlFor="smtp-notify" className="label">Inbox 1 — Primary</label>

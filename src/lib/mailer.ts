@@ -56,10 +56,24 @@ export async function getMailConfig(): Promise<MailConfig> {
   const pass = get("smtp_pass") || process.env.SMTP_PASS || "";
   // Many providers (notably Microsoft 365) reject a From that differs from the
   // authenticated mailbox, so default From to the SMTP user.
-  const from =
+  let from =
     get("mail_from") ||
     process.env.MAIL_FROM ||
     (user ? `Directly Listed <${user}>` : "Directly Listed <no-reply@directlylisted.com>");
+
+  // Microsoft 365 / Outlook only permit sending AS the authenticated mailbox
+  // (no "send as" by default), which otherwise causes "5.2.252 SendAsDenied".
+  // For those hosts, force the From address to the SMTP user while keeping the
+  // display name. Transactional providers (Brevo, SendGrid, SES, …) that allow
+  // any verified From are left untouched.
+  const isMicrosoftHost = /office365\.com|outlook\.com|\.protection\.outlook\.com/i.test(host);
+  if (user && isMicrosoftHost) {
+    const currentAddr = (from.match(/<([^>]+)>/)?.[1] ?? from).trim();
+    if (currentAddr.toLowerCase() !== user.toLowerCase()) {
+      const displayName = from.match(/^\s*([^<]+?)\s*</)?.[1]?.trim() || "Directly Listed";
+      from = `${displayName} <${user}>`;
+    }
+  }
   const notify1 = get("notify_email") || process.env.NOTIFY_EMAIL || "info@directlylisted.com";
   const notify2 = get("notify_email_2") || process.env.NOTIFY_EMAIL_2 || "support@directlylisted.com";
   // Combined, de-duplicated recipient list — every platform message goes to both.
