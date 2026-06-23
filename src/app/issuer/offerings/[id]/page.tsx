@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { StatusBadge } from "@/components/AppShell";
 import { fmtMoney, productByType } from "@/lib/offering-types";
-import { submitForReview, updateOfferingCard } from "@/lib/issuer-actions";
+import { submitForReview, updateOfferingCard, updateOfferingTerms } from "@/lib/issuer-actions";
 
 export default async function IssuerOfferingDetail({
   params,
@@ -75,11 +75,15 @@ export default async function IssuerOfferingDetail({
 
       <div className="grid gap-6 sm:grid-cols-4">
         <div className="card">
-          <div className="text-xs uppercase tracking-wide text-navy-900/70">Raised</div>
+          <div className="text-xs uppercase tracking-wide text-navy-900/70">
+            {offering.type === "ELOC" ? "Committed" : "Raised"}
+          </div>
           <div className="text-2xl font-bold">{fmtMoney(offering.raisedAmount)}</div>
         </div>
         <div className="card">
-          <div className="text-xs uppercase tracking-wide text-navy-900/70">Target</div>
+          <div className="text-xs uppercase tracking-wide text-navy-900/70">
+            {offering.type === "ELOC" ? "Facility" : "Target"}
+          </div>
           <div className="text-2xl font-bold">{fmtMoney(offering.targetAmount)}</div>
         </div>
         <div className="card">
@@ -91,6 +95,66 @@ export default async function IssuerOfferingDetail({
           <div className="text-2xl font-bold">{funded.length}</div>
         </div>
       </div>
+
+      {/* Deal terms — issuer edits the target/facility amount and pricing */}
+      <form action={updateOfferingTerms} className="card space-y-4 !p-6">
+        <input type="hidden" name="offeringId" value={offering.id} />
+        <h3 className="text-sm font-bold">Deal Terms</h3>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <label htmlFor="dt-target" className="label">
+              {offering.type === "ELOC" ? "Committed Facility ($)" : "Target Amount ($)"}
+            </label>
+            <input
+              id="dt-target"
+              name="targetAmount"
+              type="number"
+              min="0"
+              step="1"
+              defaultValue={offering.targetAmount || ""}
+              className="input"
+            />
+          </div>
+          <div>
+            <label htmlFor="dt-price" className="label">Price / Share ($)</label>
+            <input
+              id="dt-price"
+              name="pricePerUnit"
+              type="number"
+              min="0"
+              step="0.01"
+              defaultValue={offering.pricePerUnit || ""}
+              className="input"
+            />
+          </div>
+          <div>
+            <label htmlFor="dt-min" className="label">Min Investment ($)</label>
+            <input
+              id="dt-min"
+              name="minInvestment"
+              type="number"
+              min="0"
+              step="1"
+              defaultValue={offering.minInvestment || ""}
+              className="input"
+            />
+          </div>
+          <div>
+            <label htmlFor="dt-max" className="label">Max Investment ($)</label>
+            <input
+              id="dt-max"
+              name="maxInvestment"
+              type="number"
+              min="0"
+              step="1"
+              defaultValue={offering.maxInvestment ?? ""}
+              className="input"
+              placeholder="No cap"
+            />
+          </div>
+        </div>
+        <button className="btn-dark !py-2.5 text-xs">Save Deal Terms</button>
+      </form>
 
       {/* Homepage flagship card copy — issuer drafts the bold title + subtitle */}
       <form action={updateOfferingCard} className="card space-y-4 !p-6">

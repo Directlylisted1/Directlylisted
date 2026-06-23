@@ -62,6 +62,45 @@ export async function updateOfferingCard(formData: FormData) {
   revalidatePath("/");
 }
 
+/**
+ * Issuer edits the core deal terms — target/facility amount, price per unit,
+ * and investment minimum/maximum. Blank fields are left unchanged (max can be
+ * cleared by submitting it empty).
+ */
+export async function updateOfferingTerms(formData: FormData) {
+  const user = await getCurrentUser();
+  if (!user?.issuerProfile) redirect("/signin");
+  const id = String(formData.get("offeringId"));
+  const offering = await db.offering.findUnique({ where: { id } });
+  if (!offering || offering.issuerId !== user.issuerProfile.id) redirect("/issuer");
+
+  const num = (k: string) => {
+    const v = formData.get(k);
+    if (v === null || String(v).trim() === "") return undefined;
+    const n = Number(v);
+    return Number.isFinite(n) && n >= 0 ? n : undefined;
+  };
+  const targetAmount = num("targetAmount");
+  const pricePerUnit = num("pricePerUnit");
+  const minInvestment = num("minInvestment");
+  // Max is optional: empty clears it (no cap).
+  const maxRaw = String(formData.get("maxInvestment") ?? "").trim();
+  const maxInvestment = maxRaw === "" ? null : Number(maxRaw);
+
+  await db.offering.update({
+    where: { id },
+    data: {
+      ...(targetAmount !== undefined ? { targetAmount } : {}),
+      ...(pricePerUnit !== undefined ? { pricePerUnit } : {}),
+      ...(minInvestment !== undefined ? { minInvestment } : {}),
+      maxInvestment: maxInvestment !== null && Number.isFinite(maxInvestment) ? maxInvestment : null,
+    },
+  });
+  revalidatePath(`/issuer/offerings/${id}`);
+  revalidatePath(`/offerings/${offering.slug}`);
+  revalidatePath("/");
+}
+
 export async function submitForReview(formData: FormData) {
   const user = await getCurrentUser();
   if (!user?.issuerProfile) redirect("/signin");
