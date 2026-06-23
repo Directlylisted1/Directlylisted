@@ -10,12 +10,14 @@ const APP = path.join(process.cwd(), "src", "app");
 
 // The mark, lifted from components/Logo.tsx (LogoWordmark) and centered into a
 // 256×256 tile. Light elements on navy so it reads on any tab/background.
+// Navy mark on white, matching the brand logo: gray flag top, navy flag lower
+// + navy lightning bolt.
 const SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-  <rect width="256" height="256" rx="52" fill="#0a2540"/>
+  <rect width="256" height="256" rx="52" fill="#ffffff"/>
   <g transform="translate(-268.5 49.9) scale(1.953)">
     <polygon points="196,8 246,8 240,17 202,17" fill="#9aa6b2"/>
-    <polygon points="200,21 238,21 232,30 206,30" fill="#c7ced6"/>
-    <polygon points="186,30 198,30 168,72 160,72" fill="#ffffff"/>
+    <polygon points="200,21 238,21 232,30 206,30" fill="#1c3a6e"/>
+    <polygon points="186,30 198,30 168,72 160,72" fill="#1c3a6e"/>
   </g>
 </svg>`;
 const svg = Buffer.from(SVG);
