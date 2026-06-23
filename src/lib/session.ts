@@ -59,6 +59,17 @@ export const getCurrentUser = cache(async () => {
   }
 });
 
+/**
+ * The role the user is currently *acting as* — chosen at login and stored in the
+ * session. A single account can act as both ISSUER and INVESTOR (and switch
+ * between them); admins always act as ADMIN. Falls back to the user's stored
+ * role for older sessions.
+ */
+export const getActiveRole = cache(async (): Promise<SessionPayload["role"] | null> => {
+  const session = await getSession();
+  return session?.role ?? null;
+});
+
 export async function requireRole(role: SessionPayload["role"]) {
   const user = await getCurrentUser();
   if (!user || user.role !== role) return null;

@@ -3,13 +3,14 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { db } from "./db";
-import { getCurrentUser } from "./session";
+import { getCurrentUser, getActiveRole } from "./session";
 import { sendAgreement } from "./adobe-sign";
 import { allowedPaymentMethods, chargeCardWith, resolveInvestmentBraintree } from "./payments";
 
 export async function startInvestment(formData: FormData) {
   const user = await getCurrentUser();
-  if (!user || user.role !== "INVESTOR") redirect("/signin");
+  const active = await getActiveRole();
+  if (!user || active !== "INVESTOR") redirect("/signin");
 
   const slug = String(formData.get("slug"));
   const amount = Number(formData.get("amount"));

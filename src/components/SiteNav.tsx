@@ -3,15 +3,16 @@ import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 import { NavMenus } from "./NavMenus";
 import { NAV_GROUPS } from "@/lib/nav";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser, getActiveRole } from "@/lib/session";
 import { db } from "@/lib/db";
 
-const portalHome = (role: string) =>
+const portalHome = (role: string | null) =>
   role === "ADMIN" ? "/admin" : role === "ISSUER" ? "/issuer" : "/portal";
 
 export async function SiteNav() {
-  const [user, recentPosts] = await Promise.all([
+  const [user, activeRole, recentPosts] = await Promise.all([
     getCurrentUser(),
+    getActiveRole(),
     db.blogPost
       .findMany({
         where: { published: true },
@@ -37,7 +38,7 @@ export async function SiteNav() {
         <NavMenus groups={NAV_GROUPS} blogPosts={recentPosts} />
         <div className="flex items-center gap-3">
           {user ? (
-            <Link href={portalHome(user.role)} className="btn-primary !py-2.5">
+            <Link href={portalHome(activeRole ?? user.role)} className="btn-primary !py-2.5">
               Dashboard
             </Link>
           ) : (

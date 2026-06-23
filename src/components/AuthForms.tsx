@@ -6,9 +6,34 @@ import { signIn, signUp } from "@/lib/auth-actions";
 
 export function SignInForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState(signIn, undefined);
+  const [role, setRole] = useState<"INVESTOR" | "ISSUER">("INVESTOR");
   return (
     <form action={action} className="space-y-4">
       <input type="hidden" name="next" value={next ?? ""} />
+      <input type="hidden" name="role" value={role} />
+      <div>
+        <span className="label">Sign in as</span>
+        <div
+          role="group"
+          aria-label="Sign in as"
+          className="grid grid-cols-2 gap-2 rounded-full bg-brand-50 p-1 text-sm font-semibold"
+        >
+          {(["INVESTOR", "ISSUER"] as const).map((t) => (
+            <button
+              key={t}
+              type="button"
+              aria-pressed={role === t}
+              onClick={() => setRole(t)}
+              className={`rounded-full py-2 transition ${role === t ? "bg-navy-900 text-white" : "text-navy-900/70"}`}
+            >
+              {t === "INVESTOR" ? "Investor" : "Issuer"}
+            </button>
+          ))}
+        </div>
+        <p className="mt-1 text-xs text-navy-900/55">
+          The same email and password work for both — choose which portal to open.
+        </p>
+      </div>
       <div>
         <label htmlFor="si-email" className="label">Email</label>
         <input id="si-email" name="email" type="email" autoComplete="email" required className="input" />

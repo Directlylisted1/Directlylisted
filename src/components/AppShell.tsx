@@ -1,17 +1,20 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
-import { signOut } from "@/lib/auth-actions";
+import { signOut, switchRole } from "@/lib/auth-actions";
 
 export function AppShell({
   title,
   nav,
   userName,
+  switchTo,
   children,
 }: {
   title: string;
   nav: Array<{ href: string; label: string }>;
   userName: string;
+  // When set, shows a one-click "Switch to …" control to act as the other role.
+  switchTo?: "ISSUER" | "INVESTOR";
   children: React.ReactNode;
 }) {
   return (
@@ -30,7 +33,15 @@ export function AppShell({
             </nav>
           </div>
           <div className="flex items-center gap-4 text-sm">
-            <span className="text-white/70">{userName}</span>
+            <span className="hidden text-white/70 sm:inline">{userName}</span>
+            {switchTo && (
+              <form action={switchRole}>
+                <input type="hidden" name="role" value={switchTo} />
+                <button className="rounded-full border border-accent/50 bg-accent/10 px-4 py-2.5 text-xs font-medium text-accent hover:bg-accent/20">
+                  Switch to {switchTo === "ISSUER" ? "Issuer" : "Investor"}
+                </button>
+              </form>
+            )}
             <form action={signOut}>
               <button className="rounded-full border border-white/20 px-4 py-2.5 text-xs hover:bg-white/10">
                 Sign Out
