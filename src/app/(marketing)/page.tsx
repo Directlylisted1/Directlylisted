@@ -88,12 +88,12 @@ export default async function HomePage() {
         <HeroBackground />
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-[-4rem] left-0 right-0 select-none text-center font-black tracking-tighter text-white/5"
+          className="pointer-events-none absolute bottom-[-1rem] left-0 right-0 select-none text-center font-black tracking-tighter text-white/10"
           style={{ fontSize: "clamp(6rem, 18vw, 16rem)", lineHeight: 1 }}
         >
           directlylisted
         </div>
-        <div className="relative z-10 w-full px-4 pt-28 sm:px-6">
+        <div className="relative z-10 w-full px-4 pb-20 pt-10 sm:px-6">
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             Strategic &amp; Elevated
           </div>
