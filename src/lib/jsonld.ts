@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 import { SITE, AUTHOR, ROUTES, type RouteMeta } from "./seo.config";
+import { EXTENDED_SEO_KEYWORDS } from "./seo-keywords";
 
 const ORG_ID = `${SITE.url}/#org`;
 const PERSON_ID = `${SITE.url}/#andy-altahawi`;
@@ -62,6 +63,8 @@ export function websiteNode() {
     url: SITE.url,
     name: SITE.name,
     publisher: { "@id": ORG_ID },
+    // Background keyword taxonomy for traditional + AI search discovery.
+    keywords: EXTENDED_SEO_KEYWORDS.join(", "),
   };
 }
 

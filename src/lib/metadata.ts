@@ -7,6 +7,7 @@
 
 import type { Metadata } from "next";
 import { SITE, AUTHOR, GLOBAL_KEYWORDS, ROUTES, type RouteMeta } from "./seo.config";
+import { EXTENDED_SEO_KEYWORDS } from "./seo-keywords";
 
 export function getRoute(routeKey: keyof typeof ROUTES): RouteMeta {
   const r = ROUTES[routeKey];
@@ -18,8 +19,16 @@ export function buildMetadata(routeKey: keyof typeof ROUTES): Metadata {
   const r = getRoute(routeKey);
   const canonical = `${SITE.url}${r.path === "/" ? "" : r.path}`;
 
-  // Route-specific long-tail first, then global taxonomy (deduped).
-  const keywords = Array.from(new Set([...r.keywords, ...GLOBAL_KEYWORDS]));
+  // Route-specific long-tail first, then global taxonomy, then the extended
+  // background keyword set — all deduped (case-insensitively).
+  const seen = new Set<string>();
+  const keywords: string[] = [];
+  for (const k of [...r.keywords, ...GLOBAL_KEYWORDS, ...EXTENDED_SEO_KEYWORDS]) {
+    const key = k.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    keywords.push(k);
+  }
 
   return {
     metadataBase: new URL(SITE.url),
