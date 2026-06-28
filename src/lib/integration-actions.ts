@@ -7,6 +7,7 @@ import { getCurrentUser } from "./session";
 import { getAgreementStatus } from "./adobe-sign";
 import { SMTP_KEYS, sendTestEmail } from "./mailer";
 import { BLOG_API_TOKEN_KEY } from "./blog-api";
+import { WP_USERNAME_KEY, WP_APP_PASSWORD_KEY } from "./wp-api";
 import crypto from "crypto";
 
 async function requireAdmin() {
@@ -113,6 +114,38 @@ export async function generateBlogApiToken() {
 export async function revokeBlogApiToken() {
   await requireAdmin();
   await db.siteSetting.deleteMany({ where: { key: BLOG_API_TOKEN_KEY } });
+  revalidatePath("/admin/integrations");
+}
+
+/** Generate a WordPress-style application password (and set the username) for
+ * the WP-compatible API used by RankChat's WordPress connector. */
+export async function generateWpAppPassword(formData: FormData) {
+  await requireAdmin();
+  const username = String(formData.get("username") ?? "").trim() || "directlylisted";
+  // 24 chars from an unambiguous alphabet, grouped 4×6 like real WP app passwords.
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+  const bytes = crypto.randomBytes(24);
+  let raw = "";
+  for (let i = 0; i < 24; i++) raw += alphabet[bytes[i] % alphabet.length];
+  const formatted = raw.match(/.{1,4}/g)!.join(" ");
+
+  await db.siteSetting.upsert({
+    where: { key: WP_USERNAME_KEY },
+    update: { value: username },
+    create: { key: WP_USERNAME_KEY, value: username },
+  });
+  await db.siteSetting.upsert({
+    where: { key: WP_APP_PASSWORD_KEY },
+    update: { value: formatted },
+    create: { key: WP_APP_PASSWORD_KEY, value: formatted },
+  });
+  revalidatePath("/admin/integrations");
+}
+
+/** Revoke the WordPress application password (disables the WP API). */
+export async function revokeWpAppPassword() {
+  await requireAdmin();
+  await db.siteSetting.deleteMany({ where: { key: WP_APP_PASSWORD_KEY } });
   revalidatePath("/admin/integrations");
 }
 

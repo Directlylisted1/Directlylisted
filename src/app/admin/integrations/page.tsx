@@ -4,6 +4,7 @@ import { getAdobeConfig, pingAdobeSign } from "@/lib/adobe-sign";
 import { isBraintreeConfigured } from "@/lib/payments";
 import { getMailConfig } from "@/lib/mailer";
 import { getBlogApiToken } from "@/lib/blog-api";
+import { getWpCreds } from "@/lib/wp-api";
 import {
   saveAdobeConfig,
   disconnectAdobe,
@@ -13,6 +14,8 @@ import {
   sendSmtpTest,
   generateBlogApiToken,
   revokeBlogApiToken,
+  generateWpAppPassword,
+  revokeWpAppPassword,
 } from "@/lib/integration-actions";
 import { setIssuerAdobeGroup } from "@/lib/admin-actions";
 
@@ -22,11 +25,12 @@ export default async function AdminIntegrationsPage({
   searchParams: Promise<{ saved?: string; test?: string; to?: string; msg?: string }>;
 }) {
   const { saved, test, to, msg } = await searchParams;
-  const [cfg, ping, mailCfg, blogToken, agreements, issuers] = await Promise.all([
+  const [cfg, ping, mailCfg, blogToken, wpCreds, agreements, issuers] = await Promise.all([
     getAdobeConfig(),
     pingAdobeSign(),
     getMailConfig(),
     getBlogApiToken(),
+    getWpCreds(),
     db.agreement.findMany({
       include: { investment: { include: { offering: true, investor: true } } },
       orderBy: { createdAt: "desc" },
@@ -262,6 +266,58 @@ Content-Type: application/json
             create a draft. Test the connection with a GET to the same endpoint using the token.
           </p>
         </details>
+      </section>
+
+      {/* WordPress-compatible API — for RankChat's WordPress connector */}
+      <section className="card !p-8">
+        <div className="mb-1 flex items-center justify-between gap-3">
+          <h2 className="text-xl font-bold">WordPress Connector (RankChat)</h2>
+          <StatusBadge value={wpCreds.appPassword ? "CONFIRMED" : "NOT_STARTED"} />
+        </div>
+        <p className="mb-5 text-sm text-navy-900/70">
+          This site exposes a WordPress-compatible REST API so RankChat&apos;s
+          <strong> WordPress</strong> integration can publish posts here. In RankChat,
+          choose <strong>WordPress</strong> and enter the values below (it authenticates
+          with an Application Password). No plugin needed.
+        </p>
+
+        <dl className="mb-5 space-y-3 text-sm">
+          <div className="rounded-lg border border-navy-900/10 bg-brand-50/40 p-3">
+            <dt className="text-xs font-semibold uppercase text-navy-900/60">Site URL</dt>
+            <dd className="mt-1 font-mono text-xs break-all">https://www.directlylisted.com</dd>
+          </div>
+          <div className="rounded-lg border border-navy-900/10 bg-brand-50/40 p-3">
+            <dt className="text-xs font-semibold uppercase text-navy-900/60">Username</dt>
+            <dd className="mt-1 font-mono text-xs">{wpCreds.username}</dd>
+          </div>
+          <div className="rounded-lg border border-navy-900/10 bg-brand-50/40 p-3">
+            <dt className="text-xs font-semibold uppercase text-navy-900/60">Application Password</dt>
+            <dd className="mt-1">
+              {wpCreds.appPassword ? (
+                <input readOnly value={wpCreds.appPassword} className="input !py-2 font-mono text-xs" aria-label="WordPress application password" />
+              ) : (
+                <span className="text-navy-900/60">Not generated yet.</span>
+              )}
+            </dd>
+          </div>
+        </dl>
+
+        <form action={generateWpAppPassword} className="flex flex-wrap items-end gap-3">
+          <div>
+            <label htmlFor="wp-user" className="label">Username</label>
+            <input id="wp-user" name="username" defaultValue={wpCreds.username} className="input !py-2 text-xs !w-48" />
+          </div>
+          <button className="btn-dark !py-2.5 text-xs">
+            {wpCreds.appPassword ? "Regenerate Password" : "Generate Password"}
+          </button>
+          {wpCreds.appPassword && (
+            <button formAction={revokeWpAppPassword} className="btn-outline !py-2.5 text-xs">Revoke</button>
+          )}
+        </form>
+        <p className="mt-3 text-xs text-navy-900/60">
+          Endpoints live under <code>/wp-json/wp/v2/</code> (posts, media, users/me).
+          Treat the application password like a secret; regenerate to rotate it.
+        </p>
       </section>
 
       {/* Adobe connection form */}

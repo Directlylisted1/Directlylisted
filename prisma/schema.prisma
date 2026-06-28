@@ -287,6 +287,21 @@ model SiteSetting {
   value String
 }
 
+// WordPress-REST-API compatibility: maps WordPress-style integer ids to our
+// records so external tools (e.g. RankChat) can POST/PUT to /wp-json/wp/v2.
+model WpPostRef {
+  id        Int      @id @default(autoincrement())
+  postId    String   @unique
+  createdAt DateTime @default(now())
+}
+
+model WpMedia {
+  id        Int      @id @default(autoincrement())
+  url       String
+  mimeType  String?
+  createdAt DateTime @default(now())
+}
+
 // Blog posts managed from the admin back office.
 model BlogPost {
   id          String    @id @default(cuid())

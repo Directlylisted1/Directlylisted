@@ -56,6 +56,12 @@ services:
       # override. Used by external SEO tools (e.g. RankChat) to auto-post.
       - key: BLOG_API_TOKEN
         sync: false
+      # WordPress-compatible API (RankChat WordPress connector). Normally
+      # generated + managed from the admin back office; optional env override.
+      - key: WP_API_USERNAME
+        sync: false
+      - key: WP_API_APP_PASSWORD
+        sync: false
       # Email notifications for website inquiries (SMTP).
       # These are FALLBACKS — an admin can also connect the mailbox from
       # /admin/integrations (stored in the DB), which takes precedence.
