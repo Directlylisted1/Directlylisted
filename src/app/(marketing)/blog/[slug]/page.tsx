@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { db } from "@/lib/db";
 import { MarkdownLite } from "@/components/Markdown";
+import { sanitizeHtml, looksLikeHtml } from "@/lib/sanitize-html";
 
 export async function generateMetadata({
   params,
@@ -71,8 +72,25 @@ export default async function BlogPostPage({
           </p>
         </div>
       </section>
+      {post.coverImage && (
+        <div className="mx-auto max-w-3xl px-6 pt-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={post.coverImage}
+            alt={post.title}
+            className="w-full rounded-2xl border border-navy-900/10 object-cover"
+          />
+        </div>
+      )}
       <article className="mx-auto max-w-3xl px-6 py-14">
-        <MarkdownLite content={post.content} />
+        {looksLikeHtml(post.content) ? (
+          <div
+            className="blog-body"
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }}
+          />
+        ) : (
+          <MarkdownLite content={post.content} />
+        )}
         <hr className="my-10 border-navy-900/10" />
         <p className="text-xs leading-relaxed text-navy-900/60">
           This post is provided for informational purposes only and is not

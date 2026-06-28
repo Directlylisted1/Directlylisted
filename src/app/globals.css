@@ -212,3 +212,30 @@ body {
     background: rgb(255 255 255 / 0.4);
   }
 }
+
+/* Rich blog body — base typography for pasted/authored HTML. Inline styles from
+   pasted content (font size/color/family, bold) override these defaults. */
+.blog-body {
+  color: color-mix(in srgb, var(--color-navy-900) 85%, transparent);
+  line-height: 1.7;
+  word-break: break-word;
+}
+.blog-body h1 { font-size: 1.875rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--color-navy-900); }
+.blog-body h2 { font-size: 1.5rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: var(--color-navy-900); }
+.blog-body h3 { font-size: 1.25rem; font-weight: 700; margin: 1.25rem 0 0.5rem; color: var(--color-navy-900); }
+.blog-body p { margin: 0 0 1.1rem; }
+.blog-body a { color: var(--color-brand-600); text-decoration: underline; text-underline-offset: 2px; }
+.blog-body ul { list-style: disc; padding-left: 1.5rem; margin: 0 0 1.1rem; }
+.blog-body ol { list-style: decimal; padding-left: 1.5rem; margin: 0 0 1.1rem; }
+.blog-body li { margin: 0.35rem 0; }
+.blog-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 1rem 0; }
+.blog-body blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1rem;
+  margin: 0 0 1.1rem;
+  color: color-mix(in srgb, var(--color-navy-900) 70%, transparent);
+}
+.blog-body strong, .blog-body b { font-weight: 700; }
+.blog-body table { width: 100%; border-collapse: collapse; margin: 0 0 1.1rem; font-size: 0.9rem; }
+.blog-body th, .blog-body td { border: 1px solid color-mix(in srgb, var(--color-navy-900) 15%, transparent); padding: 0.5rem 0.75rem; text-align: left; }
+.blog-body hr { border: 0; border-top: 1px solid color-mix(in srgb, var(--color-navy-900) 12%, transparent); margin: 1.5rem 0; }

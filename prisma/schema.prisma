@@ -293,7 +293,8 @@ model BlogPost {
   slug        String    @unique
   title       String
   excerpt     String?
-  content     String // markdown-lite: "## " headings, blank-line paragraphs, [text](url) links
+  content     String // rich HTML (sanitized) for new posts; legacy posts are markdown-lite
+  coverImage  String? // hero image/graphic shown under the title
   author      String    @default("Directly Listed")
   tags        String? // comma-separated
   published   Boolean   @default(false)

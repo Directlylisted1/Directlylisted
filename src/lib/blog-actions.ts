@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { db } from "./db";
 import { getCurrentUser } from "./session";
+import { sanitizeHtml, looksLikeHtml } from "./sanitize-html";
 
 async function requireAdmin() {
   const user = await getCurrentUser();
@@ -18,10 +19,13 @@ export async function savePost(formData: FormData) {
   await requireAdmin();
   const id = String(formData.get("postId") ?? "");
   const title = String(formData.get("title") ?? "").trim();
+  const rawContent = String(formData.get("content") ?? "");
   const data = {
     title,
     excerpt: String(formData.get("excerpt") ?? "").trim() || null,
-    content: String(formData.get("content") ?? ""),
+    // Sanitize rich/pasted HTML; leave markdown-lite text as-is.
+    content: looksLikeHtml(rawContent) ? sanitizeHtml(rawContent) : rawContent,
+    coverImage: String(formData.get("coverImage") ?? "").trim() || null,
     author: String(formData.get("author") ?? "").trim() || "Directly Listed",
     tags: String(formData.get("tags") ?? "").trim() || null,
   };
