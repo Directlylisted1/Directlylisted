@@ -3,6 +3,7 @@ import { StatusBadge } from "@/components/AppShell";
 import { getAdobeConfig, pingAdobeSign } from "@/lib/adobe-sign";
 import { isBraintreeConfigured } from "@/lib/payments";
 import { getMailConfig } from "@/lib/mailer";
+import { getBlogApiToken } from "@/lib/blog-api";
 import {
   saveAdobeConfig,
   disconnectAdobe,
@@ -10,6 +11,8 @@ import {
   saveSmtpConfig,
   disconnectSmtp,
   sendSmtpTest,
+  generateBlogApiToken,
+  revokeBlogApiToken,
 } from "@/lib/integration-actions";
 import { setIssuerAdobeGroup } from "@/lib/admin-actions";
 
@@ -19,10 +22,11 @@ export default async function AdminIntegrationsPage({
   searchParams: Promise<{ saved?: string; test?: string; to?: string; msg?: string }>;
 }) {
   const { saved, test, to, msg } = await searchParams;
-  const [cfg, ping, mailCfg, agreements, issuers] = await Promise.all([
+  const [cfg, ping, mailCfg, blogToken, agreements, issuers] = await Promise.all([
     getAdobeConfig(),
     pingAdobeSign(),
     getMailConfig(),
+    getBlogApiToken(),
     db.agreement.findMany({
       include: { investment: { include: { offering: true, investor: true } } },
       orderBy: { createdAt: "desc" },
@@ -183,6 +187,81 @@ export default async function AdminIntegrationsPage({
             )}
           </div>
         </form>
+      </section>
+
+      {/* Blog publishing API — for RankChat & other SEO auto-posting tools */}
+      <section className="card !p-8">
+        <div className="mb-1 flex items-center justify-between gap-3">
+          <h2 className="text-xl font-bold">Blog Publishing API</h2>
+          <StatusBadge value={blogToken ? "CONFIRMED" : "NOT_STARTED"} />
+        </div>
+        <p className="mb-5 text-sm text-navy-900/70">
+          Let an external SEO tool (e.g. RankChat) publish posts straight to{" "}
+          <a href="/blog" className="font-semibold text-brand-600">/blog</a> via a
+          secure token. Point the tool at a <strong>custom / webhook / REST</strong>{" "}
+          integration with the endpoint and token below.
+        </p>
+
+        <dl className="mb-5 space-y-3 text-sm">
+          <div className="rounded-lg border border-navy-900/10 bg-brand-50/40 p-3">
+            <dt className="text-xs font-semibold uppercase text-navy-900/60">Endpoint (POST)</dt>
+            <dd className="mt-1 font-mono text-xs break-all">https://www.directlylisted.com/api/blog/ingest</dd>
+          </div>
+          <div className="rounded-lg border border-navy-900/10 bg-brand-50/40 p-3">
+            <dt className="text-xs font-semibold uppercase text-navy-900/60">Auth header</dt>
+            <dd className="mt-1 font-mono text-xs break-all">Authorization: Bearer &lt;token&gt;</dd>
+          </div>
+          <div className="rounded-lg border border-navy-900/10 bg-brand-50/40 p-3">
+            <dt className="text-xs font-semibold uppercase text-navy-900/60">API token</dt>
+            <dd className="mt-1">
+              {blogToken ? (
+                <input
+                  readOnly
+                  value={blogToken}
+                  className="input !py-2 font-mono text-xs"
+                  aria-label="Blog API token"
+                />
+              ) : (
+                <span className="text-navy-900/60">No token yet — generate one to enable the API.</span>
+              )}
+            </dd>
+          </div>
+        </dl>
+
+        <div className="mb-5 flex flex-wrap gap-3">
+          <form action={generateBlogApiToken}>
+            <button className="btn-dark !py-2.5 text-xs">
+              {blogToken ? "Regenerate Token" : "Generate Token"}
+            </button>
+          </form>
+          {blogToken && (
+            <form action={revokeBlogApiToken}>
+              <button className="btn-outline !py-2.5 text-xs">Revoke</button>
+            </form>
+          )}
+        </div>
+
+        <details className="text-sm text-navy-900/70">
+          <summary className="cursor-pointer font-semibold">JSON fields the endpoint accepts</summary>
+          <pre className="mt-2 overflow-x-auto rounded-lg bg-navy-950 p-4 text-[11px] leading-relaxed text-white">{`POST /api/blog/ingest
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "title": "Post title",                 // required
+  "content": "<p>Full HTML body…</p>",   // HTML or plain text
+  "excerpt": "Short summary",            // optional
+  "coverImage": "https://…/image.jpg",   // optional
+  "tags": "Reg A+, Direct Listing",      // optional (string or array)
+  "author": "Directly Listed",           // optional
+  "slug": "custom-slug",                 // optional (auto from title)
+  "published": true                       // optional (default true)
+}`}</pre>
+          <p className="mt-2 text-xs text-navy-900/60">
+            Re-posting the same slug updates that post. Send <code>&quot;published&quot;: false</code> to
+            create a draft. Test the connection with a GET to the same endpoint using the token.
+          </p>
+        </details>
       </section>
 
       {/* Adobe connection form */}

@@ -6,6 +6,8 @@ import { db } from "./db";
 import { getCurrentUser } from "./session";
 import { getAgreementStatus } from "./adobe-sign";
 import { SMTP_KEYS, sendTestEmail } from "./mailer";
+import { BLOG_API_TOKEN_KEY } from "./blog-api";
+import crypto from "crypto";
 
 async function requireAdmin() {
   const user = await getCurrentUser();
@@ -92,6 +94,26 @@ export async function sendSmtpTest() {
     redirect(`/admin/integrations?test=ok&to=${encodeURIComponent(result.to)}`);
   }
   redirect(`/admin/integrations?test=fail&msg=${encodeURIComponent(result.error ?? "send failed")}`);
+}
+
+/** Generate (or rotate) the blog-publishing API token used by external SEO
+ * tools like RankChat to POST articles to /api/blog/ingest. */
+export async function generateBlogApiToken() {
+  await requireAdmin();
+  const token = `dlk_${crypto.randomBytes(24).toString("hex")}`;
+  await db.siteSetting.upsert({
+    where: { key: BLOG_API_TOKEN_KEY },
+    update: { value: token },
+    create: { key: BLOG_API_TOKEN_KEY, value: token },
+  });
+  revalidatePath("/admin/integrations");
+}
+
+/** Revoke the blog-publishing API token. */
+export async function revokeBlogApiToken() {
+  await requireAdmin();
+  await db.siteSetting.deleteMany({ where: { key: BLOG_API_TOKEN_KEY } });
+  revalidatePath("/admin/integrations");
 }
 
 /** Pull the latest status of one agreement from Acrobat Sign and store it. */

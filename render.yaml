@@ -51,6 +51,11 @@ services:
         value: https://api.na1.adobesign.com
       - key: ADOBE_SIGN_INTEGRATION_KEY
         sync: false
+      # Fallback token for the blog publishing API (/api/blog/ingest). Normally
+      # generated + managed from the admin back office; this is an optional
+      # override. Used by external SEO tools (e.g. RankChat) to auto-post.
+      - key: BLOG_API_TOKEN
+        sync: false
       # Email notifications for website inquiries (SMTP).
       # These are FALLBACKS — an admin can also connect the mailbox from
       # /admin/integrations (stored in the DB), which takes precedence.
