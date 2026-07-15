@@ -49,7 +49,7 @@ const BLOCKS: Block[] = [
   },
   {
     t: "p",
-    text: "In June 2019, he resolved the matter by consent, without admitting or denying the allegations. Under the final judgment and a related administrative order, he agreed to pay of approximately $23.9 million, and the surrender of his Longfin shares, together with the two time-limited restrictions described below.",
+    text: "In June 2019, he resolved the matter by consent, without admitting or denying the allegations. Under the final judgment and a related administrative order, he agreed to pay approximately $24 million, and the surrender of his Longfin shares, together with the two time-limited restrictions described below.",
   },
 
   { t: "h2", text: "The scope of the 2019 restrictions — precisely stated" },
