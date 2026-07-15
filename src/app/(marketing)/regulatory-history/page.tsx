@@ -1,196 +1,124 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Regulatory History — Directly Listed",
+  title: "Record and Regulatory History — Directly Listed",
   description:
-    "Regulatory and professional history of Andy Altahawi — international attorney, veteran investment banker, and capital markets consultant.",
+    "The complete record and regulatory history of Andy Altahawi, from the primary sources — including the one regulatory matter in his career.",
   alternates: { canonical: "/regulatory-history" },
 };
 
 type Block =
   | { t: "h2"; text: string }
-  | { t: "h3"; text: string }
   | { t: "p"; text: string }
-  | { t: "ul"; items: string[] }
-  | { t: "ulLead"; items: { lead: string; text: string }[] };
+  | { t: "pLink"; before: string; label: string; href: string; after: string }
+  | { t: "ul"; items: string[] };
 
 const BLOCKS: Block[] = [
-  { t: "h2", text: "Executive Summary" },
+  { t: "h2", text: "A note on transparency" },
   {
     t: "p",
-    text: "Andy Altahawi is a dual-discipline professional whose career uniquely combines more than three decades of senior-level U.S. investment banking with an equally long-standing international legal practice. Few advisors in the global capital markets bring both qualifications in equal measure — and fewer still can apply them, in tandem, to the structuring, listing, and post-listing oversight of cross-border issuers seeking access to the world's most demanding exchanges.",
-  },
-  {
-    t: "p",
-    text: "Mr. Altahawi has spent his career operating at the intersection of three disciplines: U.S. securities law and SEC compliance, exchange qualification on NYSE and NASDAQ, and international corporate structuring. He has been involved — directly and through advisory mandates — in hundreds of public offerings, billions of dollars of capital raised, and a series of landmark transactions that span multiple decades, market cycles, and regulatory regimes.",
+    text: "Andy Altahawi has spent four decades in two demanding professions: international law, which he has practiced since 1986, and the U.S. securities industry, where he held FINRA registrations from 1994. Anyone evaluating an advisor should be able to see the complete record, from the primary sources, in one place. This page provides exactly that, including the one regulatory matter in his career, with links to every official document so that nothing here has to be taken on anyone's word alone.",
   },
 
-  { t: "h2", text: "Career Pillars" },
-  { t: "h3", text: "Prudential Securities — Senior Investment Banker (1994–1999)" },
+  { t: "h2", text: "Career record" },
   {
     t: "p",
-    text: "Mr. Altahawi began his U.S. investment banking career at Prudential Securities, one of the most prominent full-service investment banks of its era and a recognized force in U.S. equity and debt underwriting throughout the 1990s. He held the title of Senior Vice President in the Investment Banking division, where he led and supported high-profile public offerings, private placements, mergers and acquisitions, road shows, and structured corporate finance assignments.",
+    text: "Mr. Altahawi began his U.S. investment banking career in 1994 as a Senior Vice President in the Investment Banking division of Prudential Securities, then one of the country's leading full-service investment banks, working on public offerings, private placements, and structured corporate finance during the tenure of Chairman and CEO Wick Simons, the former Chairman of NASDAQ.",
   },
   {
     t: "p",
-    text: "During that period, Prudential Securities was led by Wick Simons, the former Chairman of NASDAQ, who served as Chairman and Chief Executive Officer of Prudential Securities. Mr. Altahawi worked under Mr. Simons' leadership during this transformative chapter in the firm's history, gaining direct exposure to the highest standards of capital markets execution from one of the most respected figures in U.S. exchange history.",
+    text: "In 1998 he founded Adamson Brothers, Inc., an SEC- and FINRA-registered broker-dealer (CRD #46684), which grew into a multi-office firm active in equity and bond trading, market making, and corporate finance, raising capital for issuer clients across technology, life sciences, real estate, and other sectors. Following the post-2008 restructuring of the broker-dealer industry, Adamson Brothers transitioned into the capital markets advisory firm he leads today.",
   },
   {
     t: "p",
-    text: "His work at Prudential placed him at the center of a number of headline equity offerings of the 1990s, including the Cali Realty IPO and follow-on transactions, along with a wide range of REIT, technology, and growth-company financings. The combination of underwriting discipline, road-show execution, and institutional investor coverage that defined Prudential Securities in that era continues to inform Mr. Altahawi's advisory approach today.",
-  },
-  { t: "h3", text: "Adamson Brothers — Founder & CEO (1998 – Present)" },
-  {
-    t: "p",
-    text: "In 1998, Mr. Altahawi founded Adamson Brothers, a full-service U.S. broker-dealer and investment banking firm registered with FINRA (CRD #46684). Under his leadership, Adamson Brothers grew into a multi-office firm engaged in equity and bond trading, options, mutual funds, market making, and a robust corporate finance practice covering IPOs, follow-on offerings, private placements, SPACs, reverse mergers, and structured financings.",
+    text: "Over his registered career he held the Series 3, 4, 6, 7, 24, 55, 63, 65, and 79 examinations. His full registration history is public.",
   },
   {
     t: "p",
-    text: "Through Adamson Brothers, Mr. Altahawi took hundreds of companies public on U.S. exchanges and the OTC markets, and the firm was credited with raising billions of dollars in IPO and follow-on financings on behalf of issuer clients across technology, life sciences, real estate, financial services, energy, and industrial sectors. Adamson Brothers maintained an unblemished compliance record throughout its broker-dealer operations — neither the firm nor Mr. Altahawi personally were ever the subject of a customer complaint or a regulatory citation from FINRA, the SEC, or the NASD.",
-  },
-  {
-    t: "p",
-    text: "Following the 2008 global financial crisis and the subsequent restructuring of the U.S. broker-dealer landscape, Adamson Brothers transitioned from a registered broker-dealer into a specialized capital markets advisory firm. In its advisory capacity, Adamson Brothers has continued to work with private and public issuers preparing for U.S. exchange listings, and has provided advisory input in connection with a number of widely-followed listings and direct listings on NYSE and NASDAQ — including transactions associated with companies such as Spotify and Coinbase, among others.",
-  },
-  { t: "h3", text: "International Legal Practice (1986 – Present)" },
-  {
-    t: "p",
-    text: "In parallel with his U.S. capital markets career, Mr. Altahawi has maintained an active international legal practice spanning more than 33 years. He holds a Bachelor of Civil Law from Cairo University Law School (1986) and a Doctor of Philosophy in Finance from Chelsea University (2000). He is admitted as a Supreme Court attorney in his home jurisdiction and has been a member of the relevant Bar Association since 1986, with reciprocal practice rights in additional jurisdictions.",
-  },
-  {
-    t: "p",
-    text: "His legal work focuses on cross-border corporate structuring, international commercial contracts, mergers and acquisitions, joint ventures, commercial arbitration (including Bermuda-form insurance and reinsurance disputes), and corporate governance counsel for boards of directors of publicly traded companies. He has served as General Counsel to large multinational enterprises and has negotiated and arbitrated dozens of international commercial disputes through to final award.",
-  },
-  {
-    t: "p",
-    text: "This dual qualification — as both a senior U.S. investment banker and an internationally-admitted attorney — allows Mr. Altahawi to advise issuers from a holistic standpoint that very few advisors in the market can offer: combining the financial discipline of a Wall Street banker with the legal precision of an international corporate attorney.",
+    text: "In parallel, Mr. Altahawi has maintained an international legal practice since earning his law degree from Cairo University Law School in 1986, focused on cross-border corporate structuring, commercial arbitration, and governance counsel, with reciprocal admissions in several jurisdictions and regular co-counsel work alongside U.S.-admitted attorneys.",
   },
 
-  { t: "h2", text: "Areas of Expertise" },
-  { t: "h3", text: "U.S. Capital Markets & Exchange Listings" },
-  {
-    t: "ul",
-    items: [
-      "End-to-end NYSE and NASDAQ listing preparation, qualification, and uplisting strategy",
-      "Initial public offerings (IPOs), direct listings, and follow-on equity offerings",
-      "Special Purpose Acquisition Companies (SPACs) — formation, business combinations, and post-merger compliance",
-      "Reverse mergers and alternative public market entry strategies",
-      "Regulation A+ (Tier 1 and Tier 2), Regulation D (Rule 506(b) and 506(c)), Regulation S, and Regulation Crowdfunding offerings",
-      "S-1, F-1, S-3, S-4, S-8, Form 10, and Form 8-A registration statements",
-      "Shelf registrations and structured shelf take-downs",
-      "Private placements, PIPE transactions, and security token offerings",
-      "Fairness and solvency opinions",
-    ],
-  },
-  { t: "h3", text: "SEC Compliance & Public Company Reporting" },
-  {
-    t: "ul",
-    items: [
-      "Securities Act of 1933 — offer, sale, registration, and exemption framework",
-      "Securities Exchange Act of 1934 — periodic reporting (Forms 10-K, 10-Q, 8-K)",
-      "Section 13 beneficial ownership filings (Schedules 13D and 13G) and Section 16 filings (Forms 3, 4, 5)",
-      "Sarbanes-Oxley and Dodd-Frank corporate governance compliance",
-      "Proxy rules and information statements (14A and 14C)",
-      "Tender and exchange offer rules under Section 14(d)",
-      "Regulation FD compliance and insider trading frameworks",
-      "Rule 144 and Rule 144A safe harbor opinion letters",
-      "FINRA and DTC corporate action processing — name changes, reverse and forward splits, transfer agent and DTC clearance",
-    ],
-  },
-  { t: "h3", text: "International Legal & Cross-Border Advisory" },
-  {
-    t: "ul",
-    items: [
-      "Cross-border M&A — asset purchases, stock purchases, mergers, and leveraged buyouts",
-      "International joint ventures, partnerships, and strategic alliances",
-      "Drafting and negotiation of complex commercial, distribution, manufacturing, and licensing agreements",
-      "International commercial arbitration — domestic, international, insurance, and reinsurance (including Bermuda-form disputes)",
-      "Structuring of foreign issuers for compliant entry into U.S. capital markets",
-      "Corporate governance frameworks aligned with U.S. exchange and international standards",
-    ],
-  },
-
-  { t: "h2", text: "U.S. Securities Industry Credentials" },
+  { t: "h2", text: "The Longfin matter (2018–2019): the facts" },
   {
     t: "p",
-    text: "Mr. Altahawi has held an extensive set of FINRA registrations spanning supervisory, principal, and investment banking qualifications since 1994. His credentials reflect more than three decades of active, fully-licensed engagement with the U.S. securities industry and remain among the most comprehensive licensure profiles held by any independent capital markets consultant operating today.",
+    text: "One matter in this record deserves a full and direct account, and readers will find it discussed elsewhere online, often inaccurately, maliciously, falsely and or without context. Here are the facts, with the source documents.",
   },
-  { t: "h3", text: "FINRA Examinations Held" },
-  {
-    t: "ul",
-    items: [
-      "Series 3 — National Commodity Futures Examination",
-      "Series 4 — Registered Options Principal",
-      "Series 6 — Investment Company and Variable Contracts Products Representative",
-      "Series 7 — General Securities Representative",
-      "Series 24 — General Securities Principal",
-      "Series 55 — Equity Trader",
-      "Series 63 — Uniform Securities Agent State Law",
-      "Series 65 — Uniform Investment Adviser Law",
-      "Series 79 — Investment Banking Representative",
-    ],
-  },
-
-  { t: "h2", text: "Education & Bar Admissions" },
-  {
-    t: "ul",
-    items: [
-      "Doctor of Philosophy (Ph.D.) in Finance — Chelsea University, 2000",
-      "Bachelor of Civil Law — Cairo University Law School, 1986",
-      "Supreme Court Attorney and member of the Egyptian Bar Association since 1986, with reciprocal admissions in additional jurisdictions",
-    ],
-  },
-
-  { t: "h2", text: "Distinguishing Strengths" },
-  {
-    t: "ulLead",
-    items: [
-      {
-        lead: "Dual qualification.",
-        text: "A senior U.S. investment banker and an internationally-admitted attorney — a combination that allows clients to receive financial structuring advice and legal counsel from a single source, without the friction of coordinating between separate banking and legal teams.",
-      },
-      {
-        lead: "Pedigree.",
-        text: "Trained inside one of the leading U.S. investment banks of the 1990s, Prudential Securities, under the leadership of former NASDAQ Chairman Wick Simons. That foundation continues to inform every aspect of his execution discipline.",
-      },
-      {
-        lead: "Track record.",
-        text: "Hundreds of issuer engagements, billions raised across IPOs and follow-on offerings, and advisory exposure to high-profile direct listings on NYSE and NASDAQ.",
-      },
-      {
-        lead: "Compliance integrity.",
-        text: "Adamson Brothers operated for nearly a decade as a multi-office FINRA-registered broker-dealer without a single customer complaint or regulatory citation — a record that distinguishes Mr. Altahawi from virtually every comparable market participant.",
-      },
-      {
-        lead: "Global perspective.",
-        text: "More than 33 years of international legal practice covering cross-border M&A, joint ventures, commercial arbitration, and the structuring of foreign issuers for compliant entry into U.S. capital markets.",
-      },
-      {
-        lead: "Investor-focused, results-driven advisory.",
-        text: "Each engagement is structured around the client's commercial objectives, the realistic standards of the target U.S. exchange, and the long-term sustainability of the issuer's public market presence.",
-      },
-    ],
-  },
-
-  { t: "h2", text: "Current Practice" },
   {
     t: "p",
-    text: "Through Adamson Brothers Corp., Mr. Altahawi continues to consult with emerging companies, mid-cap issuers, and international corporate clients on the full spectrum of U.S. capital markets activity. His current practice emphasizes:",
+    text: "In 2017, Mr. Altahawi served as the outside listing advisor to Longfin Corp. in connection with its Regulation A+ offering and NASDAQ listing, an advisory role that the SEC's own pleadings acknowledge. In 2018, the SEC filed a civil enforcement action, SEC v. Longfin Corp., et al. (S.D.N.Y.), naming the company, its CEO, and several individuals including Mr. Altahawi, principally concerning sales of Longfin shares alleged to be unregistered; amended charges followed in 2019 relating to the listing process. The action was civil in nature and none of it was criminal.",
+  },
+  {
+    t: "p",
+    text: "In June 2019, he resolved the matter by consent, without admitting or denying the allegations. Under the final judgment and a related administrative order, he agreed to pay of approximately $23.9 million, and the surrender of his Longfin shares, together with the two time-limited restrictions described below.",
+  },
+
+  { t: "h2", text: "The scope of the 2019 restrictions — precisely stated" },
+  {
+    t: "p",
+    text: "Mr. Altahawi was never subject to a blanket ban from the securities industry or from professional life. The 2019 resolution imposed two specific, defined restrictions:",
   },
   {
     t: "ul",
     items: [
-      "NYSE and NASDAQ listing readiness, qualification, and uplisting",
-      "Preparation of SEC-style documentation for S-1, F-1, Reg A+, Reg D, and shelf registrations",
-      "SPAC structuring, execution, and post-business-combination integration",
-      "Capital formation strategy, investor-grade documentation, and road-show preparation",
-      "Cross-border advisory for international issuers entering U.S. markets",
-      "Corporate governance counsel — boards, bylaws, and reporting frameworks aligned with public market expectations",
+      "A five-year bar from serving as an officer or director of an SEC-reporting public company. That bar expired in June 2024.",
+      "An associational bar limited to specific categories of SEC-regulated entities — broker-dealers, investment advisers, transfer agents, and certain related registrants — with the express right to reapply for association after five years. That five-year period ended in June 2024, at which point Mr. Altahawi became fully eligible to reapply to become a member again.",
     ],
   },
   {
     t: "p",
-    text: "Mr. Altahawi's clients range from high-growth private companies preparing for their first public listing to established international corporations seeking access to U.S. capital markets through IPOs, direct listings, SPACs, or alternative routes. His approach is methodical, investor-focused, and results-driven — designed to position each client not merely for a successful listing, but for sustainable long-term performance on the world's most competitive exchanges.",
+    text: "At no time did either restriction prevent Mr. Altahawi from practicing law, from providing capital markets consulting outside registered entities, or from leading Adamson Brothers in its advisory capacity — which is exactly what he has done, without interruption, since 2018.",
+  },
+
+  { t: "h2", text: "Mr. Altahawi's statement on why he settled" },
+  {
+    t: "p",
+    text: "Mr. Altahawi has been consistent, from 2018 to today, about why the matter ended in settlement rather than trial. He was named in Longfin because he served as the listing advisor, a role the SEC's own pleading acknowledged. He did not settle because the allegations were correct. He settled because his bank and brokerage accounts had been frozen by the SEC pending the litigation, depriving him of the means to fund a multi-year defense against the federal government.",
+  },
+  {
+    t: "p",
+    text: "On the central allegation concerning his share sales, Mr. Altahawi's position has never changed: he had held his shares for over thirteen months, as confirmed by the transfer agent's compliance department and by a Rule 144 legal opinion issued by U.S. securities counsel before any sale took place. Mr. Altahawi denies the SEC's allegations against him in full and maintains that they were baseless, and that a process in which a defendant's assets are frozen so that he cannot afford to contest the very allegations against him is a travesty of justice.",
+  },
+  {
+    t: "p",
+    text: "He also notes what the record itself says: the judgment he consented to states that he neither admitted nor denied the allegations. Seven years of subsequent practice, without a single regulatory matter of any kind, speak to the standards he has kept before and since.",
+  },
+
+  { t: "h2", text: "Why Mr. Altahawi can now say this plainly" },
+  {
+    t: "p",
+    text: "For more than fifty years, the SEC required every settling party to accept a “no-deny” provision under its policy at 17 C.F.R. § 202.5(e) — a term, widely criticized as the “gag rule,” that prohibited settling defendants from publicly denying the allegations against them, on pain of the settlement being reopened. For years, that policy is what prevented Mr. Altahawi from stating his position as directly as he does on this page.",
+  },
+  {
+    t: "pLink",
+    before:
+      "That policy no longer exists. On May 18, 2026, the Commission formally rescinded it, and stated that it will not enforce no-deny provisions in existing settlements — it will not ask a district court to vacate a settlement or reopen a proceeding over a breach of a previously entered no-deny term. The Supreme Court subsequently declined to hear Powell v. SEC, the leading constitutional challenge to the rule, the rescission having effectively resolved the issue. See the SEC's announcement: ",
+    label: "sec.gov/newsroom/press-releases/2026-45",
+    href: "https://www.sec.gov/newsroom/press-releases/2026-45",
+    after: ".",
+  },
+  {
+    t: "p",
+    text: "Mr. Altahawi's settlement stands, every term of it honored. What has changed is that he — like every American who settled with the agency under the old policy — may now exercise his First Amendment right to say what he has always maintained: the allegations were untrue, and he settled because the asset freeze left him no realistic means to fight them.",
+  },
+
+  { t: "h2", text: "Since 2019" },
+  {
+    t: "p",
+    text: "In the seven years since the Longfin matter was resolved, Mr. Altahawi's work has continued through Adamson Brothers as a capital markets advisory practice — listing readiness, Regulation A+ and registered offering preparation, direct listing advisory, and cross-border structuring for issuers entering the U.S. markets — alongside his international legal practice. There have been no regulatory matters of any kind since.",
+  },
+  {
+    t: "p",
+    text: "The Longfin matter is part of his record and he treats it as such: openly, factually. A forty-year career should be judged in whole — the transactions completed, the clients served, and the standards kept before and since.",
+  },
+
+  { t: "h2", text: "A note on certain websites" },
+  {
+    t: "p",
+    text: "Readers may also encounter a network of anonymous websites publishing fabricated claims about Mr. Altahawi that go far beyond the public record described above. Sites of this kind are, from time to time, the subject of defamation litigation he files — as in the action now pending in the U.S. District Court for the Southern District of Florida (Case No. 1:25-cv-22806). He will let that process run its course; in the meantime, anyone with questions is encouraged to rely on the primary sources linked on this page, or to contact him directly.",
+  },
+  {
+    t: "p",
+    text: "One point of accuracy matters here, and it is the line between protected reporting and defamation. The 2019 SEC matter was settled by consent, without any admission and without any trial or adjudicated findings. Reporting that accurately is fair comment. Publishing that Mr. Altahawi was “found” to have committed fraud, was “convicted,” or treating settled allegations as adjudicated fact is false — and Mr. Altahawi will not hesitate to pursue any publisher who defames him or misrepresents the record in that way.",
   },
 ];
 
@@ -199,24 +127,11 @@ export default function RegulatoryHistoryPage() {
     <>
       <section className="bg-navy-950 px-6 pb-14 pt-36 text-white">
         <div className="mx-auto max-w-4xl">
-          <h1 className="text-4xl font-bold">Regulatory History</h1>
-          <p className="mt-3 text-sm text-white/70">
-            Professional and regulatory history of the firm&apos;s founding advisor.
-          </p>
+          <h1 className="text-4xl font-bold">Record and Regulatory History</h1>
+          <p className="mt-3 text-sm text-white/70">Andy Altahawi</p>
         </div>
       </section>
       <section className="mx-auto max-w-4xl px-6 py-14">
-        {/* Document header */}
-        <header className="mb-10 border-b border-navy-900/10 pb-8 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-navy-900">ANDY ALTAHAWI</h2>
-          <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-navy-900/70">
-            International Attorney &nbsp;|&nbsp; Veteran Investment Banker &nbsp;|&nbsp; Capital Markets Consultant
-          </p>
-          <p className="mt-2 text-sm text-navy-900/60">
-            andyaltahawi.com &nbsp;&nbsp;|&nbsp;&nbsp; directlylisted.com &nbsp;&nbsp;|&nbsp;&nbsp; andy@andyaltahawi.com
-          </p>
-        </header>
-
         <div className="space-y-5 text-sm leading-relaxed text-navy-900/85">
           {BLOCKS.map((b, i) => {
             switch (b.t) {
@@ -226,14 +141,23 @@ export default function RegulatoryHistoryPage() {
                     {b.text}
                   </h2>
                 );
-              case "h3":
-                return (
-                  <h3 key={i} className="pt-3 text-base font-bold text-navy-900">
-                    {b.text}
-                  </h3>
-                );
               case "p":
                 return <p key={i}>{b.text}</p>;
+              case "pLink":
+                return (
+                  <p key={i}>
+                    {b.before}
+                    <a
+                      href={b.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-brand-600 underline-offset-2 hover:underline"
+                    >
+                      {b.label}
+                    </a>
+                    {b.after}
+                  </p>
+                );
               case "ul":
                 return (
                   <ul key={i} className="list-disc space-y-2 pl-6">
@@ -242,18 +166,18 @@ export default function RegulatoryHistoryPage() {
                     ))}
                   </ul>
                 );
-              case "ulLead":
-                return (
-                  <ul key={i} className="list-disc space-y-2 pl-6">
-                    {b.items.map((it, j) => (
-                      <li key={j}>
-                        <strong className="font-semibold text-navy-900">{it.lead}</strong> {it.text}
-                      </li>
-                    ))}
-                  </ul>
-                );
             }
           })}
+
+          {/* Signature */}
+          <div className="mt-10 border-t border-navy-900/10 pt-6 text-sm text-navy-900/70">
+            <p>July 15, 2026</p>
+            <p>
+              <a href="mailto:info@directlylisted.com" className="font-semibold text-brand-600 hover:underline">
+                Info@directlylisted.com
+              </a>
+            </p>
+          </div>
         </div>
       </section>
     </>
