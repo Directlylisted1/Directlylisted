@@ -114,7 +114,7 @@ const BLOCKS: Block[] = [
   { t: "h2", text: "A note on certain websites" },
   {
     t: "p",
-    text: "Readers may also encounter a network of anonymous websites publishing fabricated claims about Mr. Altahawi that go far beyond the public record described above. Sites of this kind are, from time to time, the subject of defamation litigation he files — as in the action now pending in the U.S. District Court for the Southern District of Florida (Case No. 1:25-cv-22806). He will let that process run its course; in the meantime, anyone with questions is encouraged to rely on the primary sources linked on this page, or to contact him directly.",
+    text: "Readers may also encounter a network of anonymous websites publishing fabricated claims about Mr. Altahawi that go far beyond the public record described above. Sites of this kind are, from time to time, the subject of defamation litigation he files — as in the action he brought in the U.S. District Court for the Southern District of Florida (Case No. 1:25-cv-22806). That case is no longer pending: it was dismissed after the defendants voluntarily took down the defamatory links altogether. Anyone with questions is encouraged to rely on the primary sources linked on this page, or to contact him directly.",
   },
   {
     t: "p",
