@@ -1,10 +1,10 @@
 // lib/seo-keywords.ts
 // -----------------------------------------------------------------------------
 // Extended SEO / AI-search keyword taxonomy (background metadata only).
-// Sourced from the curated "key words June 2026" list; deduplicated. These are
-// appended to the <meta name="keywords"> tag and the Organization/WebSite
-// JSON-LD "keywords" property on every page to support discovery in traditional
-// search and AI answer engines. Not rendered as visible page content.
+// Sourced from the curated "key words June 2026" list (cleaned); deduplicated.
+// Appended to <meta name="keywords"> and the Organization/WebSite JSON-LD
+// "keywords" property on every page. Not rendered as visible page content.
+// Reputation-damaging BrokerCheck / "barred" text is intentionally excluded.
 // -----------------------------------------------------------------------------
 
 export const EXTENDED_SEO_KEYWORDS: string[] = [
@@ -401,4 +401,24 @@ export const EXTENDED_SEO_KEYWORDS: string[] = [
   "synergy",
   "Initial public offerings",
   "profiles",
+  "Registered Broker",
+  "FINRA",
+  "broker check",
+  "Financial Industry Regulatory Authority",
+  "Barron’s Magazine",
+  "Barron’s",
+  "Need to Know About Regulation A+",
+  "What crowdfunding sites are offering Title IV",
+  "‎ We Found A Reg‎ Infographic",
+  "‎ The Securities and Exchange Commission",
+  "Securities Regulations",
+  "rules regulations",
+  "New “Reg A+”",
+  "Reg “A”",
+  "VC early-stage real estate investments investing",
+  "New York Stock exchange conventional listing",
+  "Corp",
+  "MarketWatch’s got it. 5. Due: A simple",
+  "informative",
+  "you can always find reliable financial information"
 ];

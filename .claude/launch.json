@@ -12,6 +12,48 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "social-engine",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["social-engine/src/index.js"],
+      "port": 4790
+    },
+    {
+      "name": "altahawi-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4877", "--directory", "andyaltahawi-wp/preview"],
+      "port": 4877
+    },
+    {
+      "name": "altahawi-la-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4879", "--directory", "C:/andyaltahawi-losangeles.com/preview"],
+      "port": 4879
+    },
+    {
+      "name": "altahawi-attorney-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4880", "--directory", "C:/httpswww.andyaltahawiattorney.com"],
+      "port": 4880
+    },
+    {
+      "name": "altahawi-law-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4881", "--directory", "C:/andyaltahawilaw.com"],
+      "port": 4881
+    },
+    {
+      "name": "altahawi-org-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4882", "--directory", "C:/andyaltahawi.org/preview"],
+      "port": 4882
+    },
+    {
+      "name": "altahawi-sec-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4878", "--directory", "C:/Users/aadam/AppData/Local/Temp/claude/C--directlylisted/4f35e76f-5955-4291-a64c-98bb89ea3400/scratchpad/preview"],
+      "port": 4878
     }
   ]
 }
