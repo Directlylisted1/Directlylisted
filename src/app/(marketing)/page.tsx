@@ -7,6 +7,12 @@ import { PromoVideo } from "@/components/PromoVideo";
 import { CountUpStat } from "@/components/CountUpStat";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqGraph } from "@/lib/jsonld";
+import { buildMetadata } from "@/lib/metadata";
+import { HOME_FAQ_SECTIONS } from "@/lib/faq.home";
+
+// Homepage metadata per the SEO rebuild spec: exact title tag, meta
+// description, canonical https://www.directlylisted.com/, OG mirrors title.
+export const metadata = buildMetadata("home");
 
 // NOTE: confirm these figures are accurate/substantiated before launch.
 const HERO_STATS = [
@@ -97,11 +103,30 @@ export default async function HomePage() {
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             Strategic &amp; Elevated
           </div>
-          <div className="mb-10 max-w-md border-t border-white/30 pt-4 text-sm text-white/80">
+          <div className="mb-6 max-w-md border-t border-white/30 pt-4 text-sm text-white/80">
             The Future of Retail Capital.{" "}
             <span className="font-semibold text-accent">Empower Your Raise.</span>
           </div>
-          <div className="space-y-8">
+          {/* The page's single H1 — primary keyword, per the SEO spec. */}
+          <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl">
+            Direct NASDAQ and NYSE listings: go public without an IPO
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/75">
+            A direct listing lets a company list its shares on a national
+            exchange without an underwritten offering. No syndicate, no roadshow
+            priced by intermediaries, no mandatory lock-up. Directly Listed
+            prepares companies for direct listings on NASDAQ and the New York
+            Stock Exchange, and manages the work from the first filing to the
+            first trade.
+          </p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/60">
+            The desk is led by Andy Altahawi, a former Senior Vice President of
+            Investment Banking at Prudential Securities and an international
+            attorney in practice since 1986. His advisory work spans hundreds of
+            issuer engagements and billions of dollars raised across public
+            offerings.
+          </p>
+          <div className="mt-10 space-y-8">
             {HERO_STATS.map((s) => (
               <div key={s.label} className="flex items-end gap-4">
                 <CountUpStat
@@ -115,8 +140,8 @@ export default async function HomePage() {
             ))}
           </div>
           <div className="mt-12 flex flex-wrap gap-4">
-            <Link href="/get-started" className="btn-primary">Get Started</Link>
-            <Link href="/offerings" className="btn-light">View Live Offerings</Link>
+            <Link href="/book" className="btn-primary">Book a listing consultation</Link>
+            <Link href="/get-started" className="btn-light">See if your company qualifies</Link>
           </div>
         </div>
       </section>
@@ -233,6 +258,278 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ============ WHAT IS A DIRECT LISTING (SEO pillar copy) ============ */}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-4xl px-6">
+          <h2 className="mb-6 text-3xl font-bold md:text-4xl">What is a direct listing?</h2>
+          <div className="space-y-5 text-[15px] leading-relaxed text-navy-900/80">
+            <p>
+              In a direct listing, a company registers its shares with the SEC
+              and lists them on an exchange, where they begin trading at a price
+              set by market orders rather than by underwriters. Spotify used
+              this route onto the NYSE in 2018. Coinbase followed on NASDAQ in
+              2021. The method is no longer reserved for household names:
+              exchange rule changes approved since 2020 also allow companies to
+              raise new capital in a primary direct listing, subject to exchange
+              and SEC conditions. For a deeper walkthrough, read{" "}
+              <Link
+                href="/blog/what-is-a-direct-listing"
+                className="font-semibold text-brand-600 hover:underline"
+              >
+                our complete guide to direct listings
+              </Link>
+              .
+            </p>
+            <p>
+              The appeal is straightforward. Existing shareholders can sell from
+              day one. The company avoids underwriting discounts that typically
+              run about seven percent of an offering. And the opening price
+              reflects actual demand, not an allocation decided the night
+              before.
+            </p>
+            <p>
+              A direct listing is still a full exchange listing. Your company
+              must meet the same NASDAQ or NYSE quantitative and governance
+              standards as any IPO candidate, file a registration statement with
+              the SEC, and operate as a reporting company afterward. That is
+              where preparation decides the outcome.
+            </p>
+          </div>
+
+          <h2 className="mb-6 mt-14 text-3xl font-bold md:text-4xl">
+            Direct listing vs. traditional IPO
+          </h2>
+          <div className="card overflow-x-auto !p-0">
+            <table className="w-full text-sm">
+              <thead className="border-b border-navy-900/10 bg-brand-50/60 text-left text-xs uppercase text-navy-900/70">
+                <tr>
+                  <th scope="col" className="px-5 py-3"></th>
+                  <th scope="col" className="px-5 py-3">Direct listing</th>
+                  <th scope="col" className="px-5 py-3">Traditional IPO</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Underwriters", "None required", "Syndicate engaged"],
+                  ["Underwriting discount", "None", "Typically ~7% of proceeds"],
+                  ["Lock-up period", "None required", "Usually 180 days"],
+                  ["Opening price", "Set by market orders", "Set by underwriters"],
+                  ["New capital", "Optional (primary direct listing)", "Yes"],
+                  [
+                    "Exchange standards",
+                    "Full NASDAQ/NYSE standards apply",
+                    "Full NASDAQ/NYSE standards apply",
+                  ],
+                  ["SEC registration", "Required (S-1 or F-1)", "Required (S-1 or F-1)"],
+                ].map(([label, dl, ipo]) => (
+                  <tr key={label} className="border-b border-navy-900/5">
+                    <th scope="row" className="px-5 py-3 text-left font-semibold">
+                      {label}
+                    </th>
+                    <td className="px-5 py-3 text-navy-900/80">{dl}</td>
+                    <td className="px-5 py-3 text-navy-900/80">{ipo}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-5 text-[15px] leading-relaxed text-navy-900/80">
+            Neither route is better in the abstract. An underwritten IPO suits a
+            company that wants a guaranteed raise and institutional placement. A
+            direct exchange listing suits a company with a clear equity story,
+            existing shareholders who want liquidity, and no appetite for
+            dilution on an underwriter&apos;s terms. We help you decide which
+            fits before any money is spent.
+          </p>
+
+          <h2 className="mb-3 mt-14 text-3xl font-bold md:text-4xl">
+            How the direct listing process works
+          </h2>
+          <p className="mb-8 text-[15px] leading-relaxed text-navy-900/80">
+            Our engagements run in three phases. Most companies complete the
+            full path in four to nine months, driven mainly by audit readiness.
+          </p>
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                t: "Phase one: prepare",
+                b: "We assess your financials, capitalization, and governance against exchange standards, then build the plan to close any gaps. This phase covers PCAOB-standard audits, board composition and committee independence, corporate cleanup, and the drafting of your S-1 or, for foreign issuers, F-1 registration statement.",
+              },
+              {
+                t: "Phase two: qualify",
+                b: "We manage the SEC review and comment process on the registration statement and the exchange application in parallel: NASDAQ or NYSE listing application, symbol reservation, and the exchange's qualification review. Our filings are prepared to SEC EDGAR standards, including Inline XBRL tagging.",
+              },
+              {
+                t: "Phase three: list",
+                b: "Once the registration statement is effective and the exchange approves the listing, your shares open for trading. We coordinate with the transfer agent, DTC, and market makers so the first day of trading is orderly, then stay on for post-listing compliance: 10-K, 10-Q, and 8-K reporting, Section 16 filings, and governance requirements under the exchange rules.",
+              },
+            ].map((p) => (
+              <div key={p.t} className="card !p-6">
+                <h3 className="mb-2 text-lg font-bold">{p.t}</h3>
+                <p className="text-sm leading-relaxed text-navy-900/75">{p.b}</p>
+              </div>
+            ))}
+          </div>
+
+          <h2 className="mb-5 mt-14 text-3xl font-bold md:text-4xl">
+            NASDAQ and NYSE listing requirements, in brief
+          </h2>
+          <p className="text-[15px] leading-relaxed text-navy-900/80">
+            Each exchange publishes quantitative standards a company must meet:
+            stockholders&apos; equity, market value of publicly held shares,
+            share price, and round-lot shareholder counts, along with corporate
+            governance rules on board independence and audit committees. NASDAQ
+            offers three alternative standards for its Capital Market tier;
+            NYSE and NYSE American have their own tests. Most private companies
+            do not meet these standards on day one. Closing that gap is the
+            core of the preparation phase.
+          </p>
+          <p className="mt-4 text-[15px] leading-relaxed text-navy-900/80">
+            For the specifics, see our guides to{" "}
+            <Link
+              href="/products/nasdaq-direct-listing"
+              className="font-semibold text-brand-600 hover:underline"
+            >
+              NASDAQ direct listing requirements
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/products/nyse-direct-listing"
+              className="font-semibold text-brand-600 hover:underline"
+            >
+              NYSE direct listing requirements
+            </Link>
+            , or ask us for a free qualification review of your current numbers.
+          </p>
+
+          <h2 className="mb-5 mt-14 text-3xl font-bold md:text-4xl">
+            More ways to raise: Reg A+, Reg D, and equity lines
+          </h2>
+          <p className="mb-5 text-[15px] leading-relaxed text-navy-900/80">
+            A direct listing is one path among several, and it pairs well with
+            others. Depending on your stage and goals, we also structure:
+          </p>
+          <ul className="space-y-3 text-[15px] leading-relaxed text-navy-900/80">
+            <li className="flex gap-3">
+              <span aria-hidden className="text-accent">✓</span>
+              <span>
+                <Link href="/products/reg-a-plus" className="font-semibold text-brand-600 hover:underline">
+                  Regulation A+ offerings
+                </Link>
+                , which allow a company to raise up to $75 million in a 12-month
+                period from the general public, before or alongside an exchange
+                listing.
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span aria-hidden className="text-accent">✓</span>
+              <span>
+                Regulation D private placements under{" "}
+                <Link href="/products/reg-d-506b" className="font-semibold text-brand-600 hover:underline">
+                  Rule 506(b)
+                </Link>{" "}
+                and{" "}
+                <Link href="/products/reg-d-506c" className="font-semibold text-brand-600 hover:underline">
+                  506(c)
+                </Link>
+                , with no dollar ceiling, for accredited investors.
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span aria-hidden className="text-accent">✓</span>
+              <span>
+                <Link href="/products/reg-s" className="font-semibold text-brand-600 hover:underline">
+                  Regulation S offerings
+                </Link>{" "}
+                for capital raised outside the United States.
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <span aria-hidden className="text-accent">✓</span>
+              <span>
+                <Link href="/products/eloc" className="font-semibold text-brand-600 hover:underline">
+                  Equity line facilities
+                </Link>{" "}
+                of up to $350 million, giving a listed company committed capital
+                to draw after trading begins.
+              </span>
+            </li>
+          </ul>
+          <p className="mt-5 text-[15px] leading-relaxed text-navy-900/80">
+            Many clients combine these: a Reg D or Reg A+ raise pre-listing, the
+            direct listing itself, then an equity line for follow-on capital.
+            The sequencing matters, and it is designed case by case.
+          </p>
+
+          <h2 className="mb-5 mt-14 text-3xl font-bold md:text-4xl">Who leads the work</h2>
+          <div className="space-y-5 text-[15px] leading-relaxed text-navy-900/80">
+            <p>
+              Andy Altahawi has spent his career on both sides of a listing: the
+              banking side and the legal side. He was a Senior Vice President in
+              Investment Banking at Prudential Securities from 1994 to 1999,
+              working on public offerings, private placements, and M&amp;A
+              during the firm&apos;s years under former NASDAQ Chairman Wick
+              Simons. In 1998 he founded Adamson Brothers, a FINRA-registered
+              broker-dealer (CRD #46684) that took hundreds of companies public
+              and operated without a single customer complaint or regulatory
+              citation. After 2008 the firm became the capital markets advisory
+              practice behind Directly Listed.
+            </p>
+            <p>
+              He is also an international attorney, admitted since 1986, with a
+              Ph.D. in Finance. He has held nine FINRA examinations, including
+              the Series 7, 24, and 79. U.S. securities law matters are handled
+              in co-counsel with U.S.-admitted securities attorneys. His full
+              background and regulatory record are published at{" "}
+              <a
+                href="https://andyaltahawi.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand-600 hover:underline"
+              >
+                andyaltahawi.com
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>{" "}
+              — including the primary-source documents. We would rather you read
+              the record than take our word for it.
+            </p>
+          </div>
+
+          <h2 className="mb-5 mt-14 text-3xl font-bold md:text-4xl">
+            Why companies choose Directly Listed
+          </h2>
+          <div className="space-y-5 text-[15px] leading-relaxed text-navy-900/80">
+            <p>
+              One desk covers the whole listing. The financial structuring and
+              the legal preparation are run together, rather than split between
+              a bank and a law firm that bill separately and coordinate slowly.
+              The process is built for issuers who want to reach NASDAQ or NYSE
+              on their own terms: no underwriting discount, no forced lock-up,
+              and an advisor whose record is published in full.
+            </p>
+            <p>
+              Cross-border issuers are a particular focus. We structure foreign
+              companies for U.S. market entry through F-1 registration
+              statements, redomiciliation where needed, and governance
+              frameworks that satisfy both the exchange and home-country law.
+            </p>
+          </div>
+          <div className="mt-8">
+            <Link href="/book" className="btn-dark">Book a listing consultation</Link>
+          </div>
+
+          <p className="mt-10 border-t border-navy-900/10 pt-6 text-xs leading-relaxed text-navy-900/60">
+            Directly Listed is a technology and advisory platform operated by
+            Adamson Brothers Corp. Adamson Brothers Corp is not a registered
+            broker-dealer, investment adviser, or funding portal, and does not
+            offer or sell securities. Legal matters involving U.S. securities
+            law are handled in co-counsel with U.S.-admitted securities
+            attorneys. Nothing on this page is an offer to sell or a
+            solicitation of an offer to buy any security.
+          </p>
+        </div>
+      </section>
 
       {/* ============ PLATFORM PITCH ============ */}
       <section className="relative overflow-hidden bg-navy-950 py-24 text-white">
@@ -409,6 +706,38 @@ export default async function HomePage() {
                 </h3>
                 <p className="text-sm text-white/60">{p.blurb}</p>
               </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ DIRECT LISTING FAQ ============ */}
+      {/* Real text in the HTML (no JS-only accordions) — matches the FAQPage
+          JSON-LD word for word via the shared lib/faq.home.ts source. */}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-4xl px-6">
+          <h2 className="mb-4 text-3xl font-bold md:text-4xl">Direct listing FAQ</h2>
+          <p className="mb-10 max-w-2xl text-[15px] leading-relaxed text-navy-900/70">
+            Straight answers to the questions companies ask most about direct
+            listings, NASDAQ and NYSE requirements, timelines, and costs.
+          </p>
+          <div className="space-y-12">
+            {HOME_FAQ_SECTIONS.map((section) => (
+              <div key={section.heading}>
+                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-brand-600">
+                  {section.heading}
+                </p>
+                <div className="space-y-7">
+                  {section.items.map((item) => (
+                    <div key={item.q}>
+                      <h3 className="mb-2 text-lg font-bold">{item.q}</h3>
+                      <p className="text-[15px] leading-relaxed text-navy-900/80">
+                        {item.a}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>

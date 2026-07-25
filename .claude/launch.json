@@ -22,7 +22,7 @@
     {
       "name": "altahawi-preview",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "4877", "--directory", "andyaltahawi-wp/preview"],
+      "runtimeArgs": ["-m", "http.server", "4877", "--directory", "C:/andyaltahawi-wp/preview"],
       "port": 4877
     },
     {
@@ -48,6 +48,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "4882", "--directory", "C:/andyaltahawi.org/preview"],
       "port": 4882
+    },
+    {
+      "name": "dpo-work-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4883", "--directory", "C:/httpsdpo.work"],
+      "port": 4883
     },
     {
       "name": "altahawi-sec-preview",

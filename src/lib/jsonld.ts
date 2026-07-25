@@ -6,6 +6,7 @@
 
 import { SITE, AUTHOR, ROUTES, type RouteMeta } from "./seo.config";
 import { EXTENDED_SEO_KEYWORDS } from "./seo-keywords";
+import { HOME_FAQ } from "./faq.home";
 
 const ORG_ID = `${SITE.url}/#org`;
 const PERSON_ID = `${SITE.url}/#andy-altahawi`;
@@ -121,43 +122,13 @@ export function productGraph(routeKey: keyof typeof ROUTES) {
   };
 }
 
-// FAQ graph — render on the homepage and/or a dedicated FAQ route.
+// FAQ graph — render on the homepage. Sourced from lib/faq.home.ts so the
+// schema matches the visible on-page FAQ word for word.
 export function faqGraph() {
-  const qa: Array<[string, string]> = [
-    [
-      "What is a direct listing and how is it different from an IPO?",
-      "A direct listing lets a company go public on NASDAQ or the NYSE without a traditional underwritten IPO and without the dilution of new underwritten shares. Directly Listed manages listing readiness, SEC registration, Edgarization, and the exchange application end to end.",
-    ],
-    [
-      "How much can I raise under Regulation A+?",
-      "Under Regulation A+ Tier 2 you can raise up to $75 million per 12-month period from both accredited and non-accredited investors — a mini-IPO open to the public.",
-    ],
-    [
-      "What is the difference between Reg D 506(b) and 506(c)?",
-      "Reg D 506(b) allows an unlimited private raise from investors you already know with no general solicitation and self-certified accreditation. Reg D 506(c) lets you advertise publicly and accept unlimited capital from accredited investors whose status is verified.",
-    ],
-    [
-      "What is an Equity Line of Credit (ELOC)?",
-      "An ELOC is a committed standby equity facility from institutional investors that lets a public company draw capital when it needs it, on its own timeline — up to $350M in committed capital after listing.",
-    ],
-    [
-      "Can I list on NASDAQ or NYSE without an IPO?",
-      "Yes. Directly Listed offers both NASDAQ and NYSE direct listings (no underwriters) and conventional listings with a registered primary offering, so you can raise new capital as you go public.",
-    ],
-    [
-      "Who can invest in a Regulation D 506(c) offering?",
-      "Only verified accredited investors can invest in a Reg D 506(c) offering, but you may advertise the raise publicly and accept an unlimited amount of capital.",
-    ],
-    [
-      "What is a PIPE and when is it used?",
-      "A PIPE (private investment in public equity) is institutional capital placed directly into a company after it lists, at a negotiated price — commonly used for post-listing growth capital.",
-    ],
-  ];
-
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: qa.map(([q, a]) => ({
+    mainEntity: HOME_FAQ.map(({ q, a }) => ({
       "@type": "Question",
       name: q,
       acceptedAnswer: { "@type": "Answer", text: a },

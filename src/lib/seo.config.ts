@@ -111,17 +111,18 @@ export type RouteMeta = {
 export const ROUTES: Record<string, RouteMeta> = {
   home: {
     path: "/",
-    title:
-      "Directly Listed | NASDAQ & NYSE Direct Listings, Reg A+, Reg D & ELOC",
+    title: "Direct NASDAQ & NYSE Listings | Go Public Without an IPO",
     description:
-      "Go public on your terms. NASDAQ & NYSE direct and conventional listings, Reg A+, Reg D 506(b)/(c), Reg S, PIPE & ELOC — one end-to-end platform. By Andy Altahawi.",
+      "Directly Listed prepares companies for direct listings on NASDAQ and NYSE. Led by a 30-year Wall Street banker and international attorney. Talk to us today.",
     definition:
-      "Directly Listed is an end-to-end platform for going public and raising capital — NASDAQ and NYSE direct and conventional listings, Regulation A+, Regulation D 506(b)/506(c), Regulation S, PIPE, and equity lines of credit.",
+      "A direct listing lets a company list its shares on a national exchange without an underwritten offering — no syndicate, no roadshow priced by intermediaries, no mandatory lock-up.",
     keywords: [
       "how to go public without an IPO",
       "direct exchange listing platform",
       "going public advisor",
       "raise capital and go public",
+      "direct NASDAQ listing",
+      "direct NYSE listing",
     ],
   },
 
