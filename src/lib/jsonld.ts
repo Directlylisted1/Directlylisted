@@ -6,7 +6,6 @@
 
 import { SITE, AUTHOR, ROUTES, type RouteMeta } from "./seo.config";
 import { EXTENDED_SEO_KEYWORDS } from "./seo-keywords";
-import { HOME_FAQ } from "./faq.home";
 
 const ORG_ID = `${SITE.url}/#org`;
 const PERSON_ID = `${SITE.url}/#andy-altahawi`;
@@ -122,19 +121,8 @@ export function productGraph(routeKey: keyof typeof ROUTES) {
   };
 }
 
-// FAQ graph — render on the homepage. Sourced from lib/faq.home.ts so the
-// schema matches the visible on-page FAQ word for word.
-export function faqGraph() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: HOME_FAQ.map(({ q, a }) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
-    })),
-  };
-}
+// (The homepage FAQPage graph was retired when the on-page FAQ moved to /faq —
+// that page now emits its own FAQPage JSON-LD from the hub data.)
 
 // BreadcrumbList graph — render in product pages for richer SERP/AI context.
 export function breadcrumbGraph(routeKey: keyof typeof ROUTES) {

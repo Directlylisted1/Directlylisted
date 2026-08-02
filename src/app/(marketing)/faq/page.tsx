@@ -12,8 +12,8 @@
 // -----------------------------------------------------------------------------
 
 import Link from "next/link";
-import { HUB_TOPICS, type HubTopic } from "@/lib/faq.hub";
-import { HEDGE_FUNDS_TOPIC } from "@/lib/faq.hub.hedge-funds";
+import { type HubTopic } from "@/lib/faq.hub";
+import { ALL_FAQ_TOPICS, topicQuestionCount } from "@/lib/faq.hub.all";
 
 export const metadata = {
   title: "FAQ — Ten Ways To Raise. One Platform. | Directly Listed",
@@ -22,31 +22,9 @@ export const metadata = {
   alternates: { canonical: "/faq" },
 };
 
-// Page order per the site's "Ten Ways To Raise" framing: listings first, then
-// exempt offerings, then registration statements, then post-listing capital,
-// then the institutional-investor topics.
-const TOPIC_ORDER = [
-  "direct-listings",
-  "reg-a-plus",
-  "reg-d-506b",
-  "reg-d-506c",
-  "reg-s",
-  "section-4a2",
-  "s-1",
-  "form-f1",
-  "pipe",
-  "eloc",
-  "private-equity",
-] as const;
-
-const ALL_TOPICS: HubTopic[] = [
-  ...TOPIC_ORDER.map((id) => {
-    const t = HUB_TOPICS.find((x) => x.id === id);
-    if (!t) throw new Error(`FAQ hub topic missing from generated data: ${id}`);
-    return t;
-  }),
-  HEDGE_FUNDS_TOPIC,
-];
+// Ordered, merged topic list — shared with the homepage directory so counts
+// always agree (see lib/faq.hub.all.ts).
+const ALL_TOPICS: HubTopic[] = ALL_FAQ_TOPICS;
 
 const AUDIENCE_CARDS = [
   {
@@ -163,20 +141,28 @@ export default function FaqHubPage() {
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-5 text-2xl font-bold">Browse by topic</h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {ALL_TOPICS.map((t) => (
-              <a
-                key={t.id}
-                href={`#${t.id}`}
-                className="group rounded-xl border border-navy-900/10 p-4 transition hover:border-brand-500"
-              >
-                <span className="block text-sm font-bold text-navy-900 group-hover:text-brand-600">
-                  {t.title}
-                </span>
-                <span className="mt-1 block text-xs leading-relaxed text-navy-900/60">
-                  {t.blurb}
-                </span>
-              </a>
-            ))}
+            {ALL_TOPICS.map((t) => {
+              const count = topicQuestionCount(t);
+              return (
+                <a
+                  key={t.id}
+                  href={`#${t.id}`}
+                  className="group rounded-xl border border-navy-900/10 p-4 transition hover:-translate-y-0.5 hover:border-brand-500 hover:shadow-md"
+                >
+                  <span className="flex items-baseline justify-between gap-2">
+                    <span className="text-sm font-bold text-navy-900 group-hover:text-brand-600">
+                      {t.title}
+                    </span>
+                    <span className="shrink-0 rounded-full bg-brand-50 px-2 py-0.5 text-[11px] font-semibold text-brand-600">
+                      {count} Q&amp;As
+                    </span>
+                  </span>
+                  <span className="mt-1 block text-xs leading-relaxed text-navy-900/60">
+                    {t.blurb}
+                  </span>
+                </a>
+              );
+            })}
           </div>
         </div>
       </nav>
@@ -201,13 +187,13 @@ export default function FaqHubPage() {
                       <details
                         key={item.id}
                         id={item.id}
-                        className="group mb-4 break-inside-avoid rounded-xl border border-navy-900/10 bg-white p-5 open:border-brand-500/40 open:shadow-sm"
+                        className="group mb-4 break-inside-avoid rounded-xl border border-navy-900/10 bg-white p-5 transition hover:border-brand-500/50 open:border-l-4 open:border-brand-500 open:bg-brand-50/30 open:shadow-md"
                       >
-                        <summary className="flex cursor-pointer list-none items-start justify-between gap-3 text-[15px] font-bold text-navy-900 [&::-webkit-details-marker]:hidden">
+                        <summary className="flex cursor-pointer list-none items-start justify-between gap-3 text-base font-extrabold leading-snug text-navy-950 transition-colors hover:text-brand-600 group-open:text-brand-700 [&::-webkit-details-marker]:hidden">
                           <span>{item.question}</span>
                           <span
                             aria-hidden
-                            className="mt-0.5 shrink-0 text-brand-600 transition-transform group-open:rotate-45"
+                            className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50 text-base font-bold text-brand-600 transition-transform group-open:rotate-45"
                           >
                             +
                           </span>

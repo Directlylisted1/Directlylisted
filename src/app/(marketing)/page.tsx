@@ -5,14 +5,21 @@ import { loadLegalDoc } from "@/lib/legal";
 import { HeroBackground } from "@/components/HeroBackground";
 import { PromoVideo } from "@/components/PromoVideo";
 import { CountUpStat } from "@/components/CountUpStat";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { faqGraph } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/metadata";
-import { HOME_FAQ_SECTIONS } from "@/lib/faq.home";
+import { ALL_FAQ_TOPICS, FAQ_TOTAL_QUESTIONS, topicQuestionCount } from "@/lib/faq.hub.all";
 
 // Homepage metadata per the SEO rebuild spec: exact title tag, meta
 // description, canonical https://www.directlylisted.com/, OG mirrors title.
 export const metadata = buildMetadata("home");
+
+// FAQ hub directory for the "Browse the complete FAQ" section — titles and
+// per-topic counts derived from the same data that renders /faq.
+const FAQ_TOPIC_CARDS = ALL_FAQ_TOPICS.map((t) => ({
+  id: t.id,
+  title: t.title,
+  count: topicQuestionCount(t),
+}));
+const FAQ_TOTAL = FAQ_TOTAL_QUESTIONS;
 
 // NOTE: confirm these figures are accurate/substantiated before launch.
 const HERO_STATS = [
@@ -88,7 +95,6 @@ export default async function HomePage() {
   return (
     <>
       {/* FAQ structured data — wins AI Overview / "People Also Ask" placement. */}
-      <JsonLd data={faqGraph()} id="ld-faq-home" />
       {/* ============ HERO ============ */}
       <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-navy-950">
         <HeroBackground />
@@ -708,43 +714,52 @@ export default async function HomePage() {
               </Link>
             ))}
           </div>
-          <p className="mt-10 text-center text-sm text-white/70">
-            Questions about any of the ten?{" "}
-            <Link href="/faq" className="font-semibold text-accent hover:underline">
-              Browse the complete FAQ — 450+ answers across every structure →
-            </Link>
-          </p>
         </div>
       </section>
 
-      {/* ============ DIRECT LISTING FAQ ============ */}
-      {/* Real text in the HTML (no JS-only accordions) — matches the FAQPage
-          JSON-LD word for word via the shared lib/faq.home.ts source. */}
+      {/* ============ BROWSE THE COMPLETE FAQ ============ */}
+      {/* The full FAQ lives at /faq (450+ expandable answers). This section is
+          a showcase directory into it — no duplicate Q&A content here. */}
       <section className="bg-white py-20">
-        <div className="mx-auto max-w-4xl px-6">
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">Direct listing FAQ</h2>
-          <p className="mb-10 max-w-2xl text-[15px] leading-relaxed text-navy-900/70">
-            Straight answers to the questions companies ask most about direct
-            listings, NASDAQ and NYSE requirements, timelines, and costs.
-          </p>
-          <div className="space-y-12">
-            {HOME_FAQ_SECTIONS.map((section) => (
-              <div key={section.heading}>
-                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-brand-600">
-                  {section.heading}
-                </p>
-                <div className="space-y-7">
-                  {section.items.map((item) => (
-                    <div key={item.q}>
-                      <h3 className="mb-2 text-lg font-bold">{item.q}</h3>
-                      <p className="text-[15px] leading-relaxed text-navy-900/80">
-                        {item.a}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mb-10 text-center">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-brand-600">
+              Ten Ways To Raise. One Platform.
+            </p>
+            <h2 className="mb-3 text-3xl font-bold md:text-4xl">Browse the complete FAQ</h2>
+            <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-navy-900/70">
+              {FAQ_TOTAL}+ answers across every structure — every question expands in place, and
+              every answer links to the product pages behind it.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {FAQ_TOPIC_CARDS.map((t) => (
+              <Link
+                key={t.id}
+                href={`/faq#${t.id}`}
+                className="group rounded-xl border border-navy-900/10 p-4 transition hover:-translate-y-0.5 hover:border-brand-500 hover:shadow-md"
+              >
+                <span className="flex items-baseline justify-between gap-2">
+                  <span className="text-sm font-bold text-navy-900 group-hover:text-brand-600">
+                    {t.title}
+                  </span>
+                  <span className="shrink-0 rounded-full bg-brand-50 px-2 py-0.5 text-[11px] font-semibold text-brand-600">
+                    {t.count} Q&amp;As
+                  </span>
+                </span>
+              </Link>
             ))}
+          </div>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <Link href="/faq" className="btn-dark">
+              Browse the complete FAQ →
+            </Link>
+            <Link href="/faq/issuer" className="font-medium text-brand-600 hover:underline">
+              Issuer FAQ
+            </Link>
+            <Link href="/faq/investor" className="font-medium text-brand-600 hover:underline">
+              Investor FAQ
+            </Link>
           </div>
         </div>
       </section>
