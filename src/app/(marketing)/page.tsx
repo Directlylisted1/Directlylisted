@@ -708,6 +708,12 @@ export default async function HomePage() {
               </Link>
             ))}
           </div>
+          <p className="mt-10 text-center text-sm text-white/70">
+            Questions about any of the ten?{" "}
+            <Link href="/faq" className="font-semibold text-accent hover:underline">
+              Browse the complete FAQ — 450+ answers across every structure →
+            </Link>
+          </p>
         </div>
       </section>
 
