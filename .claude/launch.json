@@ -56,6 +56,12 @@
       "port": 4883
     },
     {
+      "name": "altahawi-foundation-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4884", "--directory", "C:/httpandyaltahawifoundation.com/preview"],
+      "port": 4884
+    },
+    {
       "name": "altahawi-sec-preview",
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "4878", "--directory", "C:/Users/aadam/AppData/Local/Temp/claude/C--directlylisted/4f35e76f-5955-4291-a64c-98bb89ea3400/scratchpad/preview"],
