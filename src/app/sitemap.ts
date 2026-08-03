@@ -2,6 +2,12 @@ import type { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 import { PRODUCTS } from "@/lib/offering-types";
 
+// Render at request time, not build time: the Docker image builds without a
+// DATABASE_URL, so a statically-baked sitemap would permanently omit every
+// blog post and offering (and their lastmod dates). Dynamic rendering runs the
+// queries against the live database on each crawler fetch.
+export const dynamic = "force-dynamic";
+
 const SITE = "https://www.directlylisted.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
