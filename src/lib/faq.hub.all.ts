@@ -10,7 +10,7 @@ import { HUB_TOPICS, type HubTopic } from "@/lib/faq.hub";
 import { HEDGE_FUNDS_TOPIC } from "@/lib/faq.hub.hedge-funds";
 import { DIRECT_LISTING_EXTRAS } from "@/lib/faq.hub.extras";
 
-// Page order per the site's "Ten Ways To Raise" framing: listings first, then
+// Page order per the site's "Twelve Ways To Raise" framing: listings first, then
 // exempt offerings, then registration statements, then post-listing capital,
 // then the institutional-investor topics.
 const TOPIC_ORDER = [

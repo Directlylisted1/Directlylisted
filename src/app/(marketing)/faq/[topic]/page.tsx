@@ -70,13 +70,24 @@ const TOPIC_ALIASES: Record<string, string> = {
   "hedge-fund": "hedge-funds",
 };
 
+// Slugs whose in-depth Q&A lives on a product page rather than a /faq section.
+const PRODUCT_PAGE_ALIASES: Record<string, string> = {
+  cayman: "/products/cayman-islands-structure",
+  "cayman-islands": "/products/cayman-islands-structure",
+  "cayman-islands-structure": "/products/cayman-islands-structure",
+  "cayman-structure": "/products/cayman-islands-structure",
+};
+
 export default async function FaqTopicRedirect({
   params,
 }: {
   params: Promise<{ topic: string }>;
 }) {
   const { topic } = await params;
-  const canonical = TOPIC_ALIASES[topic.toLowerCase()];
+  const slug = topic.toLowerCase();
+  const productPage = PRODUCT_PAGE_ALIASES[slug];
+  if (productPage) permanentRedirect(productPage);
+  const canonical = TOPIC_ALIASES[slug];
   if (!canonical) notFound();
   permanentRedirect(`/faq#${canonical}`);
 }

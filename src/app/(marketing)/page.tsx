@@ -695,7 +695,7 @@ export default async function HomePage() {
       <section className="bg-navy-950 py-24 text-white">
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="mb-12 text-center text-4xl font-bold">
-            Ten Ways To Raise. One Platform.
+            Twelve Ways To Raise. One Platform.
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
             {PRODUCTS.map((p) => (
@@ -724,7 +724,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-10 text-center">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-brand-600">
-              Ten Ways To Raise. One Platform.
+              Twelve Ways To Raise. One Platform.
             </p>
             <h2 className="mb-3 text-3xl font-bold md:text-4xl">Browse the complete FAQ</h2>
             <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-navy-900/70">

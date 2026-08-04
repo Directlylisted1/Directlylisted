@@ -11,6 +11,18 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { productGraph, breadcrumbGraph } from "@/lib/jsonld";
 import { ROUTES } from "@/lib/seo.config";
+import { PRODUCT_FAQS } from "@/lib/product-faqs";
+
+const stripHtml = (html: string): string =>
+  html
+    .replace(/<\/li>\s*/g, "; ")
+    .replace(/<\/(p|ul|ol|h\d)>\s*/g, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const FAQ_ANSWER_CLASSES =
+  "space-y-3 text-[15px] leading-relaxed text-navy-900/80 [&_a]:font-medium [&_a]:text-brand-600 [&_a:hover]:underline [&_p]:mb-3 [&_p:last-child]:mb-0";
 
 // Every product slug is also an SEO route key (see lib/seo.config.ts).
 const isRouteKey = (slug: string): slug is keyof typeof ROUTES => slug in ROUTES;
@@ -50,6 +62,7 @@ export default async function ProductPage({
 
   const listing = listingInfo(slug);
   const raise = raiseInfo(slug);
+  const faqBlock = PRODUCT_FAQS[slug] ?? null;
   const routeKey = isRouteKey(slug) ? slug : null;
   // GEO lede: the one-sentence definitional answer LLMs lift verbatim.
   const definition = routeKey ? ROUTES[routeKey].definition : null;
@@ -251,6 +264,106 @@ export default async function ProductPage({
       )}
 
       {slug === "eloc" && <ElocTermSheet />}
+
+      {/* In-depth overview + expandable Q&A — from the Twelve Ways FAQ set.
+          Full answer text is server-rendered inside native <details>, plus a
+          FAQPage JSON-LD block, so search and AI crawlers read everything. */}
+      {faqBlock && (
+        <section className="py-16">
+          <div className="mx-auto max-w-5xl px-6">
+            <JsonLd
+              id="ld-product-faq"
+              data={{
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: faqBlock.items.map((i) => ({
+                  "@type": "Question",
+                  name: i.question,
+                  acceptedAnswer: { "@type": "Answer", text: stripHtml(i.answerHtml) },
+                })),
+              }}
+            />
+            <h2 className="mb-4 text-3xl font-bold">{product.label}, in depth</h2>
+            <div
+              className={`mb-4 max-w-4xl ${FAQ_ANSWER_CLASSES}`}
+              dangerouslySetInnerHTML={{ __html: faqBlock.depthHtml }}
+            />
+            {faqBlock.depthRelated.length > 0 && (
+              <p className="mb-10 text-xs text-navy-900/60">
+                <span className="font-semibold uppercase tracking-wide">Related: </span>
+                {faqBlock.depthRelated.map((r, i) => (
+                  <span key={r.href + r.label}>
+                    {i > 0 && " · "}
+                    <Link href={r.href} className="font-medium text-brand-600 hover:underline">
+                      {r.label}
+                    </Link>
+                  </span>
+                ))}
+              </p>
+            )}
+
+            <h3 className="mb-5 text-xl font-bold text-navy-900/80">
+              {product.label} — questions &amp; answers
+            </h3>
+            <div className="space-y-4">
+              {faqBlock.items.map((item) => (
+                <details
+                  key={item.id}
+                  id={item.id}
+                  className="group rounded-xl border border-navy-900/10 bg-white p-5 transition hover:border-brand-500/50 open:border-l-4 open:border-brand-500 open:bg-brand-50/30 open:shadow-md"
+                >
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-3 text-base font-extrabold leading-snug text-navy-950 transition-colors hover:text-brand-600 group-open:text-brand-700 [&::-webkit-details-marker]:hidden">
+                    <span>{item.question}</span>
+                    <span
+                      aria-hidden
+                      className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50 text-base font-bold text-brand-600 transition-transform group-open:rotate-45"
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <div className="mt-3 border-t border-navy-900/5 pt-3">
+                    <div
+                      className={FAQ_ANSWER_CLASSES}
+                      dangerouslySetInnerHTML={{ __html: item.answerHtml }}
+                    />
+                    {item.related.length > 0 && (
+                      <p className="mt-3 text-xs text-navy-900/60">
+                        <span className="font-semibold uppercase tracking-wide">Related: </span>
+                        {item.related.map((r, i) => (
+                          <span key={r.href + r.label}>
+                            {i > 0 && " · "}
+                            <Link
+                              href={r.href}
+                              className="font-medium text-brand-600 hover:underline"
+                            >
+                              {r.label}
+                            </Link>
+                          </span>
+                        ))}
+                      </p>
+                    )}
+                  </div>
+                </details>
+              ))}
+            </div>
+            <p className="mt-8 text-sm text-navy-900/60">
+              More questions? Browse the{" "}
+              <Link href="/faq" className="font-medium text-brand-600 hover:underline">
+                complete FAQ — 459+ answers across every structure
+              </Link>
+              , the{" "}
+              <Link href="/faq/issuer" className="font-medium text-brand-600 hover:underline">
+                Issuer FAQ
+              </Link>
+              , or the{" "}
+              <Link href="/faq/investor" className="font-medium text-brand-600 hover:underline">
+                Investor FAQ
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
+      )}
 
       {listing && (
         <section className="bg-brand-50/40 py-16">

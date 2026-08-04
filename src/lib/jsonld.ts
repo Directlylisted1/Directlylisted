@@ -11,18 +11,20 @@ const ORG_ID = `${SITE.url}/#org`;
 const PERSON_ID = `${SITE.url}/#andy-altahawi`;
 const WEBSITE_ID = `${SITE.url}/#website`;
 
-// The ten products, in the site's "Ten Ways To Raise" order.
+// The twelve products, in the site's "Twelve Ways To Raise" order.
 const OFFER_CATALOG = [
   { key: "reg-d-506b", name: "Regulation D 506(b)" },
   { key: "reg-d-506c", name: "Regulation D 506(c)" },
   { key: "reg-a-plus", name: "Regulation A+ (up to $75M/year)" },
   { key: "reg-s", name: "Regulation S" },
+  { key: "section-4a2", name: "Section 4(a)(2) Private Offerings" },
   { key: "pipe", name: "PIPE (Post-Listing)" },
   { key: "nasdaq-conventional-listing", name: "NASDAQ Conventional Listing" },
   { key: "nasdaq-direct-listing", name: "NASDAQ Direct Listing" },
   { key: "nyse-conventional-listing", name: "NYSE Conventional Listing" },
   { key: "nyse-direct-listing", name: "NYSE Direct Listing" },
   { key: "eloc", name: "Equity Line of Credit (ELOC)" },
+  { key: "cayman-islands-structure", name: "Cayman Islands Structure" },
 ] as const;
 
 // ---- Reusable node fragments -------------------------------------------------
@@ -81,7 +83,7 @@ export function serviceCatalogNode() {
     areaServed: "US",
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Ten Ways to Raise Capital",
+      name: "Twelve Ways to Raise Capital",
       itemListElement: OFFER_CATALOG.map((o) => ({
         "@type": "Offer",
         itemOffered: {

@@ -1,6 +1,6 @@
 // app/(marketing)/faq/page.tsx
 // -----------------------------------------------------------------------------
-// FAQ hub — "Ten Ways To Raise. One Platform."
+// FAQ hub — "Twelve Ways To Raise. One Platform."
 // A single page organizing every FAQ topic into columns of expandable
 // questions: Direct Exchange Listings, Reg A+, Reg D 506(b)/(c), Reg S,
 // Section 4(a)(2), S-1, Form F-1, PIPE, ELOC, Private Equity, and Hedge Funds —
@@ -16,7 +16,7 @@ import { type HubTopic } from "@/lib/faq.hub";
 import { ALL_FAQ_TOPICS, topicQuestionCount } from "@/lib/faq.hub.all";
 
 export const metadata = {
-  title: "FAQ — Ten Ways To Raise. One Platform. | Directly Listed",
+  title: "FAQ — Twelve Ways To Raise. One Platform. | Directly Listed",
   description:
     "Every question, every structure: direct exchange listings, Regulation A+, Reg D 506(b) and 506(c), Regulation S, Section 4(a)(2), S-1 and F-1 registration, PIPEs, equity lines (ELOC), private equity, and hedge funds — in one expandable FAQ.",
   alternates: { canonical: "/faq" },
@@ -76,9 +76,11 @@ const EXPLORE_LINKS: Array<[string, string]> = [
   ["Regulation D 506(c)", "/products/reg-d-506c"],
   ["Regulation D 506(b)", "/products/reg-d-506b"],
   ["Regulation S", "/products/reg-s"],
+  ["Section 4(a)(2) Private Offerings", "/products/section-4a2"],
   ["PIPE (Post-Listing)", "/products/pipe"],
   ["Family Offices, VC, PE & Hedge Funds", "/strategic-investors"],
   ["Equity Line of Credit (ELOC)", "/products/eloc"],
+  ["Cayman Islands Structure", "/products/cayman-islands-structure"],
   ["Our Product Line", "/products"],
   ["Capital Raise Tech", "/products/capital-raise-tech"],
   ["Investor Services", "/products/investor-services"],
@@ -105,7 +107,7 @@ export default function FaqHubPage() {
       <section className="bg-navy-950 px-6 pb-16 pt-36 text-white">
         <div className="mx-auto max-w-7xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
-            Ten Ways To Raise. One Platform.
+            Twelve Ways To Raise. One Platform.
           </p>
           <h1 className="mb-3 text-5xl font-bold">Frequently Asked Questions</h1>
           <p className="max-w-3xl text-white/70">

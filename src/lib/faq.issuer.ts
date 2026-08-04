@@ -137,15 +137,15 @@ export const ISSUER_FAQ: FaqCategory[] = [
     id: "choosing-a-raise",
     title: "Choosing a raise structure",
     intro:
-      "Directly Listed supports ten ways to raise. These answers explain how to pick among them and what each one allows.",
+      "Directly Listed supports twelve ways to raise. These answers explain how to pick among them and what each one allows.",
     items: [
       {
         id: "which-structures-supported",
         question: "Which raise structures does Directly Listed support?",
         answerText:
-          "Ten: Regulation D 506(b), Regulation D 506(c), Regulation A+, Regulation S, PIPE (post-listing), NASDAQ Conventional Listing, NASDAQ Direct Listing, NYSE Conventional Listing, NYSE Direct Listing, and Equity Line of Credit (ELOC). They can be combined — for example, a private Reg D round now, an exchange listing later, and an ELOC for committed capital after you list.",
+          "Twelve: Regulation D 506(b), Regulation D 506(c), Regulation A+, Regulation S, Section 4(a)(2) Private Offerings, PIPE (post-listing), NASDAQ Conventional Listing, NASDAQ Direct Listing, NYSE Conventional Listing, NYSE Direct Listing, Equity Line of Credit (ELOC), and the Cayman Islands Structure for cross-border issuers. They can be combined — for example, a private Reg D round now, an exchange listing later, and an ELOC for committed capital after you list.",
         answerHtml:
-          '<p>Ten: <a href="/products/reg-d-506b">Regulation D 506(b)</a>, <a href="/products/reg-d-506c">Regulation D 506(c)</a>, <a href="/products/reg-a-plus">Regulation A+</a>, <a href="/products/reg-s">Regulation S</a>, <a href="/products/pipe">PIPE (post-listing)</a>, <a href="/products/nasdaq-conventional-listing">NASDAQ Conventional Listing</a>, <a href="/products/nasdaq-direct-listing">NASDAQ Direct Listing</a>, <a href="/products/nyse-conventional-listing">NYSE Conventional Listing</a>, <a href="/products/nyse-direct-listing">NYSE Direct Listing</a>, and <a href="/products/eloc">Equity Line of Credit (ELOC)</a>. They can be combined — for example, a private Reg D round now, an exchange listing later, and an ELOC for committed capital after you list.</p>',
+          '<p>Twelve: <a href="/products/reg-d-506b">Regulation D 506(b)</a>, <a href="/products/reg-d-506c">Regulation D 506(c)</a>, <a href="/products/reg-a-plus">Regulation A+</a>, <a href="/products/reg-s">Regulation S</a>, <a href="/products/section-4a2">Section 4(a)(2) Private Offerings</a>, <a href="/products/pipe">PIPE (post-listing)</a>, <a href="/products/nasdaq-conventional-listing">NASDAQ Conventional Listing</a>, <a href="/products/nasdaq-direct-listing">NASDAQ Direct Listing</a>, <a href="/products/nyse-conventional-listing">NYSE Conventional Listing</a>, <a href="/products/nyse-direct-listing">NYSE Direct Listing</a>, <a href="/products/eloc">Equity Line of Credit (ELOC)</a>, and the <a href="/products/cayman-islands-structure">Cayman Islands Structure</a> for cross-border issuers. They can be combined — for example, a private Reg D round now, an exchange listing later, and an ELOC for committed capital after you list.</p>',
         related: [{ label: "Our Product Line", href: "/products" }],
       },
       {
@@ -314,7 +314,7 @@ export const ISSUER_FAQ: FaqCategory[] = [
     id: "structures-in-depth",
     title: "Every capital structure, in depth",
     intro:
-      "A detailed breakdown of each of the ten ways to raise — limits, who can invest, solicitation and advertising rules, key filings, ongoing reporting, liquidity, and the situation each one fits best. Exact thresholds vary by facts and tier and are confirmed for your deal during scoping; none of this is legal or investment advice.",
+      "A detailed breakdown of the ways to raise — limits, who can invest, solicitation and advertising rules, key filings, ongoing reporting, liquidity, and the situation each one fits best. Exact thresholds vary by facts and tier and are confirmed for your deal during scoping; none of this is legal or investment advice.",
     items: [
       {
         id: "reg-d-506b-deep",

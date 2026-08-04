@@ -19,7 +19,7 @@ export default function NewOfferingPage() {
         <div>
           <label htmlFor="of-type" className="label">Offering Type</label>
           <select id="of-type" name="type" required className="input">
-            {PRODUCTS.map((p) => (
+            {PRODUCTS.filter((p) => p.type).map((p) => (
               <option key={p.type} value={p.type}>{p.label}</option>
             ))}
           </select>

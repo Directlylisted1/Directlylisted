@@ -1,7 +1,10 @@
 import type { OfferingType } from "@prisma/client";
 
 export type ProductInfo = {
-  type: OfferingType;
+  // Prisma offering type — present for products investors can subscribe to on
+  // the platform. Advisory structures (Section 4(a)(2), Cayman Islands) have
+  // no offering type and never appear in offering-creation flows.
+  type?: OfferingType;
   slug: string;
   label: string;
   shortLabel: string;
@@ -170,6 +173,36 @@ export const PRODUCTS: ProductInfo[] = [
       "Issuer controls timing and draw size",
       "Institutional counterparties arranged by us",
       "Pairs naturally with a direct listing",
+    ],
+  },
+  {
+    slug: "section-4a2",
+    label: "Section 4(a)(2) Private Offerings",
+    shortLabel: "Section 4(a)(2)",
+    raiseLimit: "Unlimited",
+    audience: "Sophisticated investors in negotiated private placements",
+    blurb:
+      "The statute behind every private placement — raise unlimited capital from a limited group of sophisticated investors in a transaction not involving any public offering.",
+    highlights: [
+      "No dollar limit and no fixed investor cap",
+      "The statutory foundation beneath Rule 506(b) and 506(c)",
+      "Fallback exemption when a Reg D offering technically fails",
+      "Structured with securities counsel under the flat platform fee",
+    ],
+  },
+  {
+    slug: "cayman-islands-structure",
+    label: "Cayman Islands Structure",
+    shortLabel: "Cayman Structure",
+    raiseLimit: "Cross-border",
+    audience: "Non-U.S. companies listing on NASDAQ or the NYSE",
+    blurb:
+      "List a Cayman Islands holding company on NASDAQ or the NYSE — tax-neutral structuring, foreign private issuer status, and home-country governance for cross-border issuers.",
+    highlights: [
+      "No Cayman corporate, income, capital-gains, or withholding tax",
+      "Foreign private issuer status: Form F-1, 20-F/6-K reporting, IFRS",
+      "Exempted company formed in 1–4 business days, 100% foreign ownership",
+      "Pairs with Reg S and Reg D raises around the listing",
     ],
   },
 ];

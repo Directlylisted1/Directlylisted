@@ -298,4 +298,40 @@ export const ROUTES: Record<string, RouteMeta> = {
       "ELOC for public companies",
     ],
   },
+
+  "section-4a2": {
+    path: "/products/section-4a2",
+    title:
+      "Section 4(a)(2) Private Offerings — The Statutory Private Placement | Directly Listed",
+    description:
+      "Raise unlimited capital from sophisticated investors under Section 4(a)(2) of the Securities Act — the statutory exemption beneath every Reg D round. By Directly Listed.",
+    definition:
+      "Section 4(a)(2) of the Securities Act of 1933 exempts transactions by an issuer not involving any public offering — the original private-placement exemption, with no dollar limit, on which the Rule 506(b) and 506(c) safe harbors are built.",
+    keywords: [
+      "Section 4(a)(2) private offering",
+      "Section 4(a)(2) exemption",
+      "statutory private placement",
+      "private placement without registration",
+      "sophisticated investor exemption",
+      "Ralston Purina private offering",
+    ],
+  },
+
+  "cayman-islands-structure": {
+    path: "/products/cayman-islands-structure",
+    title:
+      "Cayman Islands Structure — List a Cayman Holding Company on NASDAQ or NYSE | Directly Listed",
+    description:
+      "The standard cross-border route to a U.S. listing: a tax-neutral Cayman Islands holding company with foreign private issuer status, listed on NASDAQ or the NYSE. By Directly Listed.",
+    definition:
+      "The Cayman Islands structure places a Cayman exempted holding company above the operating group so its shares — or American Depositary Shares — can list on NASDAQ or the NYSE with tax-neutral treatment, foreign private issuer status, and home-country governance.",
+    keywords: [
+      "Cayman Islands holding company listing",
+      "Cayman structure NASDAQ NYSE",
+      "foreign private issuer Form F-1",
+      "Cayman exempted company",
+      "cross-border U.S. listing structure",
+      "offshore holding company IPO",
+    ],
+  },
 };

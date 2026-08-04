@@ -10,6 +10,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/products/nasdaq-direct-listing", label: "NASDAQ Direct Listing" },
       { href: "/products/nyse-conventional-listing", label: "NYSE Conventional Listing" },
       { href: "/products/nyse-direct-listing", label: "NYSE Direct Listing" },
+      { href: "/products/cayman-islands-structure", label: "Cayman Islands Structure" },
     ],
   },
   {
@@ -20,6 +21,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/products/reg-d-506c", label: "Reg D 506(c)" },
       { href: "/products/reg-d-506b", label: "Reg D 506(b)" },
       { href: "/products/reg-s", label: "Reg S" },
+      { href: "/products/section-4a2", label: "Section 4(a)(2) Private Offerings" },
       { href: "/products/pipe", label: "PIPE (Post-Listing)" },
     ],
   },
@@ -46,6 +48,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/about", label: "About Us" },
       { href: "/guides", label: "Guides" },
       { href: "/case-studies", label: "Current Deals & Case Studies" },
+      { href: "/faq", label: "FAQ — All Topics" },
       { href: "/faq/issuer", label: "Issuer FAQ" },
       { href: "/faq/investor", label: "Investor FAQ" },
     ],
