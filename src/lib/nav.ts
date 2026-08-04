@@ -10,8 +10,13 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/products/nasdaq-direct-listing", label: "NASDAQ Direct Listing" },
       { href: "/products/nyse-conventional-listing", label: "NYSE Conventional Listing" },
       { href: "/products/nyse-direct-listing", label: "NYSE Direct Listing" },
-      { href: "/products/cayman-islands-structure", label: "Cayman Islands Structure" },
     ],
+  },
+  {
+    // Top-level tab — renders as a plain link (no dropdown) since it has no items.
+    label: "Cayman Islands Structure",
+    href: "/products/cayman-islands-structure",
+    items: [],
   },
   {
     label: "Raise Capital",

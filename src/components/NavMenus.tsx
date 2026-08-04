@@ -33,7 +33,17 @@ export function NavMenus({
 
   return (
     <div ref={ref} className="hidden items-center gap-1 text-sm font-medium text-white/90 lg:flex">
-      {groups.map((g) => (
+      {groups.map((g) =>
+        g.items.length === 0 && g.href ? (
+          // Item-less group: a plain top-level tab, no dropdown.
+          <Link
+            key={g.label}
+            href={g.href}
+            className="rounded-full px-3 py-2 hover:bg-white/10 hover:text-white"
+          >
+            {g.label}
+          </Link>
+        ) : (
         <div key={g.label} className="relative">
           <button
             type="button"
@@ -72,7 +82,8 @@ export function NavMenus({
             </div>
           )}
         </div>
-      ))}
+        ),
+      )}
 
       {/* Blog/Vlog — expandable boxes of articles */}
       <div className="relative">

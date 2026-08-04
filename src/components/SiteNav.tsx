@@ -24,7 +24,11 @@ export async function SiteNav() {
   ]);
 
   const mobileLinks = [
-    ...NAV_GROUPS.flatMap((g) => g.items),
+    // Item-less groups are plain top-level tabs (e.g. Cayman Islands Structure)
+    // — surface them as their own mobile link.
+    ...NAV_GROUPS.flatMap((g) =>
+      g.items.length > 0 ? g.items : g.href ? [{ href: g.href, label: g.label }] : [],
+    ),
     { href: "/blog", label: "Blog/Vlog" },
     { href: "/contact", label: "Contact" },
   ];
