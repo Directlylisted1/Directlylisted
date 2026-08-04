@@ -23,9 +23,22 @@ export const SITE = {
 
 // The founder/advisor entity — bound across Organization, Person, and author meta
 // to build E-E-A-T and brand<->name association for AI search engines.
+// The sameAs array links the founder's other properties so Google consolidates
+// all of them into one Person entity (the same block, with the url adjusted
+// per site, is embedded across the whole network).
 export const AUTHOR = {
   name: "Andy Altahawi",
-  jobTitle: "Direct Exchange Listing Advisor",
+  jobTitle: "Investment Banker & International Attorney",
+  sameAs: [
+    "https://andyaltahawi.com/",
+    "https://dpo.work/",
+    "https://andyaltahawisec.com/",
+    "https://andyaltahawiattorney.com/",
+    "https://andyaltahawi-losangeles.com/",
+    "https://andyaltahawilaw.com/",
+    "https://andyaltahawi.org/",
+    "https://andyaltahawifoundation.com/",
+  ],
   knowsAbout: [
     "NASDAQ direct listing",
     "NYSE direct listing",

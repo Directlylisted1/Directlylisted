@@ -53,6 +53,10 @@ export function personNode() {
     worksFor: { "@id": ORG_ID },
     knowsAbout: AUTHOR.knowsAbout,
     url: SITE.url,
+    // Entity consolidation across the founder's network of properties: the
+    // same Person block (url adjusted per site) is embedded on every site, so
+    // Google resolves all of them to one entity.
+    sameAs: AUTHOR.sameAs,
   };
 }
 

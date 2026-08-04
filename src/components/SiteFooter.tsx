@@ -131,10 +131,24 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-white/10 px-6 py-6 text-center text-xs text-white/60">
-        © {new Date().getFullYear()} Adamson Brothers Corp. d/b/a Directly Listed.
-        Directly Listed is a technology platform, not a registered broker-dealer or
-        funding portal. Offerings are conducted by issuers in reliance on their own
-        securities exemptions. Investing involves risk, including loss of principal.
+        <p className="mx-auto mb-3 max-w-3xl">
+          Directly Listed is operated by Adamson Brothers Corp., founded by veteran investment
+          banker and international attorney{" "}
+          <a href="https://andyaltahawi.com/" className="font-medium text-white/80 hover:text-white">
+            Andy Altahawi
+          </a>
+          . Explore direct public offerings in depth at{" "}
+          <a href="https://dpo.work/" className="font-medium text-white/80 hover:text-white">
+            DPO.work
+          </a>
+          .
+        </p>
+        <p>
+          © {new Date().getFullYear()} Adamson Brothers Corp. d/b/a Directly Listed.
+          Directly Listed is a technology platform, not a registered broker-dealer or
+          funding portal. Offerings are conducted by issuers in reliance on their own
+          securities exemptions. Investing involves risk, including loss of principal.
+        </p>
       </div>
     </footer>
   );
