@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { EXTENDED_SEO_KEYWORDS } from "@/lib/seo-keywords";
 
@@ -52,7 +53,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {/* ConveyThis — sitewide language switcher / machine translation.
+            Vendor requires head placement; beforeInteractive injects the tag
+            into the document head of the initial HTML. */}
+        <Script
+          src="https://cdn.conveythis.com/javascript/conveythis.js?api_key=pub_1a90138d419596e9be77f9b473667783"
+          strategy="beforeInteractive"
+        />
+        {children}
+      </body>
     </html>
   );
 }
