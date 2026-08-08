@@ -42,6 +42,29 @@ const nextConfig: NextConfig = {
       // processes the removals and visitors land somewhere useful.
       { source: "/book/details", destination: "/book", permanent: true },
       { source: "/book/confirmed", destination: "/book", permanent: true },
+      // Pre-redesign URLs that still hold backlinks but 404 on the new build
+      // (backlink cleanup brief, 2026-08-08). Trailing-slash forms reach the
+      // target via Next's built-in slash-normalisation redirect first (two
+      // same-host 308s — fine for search engines and users alike).
+      {
+        source: "/nasdaq-direct-listing",
+        destination: "/products/nasdaq-direct-listing",
+        permanent: true,
+      },
+      {
+        source: "/nyse-direct-listing",
+        destination: "/products/nyse-direct-listing",
+        permanent: true,
+      },
+      { source: "/services", destination: "/products", permanent: true },
+      // "Institutional funding" maps to the institutional-capital pillar
+      // (family offices, VC, PE & hedge funds). Swap to /raise-capital if
+      // preferred.
+      {
+        source: "/institutional-funding",
+        destination: "/strategic-investors",
+        permanent: true,
+      },
     ];
   },
 };
