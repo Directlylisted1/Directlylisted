@@ -53,6 +53,23 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        {/* Google tag (gtag.js) — Google Ads AW-18377846222. One tag per page,
+            immediately after <head>, per Google's install instructions. */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18377846222"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "window.dataLayer = window.dataLayer || [];" +
+              "function gtag(){dataLayer.push(arguments);}" +
+              "gtag('js', new Date());" +
+              "gtag('config', 'AW-18377846222');",
+          }}
+        />
+      </head>
       <body>
         {children}
         {/* ConveyThis — sitewide language switcher / machine translation.
