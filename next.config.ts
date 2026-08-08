@@ -57,12 +57,9 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       { source: "/services", destination: "/products", permanent: true },
-      // "Institutional funding" maps to the institutional-capital pillar
-      // (family offices, VC, PE & hedge funds). Swap to /raise-capital if
-      // preferred.
       {
         source: "/institutional-funding",
-        destination: "/strategic-investors",
+        destination: "/raise-capital",
         permanent: true,
       },
     ];
