@@ -56,6 +56,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/faq", label: "FAQ — All Topics" },
       { href: "/faq/issuer", label: "Issuer FAQ" },
       { href: "/faq/investor", label: "Investor FAQ" },
+      { href: "/contact", label: "Contact Us" },
     ],
   },
 ];

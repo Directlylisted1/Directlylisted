@@ -1,6 +1,13 @@
 import { SignInForm } from "@/components/AuthForms";
 
-export const metadata = { title: "Sign In — Directly Listed" };
+// Auth pages carry no search value and the ?next= variants multiply URLs —
+// keep them out of the index entirely (SE Ranking audit fix #4).
+export const metadata = {
+  title: "Sign In — Directly Listed",
+  description: "Sign in to your Directly Listed investor or issuer account.",
+  alternates: { canonical: "/signin" },
+  robots: { index: false, follow: true },
+};
 
 export default async function SignInPage({
   searchParams,

@@ -4,88 +4,11 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { db } from "./db";
 import { getCurrentUser } from "./session";
-import { appointmentType } from "./crm-types";
-import { isSlotFree } from "./availability";
-import { notifyBooking } from "./mailer";
 
 async function requireAdmin() {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/signin?next=/admin/crm");
   return user;
-}
-
-// ---------------------------------------------------------------------------
-// PUBLIC — self-serve appointment booking
-// ---------------------------------------------------------------------------
-
-/** Book an appointment from the public funnel: auto-creates/links a CRM
- * contact, confirms the slot (re-checking for races), and logs activity. */
-export async function bookAppointment(
-  _prev: { error?: string } | undefined,
-  formData: FormData,
-): Promise<{ error?: string }> {
-  const typeId = String(formData.get("typeId") ?? "");
-  const startIso = String(formData.get("start") ?? "");
-  const name = String(formData.get("name") ?? "").trim();
-  const email = String(formData.get("email") ?? "").toLowerCase().trim();
-  const phone = String(formData.get("phone") ?? "").trim() || null;
-  const company = String(formData.get("company") ?? "").trim() || null;
-  const message = String(formData.get("message") ?? "").trim() || null;
-
-  const type = appointmentType(typeId);
-  const start = new Date(startIso);
-  if (!type || Number.isNaN(start.getTime())) return { error: "Invalid appointment selection." };
-  if (!name || !email) return { error: "Name and email are required." };
-
-  if (!(await isSlotFree(start, type.durationMin))) {
-    return { error: "Sorry — that time was just booked. Please choose another slot." };
-  }
-
-  // Upsert the contact by email and move them into the meeting pipeline.
-  const contact = await db.crmContact.upsert({
-    where: { email },
-    update: { name, phone, company, stage: "MEETING_SCHEDULED" },
-    create: {
-      name,
-      email,
-      phone,
-      company,
-      source: "BOOKING",
-      stage: "MEETING_SCHEDULED",
-    },
-  });
-
-  const appt = await db.appointment.create({
-    data: {
-      contactId: contact.id,
-      typeId: type.id,
-      typeLabel: type.label,
-      startsAt: start,
-      durationMin: type.durationMin,
-      status: "CONFIRMED",
-      message,
-    },
-  });
-
-  await db.crmActivity.create({
-    data: {
-      contactId: contact.id,
-      kind: "APPOINTMENT",
-      body: `Booked ${type.label} for ${start.toLocaleString("en-US")}.`,
-    },
-  });
-
-  await notifyBooking({
-    name,
-    email,
-    phone,
-    company,
-    typeLabel: type.label,
-    startsAt: start,
-    message,
-  });
-
-  redirect(`/book/confirmed?id=${appt.id}`);
 }
 
 // ---------------------------------------------------------------------------

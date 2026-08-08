@@ -93,7 +93,7 @@ const BLOCKS: Block[] = [
     before:
       "That policy no longer exists. On May 18, 2026, the Commission formally rescinded it, and stated that it will not enforce no-deny provisions in existing settlements — it will not ask a district court to vacate a settlement or reopen a proceeding over a breach of a previously entered no-deny term. The Supreme Court subsequently declined to hear Powell v. SEC, the leading constitutional challenge to the rule, the rescission having effectively resolved the issue. See the SEC's announcement: ",
     label: "sec.gov/newsroom/press-releases/2026-45",
-    href: "https://www.sec.gov/newsroom/press-releases/2026-45",
+    href: "https://www.sec.gov/newsroom/press-releases/2026-45-sec-rescinds-policy-regarding-denials-settlements-enforcement-actions",
     after: ".",
   },
   {

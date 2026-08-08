@@ -18,7 +18,7 @@ import { ALL_FAQ_TOPICS, topicQuestionCount } from "@/lib/faq.hub.all";
 export const metadata = {
   title: "FAQ — Twelve Ways To Raise. One Platform. | Directly Listed",
   description:
-    "Every question, every structure: direct exchange listings, Regulation A+, Reg D 506(b) and 506(c), Regulation S, Section 4(a)(2), S-1 and F-1 registration, PIPEs, equity lines (ELOC), private equity, and hedge funds — in one expandable FAQ.",
+    "460+ expandable answers on direct listings, Reg A+, Reg D, Reg S, S-1 and F-1 registration, PIPEs, ELOCs, and more. Browse every structure in one FAQ.",
   alternates: { canonical: "/faq" },
 };
 

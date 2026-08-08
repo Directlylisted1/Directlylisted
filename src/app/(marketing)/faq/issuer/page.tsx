@@ -5,7 +5,7 @@ import { ISSUER_FAQ } from "@/lib/faq.issuer";
 export const metadata = {
   title: "Issuer FAQ — Directly Listed",
   description:
-    "Frequently asked questions for companies raising capital and going public on Directly Listed — offering types, costs, timelines, audits, marketing rules, and the path to a NASDAQ or NYSE listing.",
+    "Issuer FAQ — offering types, costs, timelines, audits, marketing rules, and the path to a NASDAQ or NYSE listing. Get answers before you raise.",
   alternates: { canonical: "/faq/issuer" },
 };
 

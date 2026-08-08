@@ -1,6 +1,13 @@
 import { SignUpForm } from "@/components/AuthForms";
 
-export const metadata = { title: "Create Account — Directly Listed" };
+// Auth pages carry no search value and the ?next= variants multiply URLs —
+// keep them out of the index entirely (SE Ranking audit fix #4).
+export const metadata = {
+  title: "Create Account — Directly Listed",
+  description: "Create your Directly Listed account to invest in live offerings.",
+  alternates: { canonical: "/signup" },
+  robots: { index: false, follow: true },
+};
 
 export default async function SignUpPage({
   searchParams,

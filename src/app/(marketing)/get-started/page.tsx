@@ -4,8 +4,25 @@ import { PRODUCTS } from "@/lib/offering-types";
 import { FeeDisclosure } from "@/components/FeeDisclosure";
 import { WhatsAppContact } from "@/components/WhatsAppContact";
 import { notifyInquiry } from "@/lib/mailer";
+import type { Metadata } from "next";
 
-export const metadata = { title: "Get Started — Directly Listed" };
+// The ?product= variants (13 of them, linked from every product page) carry
+// identical content — canonicalise them all to /get-started and keep the
+// parameterised copies out of the index (SE Ranking audit fix #1).
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ product?: string }>;
+}): Promise<Metadata> {
+  const { product } = await searchParams;
+  return {
+    title: "Get Started — Directly Listed",
+    description:
+      "Tell us about your raise — exemption, exchange, and timeline. Every deal gets its own flat-fee quotation from the Directly Listed team.",
+    alternates: { canonical: "/get-started" },
+    ...(product ? { robots: { index: false, follow: true } } : {}),
+  };
+}
 
 async function submitLead(formData: FormData) {
   "use server";

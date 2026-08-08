@@ -81,6 +81,7 @@ export function SiteFooter() {
             <li><Link href="/faq/investor" className="hover:text-white">Investor FAQ</Link></li>
             <li><Link href="/blog" className="hover:text-white">Blog/Vlog</Link></li>
             <li><Link href="/book" className="hover:text-white">Book a Call</Link></li>
+            <li><Link href="/contact" className="hover:text-white">Contact Us</Link></li>
             <li><Link href="/get-started" className="hover:text-white">Get Started</Link></li>
             <li><Link href="/signin" className="hover:text-white">Investor Sign In</Link></li>
             <li>

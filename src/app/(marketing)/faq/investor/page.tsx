@@ -5,7 +5,7 @@ import { INVESTOR_FAQ } from "@/lib/faq.investor";
 export const metadata = {
   title: "Investor FAQ — Directly Listed",
   description:
-    "Frequently asked questions for investors on the Directly Listed platform — how investing works, who can invest, the offering types on our Live Offerings page, liquidity, and risk.",
+    "Investor FAQ — how investing works, who can invest, offering types, liquidity, and risk on the Directly Listed platform. Read before you invest.",
   alternates: { canonical: "/faq/investor" },
 };
 

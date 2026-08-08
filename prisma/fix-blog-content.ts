@@ -17,6 +17,8 @@
 // re-running is a no-op.
 // -----------------------------------------------------------------------------
 
+import fs from "node:fs";
+import path from "node:path";
 import { db } from "../src/lib/db";
 
 const FIXES: Array<{ name: string; apply: (s: string) => string }> = [
@@ -45,6 +47,61 @@ const FIXES: Array<{ name: string; apply: (s: string) => string }> = [
         // Trailing empty paragraph the footer leaves behind.
         .replace(/(<p><br\s*\/?><\/p>\s*)+$/gi, ""),
   },
+  {
+    // SE Ranking audit fix #7: internal links written in the non-www form 301
+    // to www — one extra hop for every click and for link equity. Rewrite them
+    // to the canonical host.
+    name: "canonical-www-internal-links",
+    apply: (s) =>
+      s.replace(/https?:\/\/directlylisted\.com(\/|")/g, "https://www.directlylisted.com$1"),
+  },
+];
+
+// SE Ranking audit fix #10: post titles that exceed the ~60-character SERP
+// display limit, rewritten concisely. Applied only while the title still
+// matches the long original, so the rewrite is idempotent and never clobbers
+// a later manual retitle.
+const TITLE_REWRITES: Array<{ slug: string; from: string; to: string }> = [
+  {
+    slug: "the-cayman-islands-structure-how-international-companies-list-on-nasdaq-and-the-",
+    from: "The Cayman Islands Structure: How International Companies List on NASDAQ and the NYSE",
+    to: "The Cayman Islands Structure: Listing on NASDAQ & NYSE",
+  },
+  {
+    slug: "spacex-ipo-nasdaq",
+    from: "SpaceX IPO: Inside the NASDAQ Listing and What It Means for Investors",
+    to: "SpaceX IPO: Inside the NASDAQ Listing",
+  },
+  {
+    slug: "nasdaq-direct-listing-requirements",
+    from: "NASDAQ Direct Listing: Requirements, Process, and Timeline (2026)",
+    to: "NASDAQ Direct Listing Requirements & Timeline (2026)",
+  },
+  {
+    slug: "nyse-direct-listing-guide",
+    from: "NYSE Direct Listing: Process, Requirements, and Costs Explained",
+    to: "NYSE Direct Listing: Process, Requirements, Costs",
+  },
+  {
+    slug: "what-is-a-direct-listing",
+    from: "What Is a Direct Listing? A 2026 Guide to Going Public Without an IPO",
+    to: "What Is a Direct Listing? Going Public Without an IPO",
+  },
+  {
+    slug: "biggest-direct-listings-history",
+    from: "The Biggest Direct Listings in History: Spotify, Coinbase, Palantir and More",
+    to: "The Biggest Direct Listings in History",
+  },
+  {
+    slug: "equity-line-of-credit-eloc",
+    from: "Equity Line of Credit (ELOC): How to Fund Your Company After Going Public",
+    to: "Equity Line of Credit (ELOC): Post-Listing Funding",
+  },
+  {
+    slug: "direct-listing-vs-ipo",
+    from: "Direct Listing vs. IPO: What Founders Should Actually Compare",
+    to: "Direct Listing vs. IPO: What Founders Should Compare",
+  },
 ];
 
 async function main() {
@@ -57,10 +114,27 @@ async function main() {
       content = fix.apply(content);
       excerpt = fix.apply(excerpt);
     }
-    if (content !== post.content || excerpt !== post.excerpt) {
+    // Title shortening (fix #10) — only while the long original is in place.
+    const rewrite = TITLE_REWRITES.find((r) => r.slug === post.slug);
+    const title = rewrite && post.title === rewrite.from ? rewrite.to : post.title;
+    // Cover image hygiene (fix #5): 19 posts referenced /uploads/blog/* files
+    // that no longer exist on the server, leaving broken hero images and 4XX
+    // image errors. If the file is missing from the serving directory, clear
+    // the reference — the template renders cleanly without a cover.
+    let coverImage = post.coverImage;
+    if (coverImage?.startsWith("/uploads/")) {
+      const onDisk = path.join(process.cwd(), "public", ...coverImage.split("/").filter(Boolean));
+      if (!fs.existsSync(onDisk)) coverImage = null;
+    }
+    if (
+      content !== post.content ||
+      excerpt !== post.excerpt ||
+      title !== post.title ||
+      coverImage !== post.coverImage
+    ) {
       await db.blogPost.update({
         where: { id: post.id },
-        data: { content, excerpt },
+        data: { content, excerpt, title, coverImage },
       });
       changed++;
       console.log(`[fix-blog-content] patched: ${post.slug}`);

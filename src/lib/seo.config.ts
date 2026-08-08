@@ -141,9 +141,9 @@ export const ROUTES: Record<string, RouteMeta> = {
 
   "nasdaq-direct-listing": {
     path: "/products/nasdaq-direct-listing",
-    title: "NASDAQ Direct Listing — Go Public Without an IPO | Directly Listed",
+    title: "NASDAQ Direct Listing — Go Public Without an IPO",
     description:
-      "List directly on NASDAQ without an IPO. We manage listing readiness, SEC registration, Edgarization & the exchange application end to end. Advisory by Andy Altahawi.",
+      "List directly on NASDAQ without an IPO. Listing readiness, SEC registration, Edgarization and the exchange application, end to end. Get a flat-fee quote.",
     definition:
       "A NASDAQ direct listing lets a company go public on NASDAQ without a traditional underwritten IPO and without dilutive underwriting, while Directly Listed manages listing readiness, SEC registration, Edgarization, and the exchange application end to end.",
     keywords: [
@@ -157,9 +157,9 @@ export const ROUTES: Record<string, RouteMeta> = {
 
   "nasdaq-conventional-listing": {
     path: "/products/nasdaq-conventional-listing",
-    title: "NASDAQ Conventional Listing + Primary Offering | Directly Listed",
+    title: "NASDAQ Conventional Listing + Primary Offering",
     description:
-      "A conventional NASDAQ listing with a registered primary offering — raise new capital as you go public, managed end to end by Directly Listed and Andy Altahawi.",
+      "A conventional NASDAQ listing with a registered primary offering — raise new capital as you go public, managed end to end. Get a flat-fee quote.",
     definition:
       "A NASDAQ conventional listing is a registered primary offering that lists a company on NASDAQ while raising new capital at the same time, managed end to end by Directly Listed.",
     keywords: [
@@ -173,7 +173,7 @@ export const ROUTES: Record<string, RouteMeta> = {
   "nyse-direct-listing": {
     path: "/products/nyse-direct-listing",
     title:
-      "NYSE Direct Listing — List on the Big Board Without Underwriters | Directly Listed",
+      "NYSE Direct Listing — Big Board, No Underwriters",
     description:
       "List directly on the NYSE Big Board without dilutive underwriting. End-to-end direct exchange listing advisory from Directly Listed and Andy Altahawi.",
     definition:
@@ -189,7 +189,7 @@ export const ROUTES: Record<string, RouteMeta> = {
 
   "nyse-conventional-listing": {
     path: "/products/nyse-conventional-listing",
-    title: "NYSE Conventional Listing with Capital Raise | Directly Listed",
+    title: "NYSE Conventional Listing with Capital Raise",
     description:
       "A conventional New York Stock Exchange listing with a registered primary offering — the Big Board, with new capital raised at the bell. By Directly Listed.",
     definition:
@@ -205,7 +205,7 @@ export const ROUTES: Record<string, RouteMeta> = {
   "reg-a-plus": {
     path: "/products/reg-a-plus",
     title:
-      "Regulation A+ Offering — Raise Up to $75M/Year (Mini-IPO) | Directly Listed",
+      "Regulation A+ — Raise Up to $75M a Year (Mini-IPO)",
     description:
       "Raise up to $75M per year from accredited and non-accredited investors. A mini-IPO open to the public, managed end to end. Directly Listed / Andy Altahawi.",
     definition:
@@ -222,7 +222,7 @@ export const ROUTES: Record<string, RouteMeta> = {
   "reg-d-506c": {
     path: "/products/reg-d-506c",
     title:
-      "Regulation D 506(c) — Raise Unlimited Capital, Advertise Publicly | Directly Listed",
+      "Regulation D 506(c) — Advertise, Raise Unlimited",
     description:
       "Advertise your raise publicly and accept unlimited capital from verified accredited investors. Compliant general solicitation built into the flow.",
     definition:
@@ -238,9 +238,9 @@ export const ROUTES: Record<string, RouteMeta> = {
   "reg-d-506b": {
     path: "/products/reg-d-506b",
     title:
-      "Regulation D 506(b) — Private Unlimited Raise From Your Network | Directly Listed",
+      "Regulation D 506(b) — Private Unlimited Raise",
     description:
-      "Raise unlimited capital privately from investors you already know — no general solicitation, self-certified accreditation. By Directly Listed and Andy Altahawi.",
+      "Raise unlimited capital privately from investors you already know — no general solicitation, self-certified accreditation. Scope your raise today.",
     definition:
       "Regulation D 506(b) lets a company raise unlimited capital privately from investors it already knows, with no general solicitation and self-certified accreditation.",
     keywords: [
@@ -253,7 +253,7 @@ export const ROUTES: Record<string, RouteMeta> = {
 
   "reg-s": {
     path: "/products/reg-s",
-    title: "Regulation S — Raise Capital From International Investors | Directly Listed",
+    title: "Regulation S — Raise From International Investors",
     description:
       "Raise capital from international investors through offshore transactions outside U.S. registration — often run alongside a Reg D round. By Directly Listed.",
     definition:
@@ -269,7 +269,7 @@ export const ROUTES: Record<string, RouteMeta> = {
   pipe: {
     path: "/products/pipe",
     title:
-      "PIPE Financing (Post-Listing) — Institutional Capital After You List | Directly Listed",
+      "PIPE Financing — Institutional Capital Post-Listing",
     description:
       "Private investment in public equity — institutional capital placed directly into your company after it lists, at a negotiated price. By Directly Listed.",
     definition:
@@ -285,7 +285,7 @@ export const ROUTES: Record<string, RouteMeta> = {
   eloc: {
     path: "/products/eloc",
     title:
-      "Equity Line of Credit (ELOC) — Committed Standby Equity Facility | Directly Listed",
+      "Equity Line of Credit (ELOC) — Standby Capital",
     description:
       "A committed standby equity facility from institutional investors — draw capital when you need it, on your timeline. Equity Line of Credit by Directly Listed.",
     definition:
@@ -302,9 +302,9 @@ export const ROUTES: Record<string, RouteMeta> = {
   "section-4a2": {
     path: "/products/section-4a2",
     title:
-      "Section 4(a)(2) Private Offerings — The Statutory Private Placement | Directly Listed",
+      "Section 4(a)(2) Private Offerings — Raise Unlimited",
     description:
-      "Raise unlimited capital from sophisticated investors under Section 4(a)(2) of the Securities Act — the statutory exemption beneath every Reg D round. By Directly Listed.",
+      "Raise unlimited capital from sophisticated investors under Section 4(a)(2) — the statutory exemption beneath every Reg D round. Scope your deal today.",
     definition:
       "Section 4(a)(2) of the Securities Act of 1933 exempts transactions by an issuer not involving any public offering — the original private-placement exemption, with no dollar limit, on which the Rule 506(b) and 506(c) safe harbors are built.",
     keywords: [
@@ -320,9 +320,9 @@ export const ROUTES: Record<string, RouteMeta> = {
   "cayman-islands-structure": {
     path: "/products/cayman-islands-structure",
     title:
-      "Cayman Islands Structure — List a Cayman Holding Company on NASDAQ or NYSE | Directly Listed",
+      "Cayman Islands Structure — List on NASDAQ or NYSE",
     description:
-      "The standard cross-border route to a U.S. listing: a tax-neutral Cayman Islands holding company with foreign private issuer status, listed on NASDAQ or the NYSE. By Directly Listed.",
+      "The cross-border route to a U.S. listing: a tax-neutral Cayman holding company with foreign private issuer status on NASDAQ or NYSE. Get a quote.",
     definition:
       "The Cayman Islands structure places a Cayman exempted holding company above the operating group so its shares — or American Depositary Shares — can list on NASDAQ or the NYSE with tax-neutral treatment, foreign private issuer status, and home-country governance.",
     keywords: [

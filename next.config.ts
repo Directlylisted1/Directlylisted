@@ -23,18 +23,26 @@ const nextConfig: NextConfig = {
       ["pt-br", "pt-br"],
       ["es", "es"],
     ];
-    return langs.flatMap(([prefix, sub]) => [
-      {
-        source: `/${prefix}`,
-        destination: `https://${sub}.directlylisted.com/`,
-        permanent: true,
-      },
-      {
-        source: `/${prefix}/:path*`,
-        destination: `https://${sub}.directlylisted.com/:path*`,
-        permanent: true,
-      },
-    ]);
+    return [
+      ...langs.flatMap(([prefix, sub]) => [
+        {
+          source: `/${prefix}`,
+          destination: `https://${sub}.directlylisted.com/`,
+          permanent: true,
+        },
+        {
+          source: `/${prefix}/:path*`,
+          destination: `https://${sub}.directlylisted.com/:path*`,
+          permanent: true,
+        },
+      ]),
+      // The self-serve booking calendar was removed (SE Ranking audit fix #1:
+      // 360 parameterised slot URLs were flooding the index with duplicate
+      // titles). Send old slot/confirmation URLs to the request form so Google
+      // processes the removals and visitors land somewhere useful.
+      { source: "/book/details", destination: "/book", permanent: true },
+      { source: "/book/confirmed", destination: "/book", permanent: true },
+    ];
   },
 };
 

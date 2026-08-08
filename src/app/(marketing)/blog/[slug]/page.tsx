@@ -13,9 +13,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await db.blogPost.findUnique({ where: { slug } }).catch(() => null);
   if (!post || !post.published) return { title: "Blog — Directly Listed" };
+  // SERP hygiene (SE Ranking audit fixes #10/#11): no brand suffix on post
+  // titles (it pushed most past the ~60-char display limit), and descriptions
+  // trimmed to ≤155 characters at a word boundary.
+  const description = post.excerpt
+    ? post.excerpt.length > 155
+      ? post.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "…"
+      : post.excerpt
+    : undefined;
   return {
-    title: `${post.title} — Directly Listed`,
-    description: post.excerpt ?? undefined,
+    title: post.title,
+    description,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
       type: "article",
