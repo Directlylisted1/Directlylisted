@@ -10,7 +10,9 @@ export const SITE = {
   legalName: "Adamson Brothers Corp. d/b/a Directly Listed",
   url: "https://www.directlylisted.com",
   logo: "https://www.directlylisted.com/brand/logo-light.png",
-  ogImage: "https://www.directlylisted.com/opengraph-image",
+  // ?v= busts Facebook/X/LinkedIn scrape caches whenever the card design
+  // changes — bump it any time opengraph-image.tsx is redesigned.
+  ogImage: "https://www.directlylisted.com/opengraph-image?v=2",
   email: "info@directlylisted.com",
   telephone: "+1-949-529-2500",
   twitter: "@directlylisted",
