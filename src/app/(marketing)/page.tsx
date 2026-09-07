@@ -469,23 +469,6 @@ export default async function HomePage() {
           </p>
 
           <h2 className="mb-5 mt-14 text-3xl font-bold md:text-4xl">Who leads the work</h2>
-          <figure className="mb-6 overflow-hidden rounded-2xl border border-navy-900/10 shadow-sm">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/gallery/andy-altahawi-nyse-opening-bell.jpg"
-              alt="Andy Altahawi at the NYSE opening bell"
-              className="w-full object-cover"
-              loading="lazy"
-            />
-            <figcaption className="border-t border-navy-900/5 bg-brand-50/40 px-5 py-3 text-xs text-navy-900/70">
-              Andy Altahawi at the New York Stock Exchange opening bell — more
-              photos in the{" "}
-              <Link href="/gallery" className="font-semibold text-brand-600 hover:underline">
-                gallery
-              </Link>
-              .
-            </figcaption>
-          </figure>
           <div className="space-y-5 text-[15px] leading-relaxed text-navy-900/80">
             <p>
               Andy Altahawi has spent his career on both sides of a listing: the
