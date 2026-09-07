@@ -17,7 +17,7 @@ const BLOCKS: Block[] = [
   { t: "h2", text: "A note on transparency" },
   {
     t: "p",
-    text: "Andy Altahawi has spent four decades in two demanding professions: international law, which he has practiced since 1986, and the U.S. securities industry, where he held FINRA registrations from 1994. Anyone evaluating an advisor should be able to see the complete record, from the primary sources, in one place. This page provides exactly that, including the one regulatory matter in his career, with links to every official document so that nothing here has to be taken on anyone's word alone.",
+    text: "Andy Altahawi has spent four decades in two demanding professions: international law — a 1986 law graduate, admitted to the bar in 1988 — and the U.S. securities industry, where he held FINRA registrations from 1994. Anyone evaluating an advisor should be able to see the complete record, from the primary sources, in one place. This page provides exactly that, including the one regulatory matter in his career, with links to every official document so that nothing here has to be taken on anyone's word alone.",
   },
 
   { t: "h2", text: "Career record" },

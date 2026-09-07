@@ -128,9 +128,9 @@ export default async function HomePage() {
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/60">
             The desk is led by Andy Altahawi, a former Senior Vice President of
             Investment Banking at Prudential Securities and an international
-            attorney in practice since 1986. His advisory work spans hundreds of
-            issuer engagements and billions of dollars raised across public
-            offerings.
+            attorney, admitted to the bar in 1988. His advisory work spans
+            hundreds of issuer engagements and billions of dollars raised across
+            public offerings.
           </p>
           <div className="mt-10 space-y-8">
             {HERO_STATS.map((s) => (
@@ -273,9 +273,9 @@ export default async function HomePage() {
             <p>
               In a direct listing, a company registers its shares with the SEC
               and lists them on an exchange, where they begin trading at a price
-              set by market orders rather than by underwriters. Spotify used
-              this route onto the NYSE in 2018. Coinbase followed on NASDAQ in
-              2021. The method is no longer reserved for household names:
+              set by market orders rather than by underwriters. The route has
+              carried some of the best-known technology names onto both major
+              exchanges, and it is no longer reserved for household names:
               exchange rule changes approved since 2020 also allow companies to
               raise new capital in a primary direct listing, subject to exchange
               and SEC conditions. For a deeper walkthrough, read{" "}
@@ -473,21 +473,35 @@ export default async function HomePage() {
             <p>
               Andy Altahawi has spent his career on both sides of a listing: the
               banking side and the legal side. He was a Senior Vice President in
-              Investment Banking at Prudential Securities from 1994 to 1999,
+              Investment Banking at Prudential Securities from 1994 to 1998,
               working on public offerings, private placements, and M&amp;A
               during the firm&apos;s years under former NASDAQ Chairman Wick
               Simons. In 1998 he founded Adamson Brothers, a FINRA-registered
-              broker-dealer (CRD #46684) that took hundreds of companies public
-              and operated without a single customer complaint or regulatory
-              citation. After 2008 the firm became the capital markets advisory
-              practice behind Directly Listed.
+              broker-dealer (CRD #46684) that took hundreds of companies public.
+              Throughout its operation as a FINRA-registered broker-dealer —
+              a decade of multi-office trading, market making, and corporate
+              finance — Adamson Brothers was never the subject of a customer
+              complaint or a regulatory citation from FINRA or the NASD, and
+              Mr. Altahawi&apos;s own registered career from 1994 was likewise
+              free of customer complaints. After 2007 the firm became the
+              capital markets advisory practice behind Directly Listed.
             </p>
             <p>
-              He is also an international attorney, admitted since 1986, with a
-              Ph.D. in Finance. He has held nine FINRA examinations, including
-              the Series 7, 24, and 79. U.S. securities law matters are handled
-              in co-counsel with U.S.-admitted securities attorneys. His full
-              background and regulatory record are published at{" "}
+              He is also an international attorney — a 1986 law graduate,
+              admitted to the bar in 1988 — with a Ph.D. in Finance from the
+              University of Szeged. He has held nine FINRA examinations,
+              including the Series 7, 24, and 79. U.S. securities law matters
+              are handled in co-counsel with U.S.-admitted securities attorneys.
+              His full regulatory history, including the 2018–2019 SEC Longfin
+              matter resolved by consent without admitting or denying the
+              allegations, is published in full on our{" "}
+              <Link
+                href="/regulatory-history"
+                className="font-semibold text-brand-600 hover:underline"
+              >
+                regulatory history page
+              </Link>{" "}
+              and at{" "}
               <a
                 href="https://andyaltahawi.com/"
                 target="_blank"

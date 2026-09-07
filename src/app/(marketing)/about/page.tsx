@@ -74,9 +74,9 @@ export default function AboutPage() {
 
           <h3 className="mb-3 text-xl font-bold">A regional investment bank, built from the ground up</h3>
           <p className="mb-4 text-sm leading-relaxed text-navy-900/80">
-            In 1999, our founding principal established Adamson Brothers, Inc., a
+            In 1998, our founding principal established Adamson Brothers, Inc., a
             full-service, SEC- and FINRA-registered investment bank (CRD #46684 /
-            SEC #8-51508). It was not a storefront. Over the years that followed,
+            SEC #8-51508). It was not a storefront. Over the decade that followed,
             Adamson Brothers grew into a genuine regional powerhouse — a
             multi-office broker-dealer with operations across the United States,
             engaged in equity and bond trading, options, market making, and a
@@ -90,6 +90,24 @@ export default function AboutPage() {
             sectors. The discipline of that era — underwriting rigor, exchange
             qualification, road-show execution, and investor coverage — became the
             foundation for everything we do today.
+          </p>
+          <p className="mb-4 text-sm leading-relaxed text-navy-900/80">
+            Throughout its operation as a FINRA-registered broker-dealer,
+            Adamson Brothers was never the subject of a customer complaint or a
+            regulatory citation from FINRA or the NASD — a clean record across a
+            decade of multi-office trading, market making, and corporate
+            finance. Our principal&apos;s own registered career, beginning in
+            1994, was likewise free of customer complaints. His full regulatory
+            history, including the 2018–2019 SEC Longfin matter resolved by
+            consent without admitting or denying the allegations, is published
+            in full on our{" "}
+            <Link
+              href="/regulatory-history"
+              className="font-semibold text-brand-600 hover:underline"
+            >
+              regulatory history page
+            </Link>{" "}
+            — with links to every primary-source document.
           </p>
           <p className="mb-10 text-sm leading-relaxed text-navy-900/80">
             You can review the firm&apos;s registration history directly on FINRA
@@ -108,10 +126,10 @@ export default function AboutPage() {
 
           <h3 className="mb-3 text-xl font-bold">2008 changed the landscape — but not the mission</h3>
           <p className="mb-4 text-sm leading-relaxed text-navy-900/80">
-            When the 2008 financial crisis reshaped the U.S. broker-dealer
-            industry, Adamson Brothers, like many regional banks of its
-            generation, ultimately closed its broker-dealer doors. But the people
-            behind it never left the work.
+            Adamson Brothers wound down its broker-dealer operations in 2007 —
+            just before the financial crisis reshaped the U.S. broker-dealer
+            industry and closed the doors of many regional banks of its
+            generation. But the people behind it never left the work.
           </p>
           <p className="mb-10 text-sm leading-relaxed text-navy-900/80">
             In the years since, our principal and the team around him have
@@ -159,16 +177,21 @@ export default function AboutPage() {
           <div className="rounded-2xl border border-navy-900/10 bg-white p-6 text-[11px] leading-relaxed text-navy-900/70">
             <h3 className="mb-2 text-xs font-bold text-navy-900">Disclosure</h3>
             <p>
-              The principal behind Directly Listed, Andy Altahawi, previously
-              resolved an allegation brought by the U.S. Securities and Exchange
-              Commission by way of a settlement, entered into without admitting or
-              denying the allegations. That matter did not, and does not, prevent
-              him from acting as a listing advisor and consultant to
-              emerging-growth companies seeking exchange listings, and he has
-              continued to serve in that advisory and consulting capacity. Adamson
-              Brothers Corp. operates Directly Listed as a technology platform and
-              is not a registered broker-dealer, investment advisor, or funding
-              portal. Investing involves risk, including loss of principal.
+              The principal behind Directly Listed, Andy Altahawi, resolved the
+              2018–2019 SEC Longfin matter by way of a settlement, entered into
+              without admitting or denying the allegations. His full regulatory
+              history is published on our{" "}
+              <Link href="/regulatory-history" className="font-semibold text-brand-600 hover:underline">
+                regulatory history page
+              </Link>{" "}
+              with links to every official document. That matter did not, and
+              does not, prevent him from acting as a listing advisor and
+              consultant to emerging-growth companies seeking exchange listings,
+              and he has continued to serve in that advisory and consulting
+              capacity. Adamson Brothers Corp. operates Directly Listed as a
+              technology platform and is not a registered broker-dealer,
+              investment advisor, or funding portal. Investing involves risk,
+              including loss of principal.
             </p>
           </div>
 
