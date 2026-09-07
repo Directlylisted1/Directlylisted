@@ -103,6 +103,7 @@ export function SiteFooter() {
               <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
               <li><Link href="/disclaimer" className="hover:text-white">Disclaimer</Link></li>
               <li><Link href="/regulatory-history" className="hover:text-white">Regulatory History</Link></li>
+              <li><Link href="/sitemap" className="hover:text-white">Site Map</Link></li>
             </ul>
           </div>
           <div>
