@@ -24,6 +24,114 @@ type GalleryItem = {
 
 const GALLERY_ITEMS: GalleryItem[] = [
   {
+    src: "/gallery/andy-altahawi-nyse-opening-bell.jpg",
+    title: "Andy Altahawi — NYSE opening bell",
+    description:
+      "Andy Altahawi at the New York Stock Exchange opening bell — the moment every Directly Listed engagement works toward.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-boardroom-portrait.jpg",
+    title: "Andy Altahawi — boardroom portrait",
+    description:
+      "Andy Altahawi, founder of Directly Listed, in the boardroom — three decades across investment banking and international law.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-conference-room.jpg",
+    title: "Andy Altahawi — in conference",
+    description:
+      "Andy Altahawi leading a listing-readiness session — exchange qualification, governance, and timeline, planned deal by deal.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-wall-street.jpg",
+    title: "Andy Altahawi — Wall Street",
+    description:
+      "Andy Altahawi on Wall Street outside the New York Stock Exchange, where his U.S. capital markets career began in 1994.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-nasdaq-marketsite.jpg",
+    title: "Andy Altahawi — NASDAQ MarketSite",
+    description:
+      "Andy Altahawi at the NASDAQ MarketSite in Times Square — the destination for many Directly Listed issuer clients.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-nyse-office.jpg",
+    title: "Andy Altahawi — above the Exchange",
+    description:
+      "Andy Altahawi in conference overlooking the New York Stock Exchange facade on Broad Street.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-exchange-wall.jpg",
+    title: "Andy Altahawi — welcoming issuers",
+    description:
+      "Andy Altahawi in the NASDAQ boardroom above Times Square — welcoming founders exploring the path to a U.S. listing.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-nasdaq-office.jpg",
+    title: "Andy Altahawi — at work above Times Square",
+    description:
+      "Andy Altahawi working above the NASDAQ MarketSite — filings, listing applications, and issuer files in motion.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-executive-desk.jpg",
+    title: "Andy Altahawi — Manhattan evening",
+    description:
+      "Andy Altahawi at his desk against the Manhattan skyline — the working end of a listing practice that spans time zones.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-dubai-nasdaq.jpg",
+    title: "Andy Altahawi — cross-border desk, Dubai",
+    description:
+      "Andy Altahawi at the Dubai desk — structuring international companies for NASDAQ and NYSE listings through the Cayman Islands and F-1 routes.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-dubai-office.jpg",
+    title: "Andy Altahawi — Dubai office",
+    description:
+      "Andy Altahawi in Dubai, with the Burj Khalifa behind him — cross-border issuers are a particular focus of the practice.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-dubai-cafe.jpg",
+    title: "Andy Altahawi — Downtown Dubai",
+    description: "Andy Altahawi in Downtown Dubai, between meetings with Gulf-region issuers.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-nyc-cafe.jpg",
+    title: "Andy Altahawi — Times Square café",
+    description:
+      "Andy Altahawi across from the NASDAQ MarketSite — much of a listing advisor's work happens one conversation at a time.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-wall-street-walk.jpg",
+    title: "Andy Altahawi — on Wall Street",
+    description: "Andy Altahawi on Wall Street, a few steps from the Exchange.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-central-park.jpg",
+    title: "Andy Altahawi — Central Park",
+    description: "Andy Altahawi in Central Park, against the Midtown skyline.",
+    kind: "photo",
+  },
+  {
+    src: "/gallery/andy-altahawi-central-park-autumn.jpg",
+    title: "Andy Altahawi — autumn in the park",
+    description: "Andy Altahawi walking Central Park in autumn — New York, home base of the practice.",
+    kind: "photo",
+  },
+  {
     src: "/gallery/directly-listed-logo.png",
     title: "Directly Listed — primary logo",
     description:
