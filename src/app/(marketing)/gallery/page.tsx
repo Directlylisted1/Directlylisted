@@ -20,11 +20,15 @@ type GalleryItem = {
   description: string;
   // Logos render on a padded neutral ground; photos render edge to edge.
   kind: "photo" | "logo";
+  // CSS object-position for the card crop. Portraits carry headroom above the
+  // face, so the default anchors the crop high enough to frame the subject.
+  focus?: string;
 };
 
 const GALLERY_ITEMS: GalleryItem[] = [
   {
     src: "/gallery/andy-altahawi-nyse-opening-bell.jpg",
+    focus: "45% 25%",
     title: "Andy Altahawi — NYSE opening bell",
     description:
       "Andy Altahawi at the New York Stock Exchange opening bell — the moment every Directly Listed engagement works toward.",
@@ -39,6 +43,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     src: "/gallery/andy-altahawi-conference-room.jpg",
+    focus: "50% 18%",
     title: "Andy Altahawi — in conference",
     description:
       "Andy Altahawi leading a listing-readiness session — exchange qualification, governance, and timeline, planned deal by deal.",
@@ -74,6 +79,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     src: "/gallery/andy-altahawi-nasdaq-office.jpg",
+    focus: "50% 30%",
     title: "Andy Altahawi — at work above Times Square",
     description:
       "Andy Altahawi working above the NASDAQ MarketSite — filings, listing applications, and issuer files in motion.",
@@ -81,6 +87,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     src: "/gallery/andy-altahawi-executive-desk.jpg",
+    focus: "50% 22%",
     title: "Andy Altahawi — Manhattan evening",
     description:
       "Andy Altahawi at his desk against the Manhattan skyline — the working end of a listing practice that spans time zones.",
@@ -102,15 +109,9 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     src: "/gallery/andy-altahawi-dubai-cafe.jpg",
+    focus: "50% 20%",
     title: "Andy Altahawi — Downtown Dubai",
     description: "Andy Altahawi in Downtown Dubai, between meetings with Gulf-region issuers.",
-    kind: "photo",
-  },
-  {
-    src: "/gallery/andy-altahawi-nyc-cafe.jpg",
-    title: "Andy Altahawi — Times Square café",
-    description:
-      "Andy Altahawi across from the NASDAQ MarketSite — much of a listing advisor's work happens one conversation at a time.",
     kind: "photo",
   },
   {
@@ -174,8 +175,8 @@ export default function GalleryPage() {
               <div
                 className={
                   item.kind === "logo"
-                    ? "flex h-64 items-center justify-center bg-brand-50/60 p-10"
-                    : "h-64 overflow-hidden"
+                    ? "flex h-80 items-center justify-center bg-brand-50/60 p-10"
+                    : "h-80 overflow-hidden"
                 }
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -185,7 +186,12 @@ export default function GalleryPage() {
                   className={
                     item.kind === "logo"
                       ? "max-h-full max-w-full object-contain"
-                      : "h-full w-full object-cover object-top"
+                      : "h-full w-full object-cover"
+                  }
+                  style={
+                    item.kind === "photo"
+                      ? { objectPosition: item.focus ?? "50% 15%" }
+                      : undefined
                   }
                   loading="lazy"
                 />
