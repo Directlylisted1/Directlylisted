@@ -18,6 +18,7 @@
   --color-navy-700: #16406b;
   --color-mintish: #dff3ee;
   --color-accent: #36c5b5;
+  --color-gold: #e8b64c;
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, sans-serif;
@@ -96,11 +97,132 @@ html {
 .hero-glow {
   animation: pulse-glow 9s ease-in-out infinite;
 }
+/* ---------------------------------------------------------------------------
+   Cinematic hero — Ken Burns crossfade loop over the NYSE/NASDAQ photo set.
+   Four slides, 7s each, 28s seamless cycle. Each slide pans/zooms slowly
+   ("video feel") while a dark shadow overlay keeps the copy readable.
+--------------------------------------------------------------------------- */
+@keyframes hero-slide-fade {
+  0% { opacity: 0; }
+  4% { opacity: 1; }
+  25% { opacity: 1; }
+  32% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes kenburns-a {
+  from { transform: scale(1.08) translate3d(0, 0, 0); }
+  to { transform: scale(1.22) translate3d(-2.5%, -2%, 0); }
+}
+@keyframes kenburns-b {
+  from { transform: scale(1.08) translate3d(0, 0, 0); }
+  to { transform: scale(1.2) translate3d(2.5%, 1.5%, 0); }
+}
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-size: cover;
+  background-position: center 30%;
+  animation:
+    hero-slide-fade 28s linear infinite,
+    kenburns-a 28s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+.hero-slide:nth-child(2) { animation-delay: 7s; animation-name: hero-slide-fade, kenburns-b; }
+.hero-slide:nth-child(3) { animation-delay: 14s; }
+.hero-slide:nth-child(4) { animation-delay: 21s; animation-name: hero-slide-fade, kenburns-b; }
+
+/* LED ticker tape — market-wall strip along the hero's lower edge. */
+.led-strip {
+  border-top: 1px solid rgba(54, 197, 181, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(4, 12, 24, 0.82);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.led-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0.55rem 1.25rem;
+  animation: ticker-drift 38s linear infinite;
+  will-change: transform;
+  font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+.led-strip:hover .led-track { animation-play-state: paused; }
+
+/* Opening-bell motif — a periodic swing with radiating rings. */
+@keyframes bell-swing {
+  0%, 72%, 100% { transform: rotate(0deg); }
+  76% { transform: rotate(-14deg); }
+  80% { transform: rotate(11deg); }
+  84% { transform: rotate(-7deg); }
+  88% { transform: rotate(4deg); }
+  92% { transform: rotate(0deg); }
+}
+@keyframes bell-ring-wave {
+  0%, 72% { opacity: 0; transform: scale(0.6); }
+  78% { opacity: 0.9; }
+  100% { opacity: 0; transform: scale(1.9); }
+}
+.bell-swing { animation: bell-swing 6s ease-in-out infinite; transform-origin: 50% 8%; }
+.bell-wave { animation: bell-ring-wave 6s ease-out infinite; transform-origin: center; }
+
+/* Gradient headline + glow buttons — the modern accent system. */
+@keyframes grad-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.gradient-text {
+  background: linear-gradient(92deg, #36c5b5 0%, #4dd6ff 45%, #59a2ff 75%, #36c5b5 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: grad-shift 8s ease-in-out infinite;
+}
+.glow-card {
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.glow-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(54, 197, 181, 0.6) !important;
+  box-shadow: 0 12px 40px -12px rgba(54, 197, 181, 0.35);
+}
+
+/* Scroll-driven reveal — pure CSS, no JS; older browsers simply skip it. */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal-up both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 42%;
+  }
+  @keyframes reveal-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-pan,
   .hero-ticker,
   .hero-ticker-slow,
-  .hero-glow {
+  .hero-glow,
+  .led-track,
+  .bell-swing,
+  .bell-wave,
+  .gradient-text,
+  .hero-slide {
+    animation: none;
+  }
+  .hero-slide:first-child {
+    opacity: 1;
+  }
+  .reveal {
     animation: none;
   }
   .hero-video-el {
@@ -128,11 +250,16 @@ body {
     transition: background-color 0.15s, border-color 0.15s, color 0.15s;
   }
   .btn-primary {
-    background: var(--color-accent);
+    background: linear-gradient(92deg, #36c5b5 0%, #3fd0e8 60%, #36c5b5 120%);
+    background-size: 180% 100%;
     color: var(--color-navy-950);
+    box-shadow: 0 6px 24px -8px rgba(54, 197, 181, 0.55);
+    transition: background-position 0.35s ease, box-shadow 0.25s ease, transform 0.15s ease;
   }
   .btn-primary:hover {
-    background: #4ad6c6;
+    background-position: 100% 50%;
+    box-shadow: 0 10px 32px -8px rgba(54, 197, 181, 0.7);
+    transform: translateY(-1px);
   }
   .btn-dark {
     background: var(--color-navy-900);

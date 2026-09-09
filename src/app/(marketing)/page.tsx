@@ -105,7 +105,7 @@ export default async function HomePage() {
         >
           directlylisted
         </div>
-        <div className="relative z-10 w-full px-4 pb-20 pt-10 sm:px-6">
+        <div className="relative z-10 w-full px-4 pb-24 pt-32 sm:px-6">
           <div className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             Strategic &amp; Elevated
           </div>
@@ -114,8 +114,9 @@ export default async function HomePage() {
             <span className="font-semibold text-accent">Empower Your Raise.</span>
           </div>
           {/* The page's single H1 — primary keyword, per the SEO spec. */}
-          <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl">
-            Direct NASDAQ and NYSE listings: go public without an IPO
+          <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">
+            Direct NASDAQ and NYSE listings:{" "}
+            <span className="gradient-text">go public without an IPO</span>
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/75">
             A direct listing lets a company list its shares on a national
@@ -145,9 +146,48 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
-          <div className="mt-12 flex flex-wrap gap-4">
+          <div className="mt-12 flex flex-wrap items-center gap-4">
             <Link href="/book" className="btn-primary">Book a listing consultation</Link>
             <Link href="/get-started" className="btn-light">See if your company qualifies</Link>
+            {/* Opening-bell motif — rings on a slow loop, purely decorative */}
+            <span aria-hidden className="relative ml-1 hidden h-12 w-12 sm:block">
+              <span className="bell-wave absolute inset-0 rounded-full border border-gold/60" />
+              <span className="bell-wave absolute inset-0 rounded-full border border-gold/30 [animation-delay:0.35s]" />
+              <svg viewBox="0 0 24 24" className="bell-swing absolute inset-0 m-auto h-7 w-7 text-gold" fill="currentColor">
+                <path d="M12 2a1.5 1.5 0 0 1 1.5 1.5v.7c3.1.7 5.25 3.4 5.25 6.55v3.3l1.5 2.7a.9.9 0 0 1-.79 1.35H4.54a.9.9 0 0 1-.79-1.35l1.5-2.7v-3.3c0-3.15 2.15-5.85 5.25-6.55v-.7A1.5 1.5 0 0 1 12 2Zm0 20a2.6 2.6 0 0 1-2.55-2.1h5.1A2.6 2.6 0 0 1 12 22Z" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        {/* LED ticker — the Twelve Ways sliding across the exchange wall */}
+        <div aria-hidden className="led-strip absolute bottom-0 left-0 right-0 z-10">
+          <div className="led-track">
+            {[0, 1].map((dup) => (
+              <span key={dup} className="inline-flex items-center gap-10">
+                {[
+                  ["DL", "DIRECTLY LISTED", "up"],
+                  ["NASDAQ", "DIRECT LISTING", "up"],
+                  ["NYSE", "OPENING BELL", "gold"],
+                  ["REG A+", "$75M / YR", "up"],
+                  ["REG D", "506(b) · 506(c)", "up"],
+                  ["REG S", "OFFSHORE", "up"],
+                  ["4(a)(2)", "PRIVATE", "up"],
+                  ["S-1", "REGISTRATION", "up"],
+                  ["F-1", "FOREIGN ISSUER", "up"],
+                  ["PIPE", "POST-LISTING", "up"],
+                  ["ELOC", "$350M FACILITY", "up"],
+                  ["CAYMAN", "CROSS-BORDER", "gold"],
+                ].map(([sym, label, tone]) => (
+                  <span key={`${dup}-${sym}`} className="inline-flex items-baseline gap-2">
+                    <span className="font-bold text-white">{sym}</span>
+                    <span className={tone === "gold" ? "text-gold" : "text-accent"}>
+                      {tone === "gold" ? "◆" : "▲"} {label}
+                    </span>
+                  </span>
+                ))}
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -625,7 +665,7 @@ export default async function HomePage() {
           </p>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {RAISE_STEPS.map((s) => (
-              <div key={s.n} className="card relative overflow-hidden">
+              <div key={s.n} className="card glow-card reveal relative overflow-hidden">
                 <div className="absolute -right-1 -top-5 select-none text-[5rem] font-black text-brand-100">
                   {s.n}
                 </div>
@@ -651,7 +691,7 @@ export default async function HomePage() {
           </p>
           <ul className="mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
             {SERVICES.map((s) => (
-              <li key={s} className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm">
+              <li key={s} className="reveal flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm">
                 <span className="text-accent">✓</span> {s}
               </li>
             ))}
@@ -716,7 +756,7 @@ export default async function HomePage() {
               <Link
                 key={p.slug}
                 href={`/products/${p.slug}`}
-                className="group rounded-2xl border border-white/10 bg-white/5 p-7 transition hover:border-accent/60 hover:bg-white/10"
+                className="glow-card reveal group rounded-2xl border border-white/10 bg-white/5 p-7 hover:bg-white/10"
               >
                 <div className="mb-1 text-xs font-semibold uppercase tracking-widest text-accent">
                   {p.raiseLimit}
@@ -751,7 +791,7 @@ export default async function HomePage() {
               <Link
                 key={t.id}
                 href={`/faq#${t.id}`}
-                className="group rounded-xl border border-navy-900/10 p-4 transition hover:-translate-y-0.5 hover:border-brand-500 hover:shadow-md"
+                className="reveal group rounded-xl border border-navy-900/10 p-4 transition hover:-translate-y-0.5 hover:border-brand-500 hover:shadow-md"
               >
                 <span className="flex items-baseline justify-between gap-2">
                   <span className="text-sm font-bold text-navy-900 group-hover:text-brand-600">
