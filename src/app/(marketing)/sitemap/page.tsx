@@ -32,6 +32,7 @@ const CORE_PAGES: Array<[string, string]> = [
   ["Blog/Vlog", "/blog"],
   ["Andy Altahawi — Gallery", "/gallery"],
   ["Regulatory History", "/regulatory-history"],
+  ["Andy Altahawi — Public SEC Comments", "/sec-comments"],
   ["Book a Call", "/book"],
   ["Get Started", "/get-started"],
   ["Contact Us", "/contact"],
