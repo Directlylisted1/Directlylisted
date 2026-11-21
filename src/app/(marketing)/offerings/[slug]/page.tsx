@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { fmtMoney, productByType } from "@/lib/offering-types";
 import { getCurrentUser } from "@/lib/session";
 import { toEmbedUrl } from "@/lib/video";
+import { socialCard } from "@/lib/metadata";
 
 export async function generateMetadata({
   params,
@@ -21,7 +22,7 @@ export async function generateMetadata({
     title: `${title} — Directly Listed`,
     description,
     alternates: { canonical: `/offerings/${offering.slug}` },
-    openGraph: { title, description, url: `/offerings/${offering.slug}` },
+    ...socialCard({ title, description, url: `/offerings/${offering.slug}` }),
   };
 }
 

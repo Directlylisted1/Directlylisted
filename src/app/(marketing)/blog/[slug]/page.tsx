@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { db } from "@/lib/db";
 import { MarkdownLite } from "@/components/Markdown";
 import { sanitizeHtml, looksLikeHtml } from "@/lib/sanitize-html";
+import { socialCard } from "@/lib/metadata";
 
 export async function generateMetadata({
   params,
@@ -25,14 +26,14 @@ export async function generateMetadata({
     title: post.title,
     description,
     alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: {
+    ...socialCard({
       type: "article",
       title: post.title,
       description: post.excerpt ?? undefined,
       url: `/blog/${post.slug}`,
       publishedTime: post.publishedAt?.toISOString(),
       authors: [post.author],
-    },
+    }),
   };
 }
 

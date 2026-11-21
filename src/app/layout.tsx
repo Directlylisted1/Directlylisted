@@ -40,12 +40,22 @@ export const metadata: Metadata = {
     title: "Directly Listed — The Future of Going Public. List Boldly.",
     description:
       "Reg D 506(b)/506(c), Reg A+, NASDAQ & NYSE direct listings, and institutional equity lines of credit — one platform.",
+    images: [
+      {
+        url: `${SITE}/opengraph-image?v=2`,
+        width: 1200,
+        height: 630,
+        alt: "Directly Listed — The Future of Going Public",
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Directly Listed — The Future of Going Public",
     description:
       "Go public without the IPO: direct listings, Reg A+, Reg D, and equity lines of credit.",
+    images: [`${SITE}/opengraph-image?v=2`],
   },
   robots: { index: true, follow: true },
 };

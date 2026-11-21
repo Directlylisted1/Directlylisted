@@ -8,7 +8,7 @@ import { listingInfo } from "@/lib/listing-info";
 import { ElocTermSheet } from "@/components/ElocTermSheet";
 import { raiseInfo } from "@/lib/raise-capital-info";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, socialCard } from "@/lib/metadata";
 import { productGraph, breadcrumbGraph } from "@/lib/jsonld";
 import { ROUTES } from "@/lib/seo.config";
 import { PRODUCT_FAQS } from "@/lib/product-faqs";
@@ -47,7 +47,7 @@ export async function generateMetadata({
     title,
     description: product.blurb,
     alternates: { canonical: `/products/${product.slug}` },
-    openGraph: { title, description: product.blurb, url: `/products/${product.slug}` },
+    ...socialCard({ title, description: product.blurb, url: `/products/${product.slug}` }),
   };
 }
 
