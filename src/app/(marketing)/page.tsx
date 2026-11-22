@@ -532,9 +532,7 @@ export default async function HomePage() {
               University of Szeged. He has held nine FINRA examinations,
               including the Series 7, 24, and 79. U.S. securities law matters
               are handled in co-counsel with U.S.-admitted securities attorneys.
-              His full regulatory history, including the 2018–2019 SEC Longfin
-              matter resolved by consent without admitting or denying the
-              allegations, is published in full on our{" "}
+              His professional and regulatory record is published on our{" "}
               <Link
                 href="/regulatory-history"
                 className="font-semibold text-brand-600 hover:underline"
