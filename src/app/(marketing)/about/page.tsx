@@ -124,7 +124,7 @@ export default function AboutPage() {
             .
           </p>
 
-          <h3 className="mb-3 text-xl font-bold">2008 changed the landscape — but not the mission</h3>
+          <h3 className="mb-3 text-xl font-bold">The mission continued after 2007</h3>
           <p className="mb-4 text-sm leading-relaxed text-navy-900/80">
             Adamson Brothers wound down its broker-dealer operations in 2007 —
             just before the financial crisis reshaped the U.S. broker-dealer
